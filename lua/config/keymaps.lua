@@ -74,7 +74,7 @@ keymap.set({ "i", "s" }, "<c-p>", "<Plug>luasnip-prev-choice")
 
 local function save_and_delete_last_line()
   local ft = vim.bo.filetype
-  if ft == "tex" then
+  if ft == "tex" or ft == "markdown" then
     -- Save the current window view
     local view = vim.fn.winsaveview()
     -- Join the undo history to make the operation non-undoable
