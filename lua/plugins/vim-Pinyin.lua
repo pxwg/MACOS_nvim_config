@@ -1,0 +1,3 @@
+return {
+  "ppwwyyxx/vim-PinyinSearch",
+}
