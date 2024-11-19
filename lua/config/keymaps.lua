@@ -72,6 +72,15 @@ keymap.set({ "i", "s" }, "<c-u>", "<cmd>lua require('luasnip.extras.select_choic
 keymap.set({ "i", "s" }, "<c-n>", "<Plug>luasnip-next-choice")
 keymap.set({ "i", "s" }, "<c-p>", "<Plug>luasnip-prev-choice")
 
+keymap.set("n", "<leader>gg", function()
+  LazyVim.lazygit({ cwd = LazyVim.root.git() })
+end, { desc = "Lazygit (Root Dir)" })
+keymap.set("n", "<leader>gG", function()
+  LazyVim.lazygit()
+end, { desc = "Lazygit (cwd)" })
+keymap.set("n", "<leader>gb", LazyVim.lazygit.blame_line, { desc = "Git Blame Line" })
+keymap.set("n", "<leader>gB", LazyVim.lazygit.browse, { desc = "Git Browse" })
+
 local function save_and_delete_last_line()
   local ft = vim.bo.filetype
   if ft == "tex" or ft == "markdown" then
