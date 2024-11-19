@@ -10,7 +10,11 @@
 
 * 基于 LSP [rime-ls](https://github.com/wlh320/rime-ls) 的中文输入法，自动匹配数学公式 (基于 [treesitter](https://github.com/nvim-treesitter/nvim-treesitter)) 转换为英文输入法，集成 [copilotchat.nvim](https://github.com/CopilotC-Nvim/CopilotChat.nvim) 插件实现中文输入，利用 [autoformat](https://github.com/huacnlee/autocorrect) 插件实现中文标点自动格式化 (对 latex 与 markdown 开启，在应用端修正了上游 formatter 的添加空行问题), 利用[jieba](https://github.com/fxsjy/jieba) 实现中文分词;
 
+![中文输入法](./readme_fig/cn_input.png)
+
 * iTerm2 终端下的 pdf 终端预览，基于 [tdf](https://github.com/itsjunetime/tdf) 阅读器与 GPU 加速，利用 AppleScript 实现 (待集成双向查找，现在双向查找由[skim](https://skim-app.sourceforge.io/) 实现);
+
+![tdf 下的 pdf 预览](./readme/tdf.png)
 
 * OS X 环境下的 [inkscape](https://inkscape.org/) 集成，实现 latex 文档编辑时的图片绘制快捷键调用，利用 AppleScript 实现;
 
@@ -27,4 +31,5 @@
 ## 🤝 Thanks to
 
 * [YinFengQi](https://github.com/YinFengQi)
+
 
