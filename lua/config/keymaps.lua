@@ -24,46 +24,12 @@ vim.api.nvim_create_autocmd("CursorMovedI", {
   end,
 })
 
--- -- Define tab_complete function
--- _G.tab_complete = function()
---   if cmp.visible() then
---     cmp.select_next_item()
---   elseif luasnip.expand_or_jumpable() then
---     luasnip.expand_or_jump()
---   elseif has_words_before() then
---     cmp.complete()
---   else
---     return "<Tab>"
---   end
---   return ""
--- end
---
--- -- Define shift_tab_complete function
--- _G.shift_tab_complete = function()
---   if cmp.visible() then
---     cmp.select_prev_item()
---   elseif luasnip.jumpable(-1) then
---     luasnip.jump(-1)
---   else
---     return "<S-Tab>"
---   end
---   return ""
--- end
-
 -- Key mappings
 keymap.set({ "i", "s" }, "jj", "<Esc>")
 -- keymap.set({ "i", "s" }, "jk", "<Esc>")
 -- keymap.set({ "i", "s" }, "kj", "<Esc>")
 keymap.set({ "i", "s" }, ";;", "<Esc>")
--- keymap.set({ "i", "s" }, ",,", "<Esc>")
--- 中文输入时快速退出输入模式，配备各种可能输入模式
-keymap.set({ "i", "s" }, "；；", "<Esc>")
-keymap.set({ "i", "s" }, "‘’", "<Esc>")
-keymap.set({ "i", "s" }, "；‘", "<Esc>")
-keymap.set({ "i", "s" }, "；’", "<Esc>")
-keymap.set({ "i", "s" }, "‘；", "<Esc>")
-keymap.set({ "i", "s" }, "’；", "<Esc>")
--- keymap.set({ "i", "s" }, "，，", "<Esc>")
+
 keymap.set("n", "<leader>h", "<cmd>noh<cr>", { desc = "no highlight" })
 
 -- keymap.set("i", "<c-c>", "<cmd>lua require('luasnip.extras.select_choice')()<cr>")
@@ -99,23 +65,6 @@ local function save_and_delete_last_line()
     vim.cmd("write")
   end
 end
-
--- Function to get the current filename and change its extension from .tex to .pdf
-local function convert_tex_to_pdf()
-  local filename = vim.fn.expand("%:t")
-  local pdf_filename = filename:gsub("%.tex$", ".pdf")
-  local pdf_path = vim.fn.expand("%:p:h") .. "/" .. pdf_filename
-
-  if vim.fn.filereadable(pdf_path) == 1 then
-    local command = "~/tdf.sh " .. pdf_path
-    vim.fn.system(command)
-  else
-    print("没有PDF文件!")
-  end
-end
-
--- Keymap to trigger the function
-keymap.set({ "i", "n" }, "\\lp", convert_tex_to_pdf, { noremap = true, silent = true })
 
 -- Set up an autocmd to trigger the function after LSP completion
 vim.api.nvim_exec(
