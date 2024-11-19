@@ -20,6 +20,10 @@
 
 * Dashboard 的 logo 是我和女朋友的互称，请忽略有意为之的拼写错误。
 
+## 🤔 TODO
+
+* 集成 [vimtex](https://github.com/lervag/vimtex) 与 tdf 阅读器的双向查找;
+
 ## 🤝 Thanks to
 
 * [YinFengQi](https://github.com/YinFengQi)
