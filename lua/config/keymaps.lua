@@ -32,13 +32,18 @@ keymap.set(
   " ",
   { noremap = true, silent = true, desc = "Forward Searching", callback = synctex.synctex_view }
 )
--- keymapping for convert tex to pdf
+-- kemap for inverse search
 keymap.set(
   "n",
-  "<localleader>lp",
+  "<localleader>li",
   " ",
-  { noremap = true, silent = true, desc = "Convert tex to pdf)", callback = synctex.convert_tex_to_pdf }
+  { noremap = true, silent = true, desc = "Inverse Searching", callback = synctex.synctex_edit }
 )
+-- keymapping for show pdf
+keymap.set("n", "<localleader>lp", function()
+  synctex.convert_tex_to_pdf()
+  synctex.synctex_view()
+end, { noremap = true, silent = true, desc = "vimtex-view-in-terminal)" })
 
 -- Key mappings
 keymap.set({ "i", "s" }, "jj", "<Esc>")

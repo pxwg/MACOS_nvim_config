@@ -26,14 +26,15 @@ function M.synctex_view()
 
   local applescript_command = string.format(
     [[
-    tell application "iTerm2"
-      tell current session of current window
-        tell application "System Events" to keystroke "]" using {command down}
-        delay 0.1
-        write text "g%s"
-        write text "/%s"
-      end tell
+  tell application "iTerm2"
+    tell current session of current window
+      tell application "System Events" to keystroke "]" using {command down}
+      delay 0.1
+      write text "g%s"
+      write text "/%s"
+      tell application "System Events" to keystroke "[" using {command down}
     end tell
+  end tell
   ]],
     result_number,
     word
@@ -52,6 +53,36 @@ function M.convert_tex_to_pdf()
     vim.fn.system(command)
   else
     print("No pdf file found")
+  end
+  local osascript_command = [[osascript -e 'tell application "System Events" to keystroke "[" using {command down}' ]]
+  vim.fn.system(osascript_command)
+end
+
+function M.synctex_edit()
+  -- Prompt user to input page number
+  local page_number = vim.fn.input("Enter page number: ")
+  page_number = tonumber(page_number)
+
+  -- Get the current file path and pdf file path
+  local pdf_filename = vim.fn.expand("%:t"):gsub("%.tex$", ".pdf")
+  local pdf_filepath = vim.fn.expand("%:p:h") .. "/" .. pdf_filename
+
+  -- Construct the synctex edit command
+  local synctex_command = string.format(
+    "synctex edit -o %s:60:20:%s | grep -m1 'Line:' | sed 's/Line://' | tr -d '\\n'",
+    page_number,
+    pdf_filepath
+  )
+
+  -- Execute the command and get the result
+  local result = vim.fn.system(synctex_command)
+
+  -- Convert the result to a number and jump to the line
+  local line_number = tonumber(result)
+  if line_number then
+    vim.fn.cursor(line_number, 1)
+  else
+    print("Failed to get line number from synctex edit command")
   end
 end
 
