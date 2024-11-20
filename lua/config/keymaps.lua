@@ -43,7 +43,7 @@ keymap.set(
 keymap.set("n", "<localleader>lp", function()
   synctex.convert_tex_to_pdf()
   synctex.synctex_view()
-end, { noremap = true, silent = true, desc = "vimtex-view-in-terminal)" })
+end, { noremap = true, silent = true, desc = "View PDF in Terminal" })
 
 -- Key mappings
 keymap.set({ "i", "s" }, "jj", "<Esc>")
