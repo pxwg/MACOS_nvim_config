@@ -28,7 +28,7 @@
 
 ## 🤔 TODO
 
-* 集成 [vimtex](https://github.com/lervag/vimtex) 与 tdf 阅读器的双向查找;
+* 集成 [vimtex](https://github.com/lervag/vimtex) 与 tdf 阅读器的反向查找;
 
 ## 🤝 Thanks to
 
