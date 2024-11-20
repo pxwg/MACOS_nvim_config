@@ -36,7 +36,7 @@ return {
     fmta(
       [[
 % !TeX program = xelatex
-\documentclass[10pt]{<>}
+\documentclass[12pt]{<>}
 \usepackage[mocha,styleAll]{catppuccinpalette}
 \input{../preamble.tex}
 \fancyhf{}
