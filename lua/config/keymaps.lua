@@ -7,6 +7,7 @@ local Util = require("lazyvim.util")
 local luasnip = require("luasnip")
 local cmp = require("cmp")
 local tex = require("util.latex")
+local synctex = require("util.synctex_view")
 local rime = require("lsp.rime_2")
 
 vim.api.nvim_create_autocmd("CursorMovedI", {
@@ -28,15 +29,15 @@ vim.api.nvim_create_autocmd("CursorMovedI", {
 keymap.set(
   "n",
   "<localleader>lf",
-  ':lua require("util.synctex_view").synctex_view()<CR>',
-  { noremap = true, silent = true }
+  " ",
+  { noremap = true, silent = true, desc = "Forward Searching", callback = synctex.synctex_view }
 )
 -- keymapping for convert tex to pdf
-vim.api.nvim_set_keymap(
+keymap.set(
   "n",
   "<localleader>lp",
-  ':lua require("util.synctex_view")convert_tex_to_pdf()<CR>',
-  { noremap = true, silent = true, desc = "Convert tex to pdf" }
+  " ",
+  { noremap = true, silent = true, desc = "Convert tex to pdf)", callback = synctex.convert_tex_to_pdf }
 )
 
 -- Key mappings
