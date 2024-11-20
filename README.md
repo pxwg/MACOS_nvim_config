@@ -14,7 +14,7 @@
 
 ![中文输入法](./readme_fig/cn_input.png)
 
-* iTerm2 终端下的 pdf 终端预览，基于 [tdf](https://github.com/itsjunetime/tdf) 阅读器与 GPU 加速，利用 AppleScript 实现 (待集成双向查找，现在双向查找由[skim](https://skim-app.sourceforge.io/) 实现);
+* iTerm2 终端下的 pdf 终端预览，基于 [tdf](https://github.com/itsjunetime/tdf) 阅读器与 GPU 加速，允许正向查找，利用 AppleScript 实现 (现在反向查找由 [skim](https://skim-app.sourceforge.io/) 提供）;
 
 ![tdf 下的 pdf 预览](./readme_fig/tdf.png)
 
