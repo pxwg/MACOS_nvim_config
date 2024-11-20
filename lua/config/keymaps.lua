@@ -44,7 +44,7 @@ keymap.set("n", "<localleader>lp", function()
   synctex.convert_tex_to_pdf()
   vim.defer_fn(function()
     synctex.synctex_view()
-  end, 2000)
+  end, 1500)
 end, { noremap = true, silent = true, desc = "View PDF in Terminal" })
 
 -- Key mappings
