@@ -9,6 +9,9 @@ function M.synctex_view()
   local line_number = vim.fn.line(".")
   local column_number = vim.fn.col(".")
 
+  -- Get the word under the cursor
+  local word = vim.fn.expand("<cword>")
+
   local synctex_command = string.format(
     "synctex view -i %d:%d:%s -o %s | grep -m1 'Page:' | sed 's/Page://' | tr -d '\\n'",
     line_number,
@@ -28,10 +31,12 @@ function M.synctex_view()
         tell application "System Events" to keystroke "]" using {command down}
         delay 0.1
         write text "g%s"
+        write text "/%s"
       end tell
     end tell
   ]],
-    result_number
+    result_number,
+    word
   )
 
   vim.fn.system({ "osascript", "-e", applescript_command })
