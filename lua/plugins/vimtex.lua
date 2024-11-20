@@ -48,29 +48,5 @@ augroup FoldTextHighlight
     autocmd FileType tex highlight Folded guifg=#A0A0A0 guibg=#282828
 augroup END
 ]])
-
-    -- 定义 convert_tex_to_pdf 函数
-    local function convert_tex_to_pdf()
-      local filename = vim.fn.expand("%:t")
-      local pdf_filename = filename:gsub("%.tex$", ".pdf")
-      local pdf_path = vim.fn.expand("%:p:h") .. "/" .. pdf_filename
-
-      if vim.fn.filereadable(pdf_path) == 1 then
-        local command = "~/tdf.sh " .. pdf_path
-        vim.fn.system(command)
-      else
-        print("没有PDF文件!")
-      end
-    end
-
-    _G.convert_tex_to_pdf = convert_tex_to_pdf
-
-    -- 添加键映射
-    vim.api.nvim_set_keymap(
-      "n",
-      "<localleader>lp",
-      ":lua convert_tex_to_pdf()<CR>",
-      { noremap = true, silent = true, desc = "Convert tex to pdf" }
-    )
   end,
 }

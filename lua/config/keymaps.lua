@@ -24,6 +24,21 @@ vim.api.nvim_create_autocmd("CursorMovedI", {
   end,
 })
 
+-- keymapping for forward search
+keymap.set(
+  "n",
+  "<localleader>lf",
+  ':lua require("util.synctex_view").synctex_view()<CR>',
+  { noremap = true, silent = true }
+)
+-- keymapping for convert tex to pdf
+vim.api.nvim_set_keymap(
+  "n",
+  "<localleader>lp",
+  ':lua require("util.synctex_view")convert_tex_to_pdf()<CR>',
+  { noremap = true, silent = true, desc = "Convert tex to pdf" }
+)
+
 -- Key mappings
 keymap.set({ "i", "s" }, "jj", "<Esc>")
 -- keymap.set({ "i", "s" }, "jk", "<Esc>")
@@ -67,6 +82,8 @@ local function save_and_delete_last_line()
 end
 
 -- Set up an autocmd to trigger the function after LSP completion
+--
+
 vim.api.nvim_exec(
   [[
   augroup SaveAndDeleteLastLine
