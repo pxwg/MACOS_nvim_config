@@ -12,17 +12,18 @@
 --   end,
 -- })
 -- Set conceal level
+local keymap = vim.keymap
 local tex = require("util.latex")
 local rime = require("lsp.rime_2")
 
 vim.cmd([[set conceallevel=2]])
 
-local rime_ls_active = false
-local rime_toggled = false
+local rime_ls_active = true
+local rime_toggled = true --默认打开
 
 _G.toggle_rime_and_set_flag = function()
   rime.toggle_rime()
-  rime_toggled = true
+  rime_toggled = false
 end
 
 vim.api.nvim_create_autocmd("CursorMovedI", {
@@ -30,14 +31,14 @@ vim.api.nvim_create_autocmd("CursorMovedI", {
   callback = function()
     if vim.bo.filetype == "tex" then
       if tex.in_mathzone() == true or tex.in_table() == true or tex.in_tikz() == true then
-        if rime_toggled == false then
-          rime.toggle_rime()
-          rime_toggled = true
-        end
-      else
         if rime_toggled == true then
           rime.toggle_rime()
           rime_toggled = false
+        end
+      else
+        if rime_toggled == false then
+          rime.toggle_rime()
+          rime_toggled = true
         end
       end
     end
