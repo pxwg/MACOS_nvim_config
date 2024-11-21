@@ -2,13 +2,12 @@ local lazypath = vim.fn.stdpath("data") .. "/lazy/lazy.nvim"
 if not vim.loop.fs_stat(lazypath) then
   -- bootstrap lazy.nvim
   -- stylua: ignore
-  vim.fn.system({ "git", "clone", "--filter=blob:none", "https://github.com/folke/lazy.nvim.git", "--branch=stable", lazypath })
+  vim.fn.system({ "git", "clone", "https://github.com/folke/lazy.nvim.git", lazypath })
 end
 vim.opt.rtp:prepend(vim.env.LAZY or lazypath)
 vim.o.timeoutlen = 50
 vim.o.ttimeout = true
 vim.o.ttimeoutlen = 10
-vim.g.PinyinSearch_Dict = "~/.config/nvim/spell/PinyinSearch.dict"
 
 -- vim.api.nvim_create_augroup("dashbroad", { clear = true })
 -- vim.api.nvim_create_autocmd("VimEnter", {
@@ -80,59 +79,33 @@ require("lazy").setup({
   },
 })
 
--- vim.cmd("colorscheme catppuccin")
+local function setup_copilot_chat()
+  vim.api.nvim_exec(
+    [[
+    autocmd VimEnter * CopilotChat
+    ]],
+    false
+  )
+  vim.api.nvim_exec(
+    [[
+    autocmd VimEnter * CopilotChatClose
+    ]],
+    false
+  )
+end
 
--- -- 记录启动开始时间
--- local start_time = vim.loop.hrtime()
---
--- -- 在 VimEnter 事件后计算启动时间
--- vim.api.nvim_create_autocmd("VimEnter", {
+vim.api.nvim_create_autocmd("User", {
+  pattern = "dashbroad",
+  callback = setup_copilot_chat,
+})
+-- vim.api.nvim_create_augroup("copilot_chat", { clear = true })
+-- vim.api.nvim_create_autocmd("FileType", {
+--   group = "copilot_chat",
+--   pattern = "copilot-chat",
 --   callback = function()
---     local end_time = vim.loop.hrtime()
---     local elapsed_time = (end_time - start_time) / 1e6 -- 转换为毫秒
---     print(string.format("Neovim 启动时间: %.2f ms", elapsed_time))
+--     vim.bo.filetype = "markdown"
 --   end,
 -- })
-
--- require("lspconfig")
--- require("plugins.nvim-cmp")
-vim.api.nvim_exec(
-  [[
-  autocmd VimEnter * CopilotChat
-  ]],
-  false
-)
-
---
--- -- 确保启动时进入 normal 模式
--- vim.api.nvim_exec(
---   [[
---   autocmd VimEnter * stopinsert
---   ]],
---   false
--- )
---
--- -- 移动到左侧窗口
--- vim.api.nvim_exec(
---   [[
---   autocmd VimEnter * wincmd h
--- ]],
---   false
--- )
-vim.api.nvim_exec(
-  [[
-  autocmd VimEnter * CopilotChatClose
-]],
-  false
-)
-vim.api.nvim_create_augroup("copilot_chat", { clear = true })
-vim.api.nvim_create_autocmd("FileType", {
-  group = "copilot_chat",
-  pattern = "copilot-chat",
-  callback = function()
-    vim.bo.filetype = "markdown"
-  end,
-})
 
 vim.g.python3_host_prog = "/opt/homebrew/Caskroom/miniconda/base/bin/python3"
 
@@ -145,4 +118,3 @@ vim.cmd([[
   highlight Normal guibg=#191C28
 ]])
 vim.o.pumblend = 0
-require("lsp.rime_2").setup_rime()

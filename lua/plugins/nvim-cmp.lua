@@ -39,6 +39,18 @@ return {
     --       }
     --     end
     --
+    cmp.setup.filetype("copilot-chat", {
+      sources = cmp.config.sources({
+        { name = "nvim_lsp" },
+        { name = "buffer" },
+        { name = "path" },
+        { name = "luasnip" },
+        { name = "nvim_lua" },
+        { name = "copilot" },
+        { name = "rime_ls" },
+      }),
+    })
+
     return {
       auto_brackets = {}, -- configure any filetype to auto add brackets
       completion = {

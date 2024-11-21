@@ -2,6 +2,7 @@ return {
   "zbirenbaum/copilot-cmp",
   dependencies = "copilot.lua",
   opts = {},
+  event = "InsertEnter", -- 在插入模式下加载插件
   config = function(_, opts)
     local copilot_cmp = require("copilot_cmp")
     copilot_cmp.setup(opts)

@@ -25,6 +25,8 @@ vim.api.nvim_create_autocmd("CursorMovedI", {
   end,
 })
 
+keymap.set("n", "<localleader>e", " ", { call = rime.setup_rime() })
+
 -- keymapping for forward search
 keymap.set(
   "n",

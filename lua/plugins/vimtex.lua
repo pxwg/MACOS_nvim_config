@@ -1,3 +1,4 @@
+local synctex = require("util.synctex_view")
 return {
   "lervag/vimtex",
   -- lazy = true,
@@ -48,5 +49,27 @@ augroup FoldTextHighlight
     autocmd FileType tex highlight Folded guifg=#A0A0A0 guibg=#282828
 augroup END
 ]])
+
+    -- keymapping for forward search
+    vim.keymap.set(
+      "n",
+      "<localleader>lf",
+      " ",
+      { noremap = true, silent = true, desc = "Forward Searching", callback = synctex.synctex_view }
+    )
+    -- keymapping for inverse search
+    vim.keymap.set(
+      "n",
+      "<localleader>li",
+      " ",
+      { noremap = true, silent = true, desc = "Inverse Searching", callback = synctex.synctex_edit }
+    )
+    -- keymapping for show pdf
+    vim.keymap.set("n", "<localleader>lp", function()
+      synctex.convert_tex_to_pdf()
+      vim.defer_fn(function()
+        synctex.synctex_view()
+      end, 1500)
+    end, { noremap = true, silent = true, desc = "View PDF in Terminal" })
   end,
 }
