@@ -32,7 +32,9 @@ function M.synctex_view()
       delay 0.1
       write text "g%s"
       write text "/%s"
+      tell application "System Events" to keystroke "[" using {command down}
       delay 2
+      tell application "System Events" to keystroke "]" using {command down}
       write text "/*"
       tell application "System Events" to keystroke "[" using {command down}
     end tell
