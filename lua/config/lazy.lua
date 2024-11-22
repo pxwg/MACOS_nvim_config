@@ -9,41 +9,11 @@ vim.o.timeoutlen = 50
 vim.o.ttimeout = true
 vim.o.ttimeoutlen = 10
 
--- vim.api.nvim_create_augroup("dashbroad", { clear = true })
--- vim.api.nvim_create_autocmd("VimEnter", {
---   group = "dashbroad",
---   command = "Dashboard",
--- })
-
--- vim.api.nvim_create_augroup("copilot_chat", { clear = true })
--- vim.api.nvim_create_autocmd("VimEnter", {
---   group = "copilot_chat",
---   callback = function()
---     vim.cmd("CopilotChat")
---   end,
--- })
-
--- require("plugins.nvim-cmp")
--- require("lsp.rime_2").setup_rime()
-
 require("lazy").setup({
   {
     "nvim-telescope/telescope.nvim",
     tag = "0.1.8",
   },
-  -- {
-  --   "CopilotC-Nvim/CopilotChat.nvim",
-  --   after = {
-  --     "hrsh7th/nvim-cmp",
-  --     version = false, -- last release is way too old
-  --     event = { "InsertEnter", "CmdlineEnter" },
-  --     dependencies = {
-  --       "hrsh7th/cmp-nvim-lsp",
-  --       "hrsh7th/cmp-buffer",
-  --       "hrsh7th/cmp-path",
-  --     },
-  --   },
-  -- },
   spec = {
     -- add LazyVim and import its plugins
     { "LazyVim/LazyVim", import = "lazyvim.plugins" },
@@ -63,7 +33,6 @@ require("lazy").setup({
     version = false, -- always use the latest git commit
     -- version = "*", -- try installing the latest stable version for plugins that support semver
   },
-
   {
     "neovim/nvim-lspconfig",
     optional = true,
@@ -78,15 +47,6 @@ require("lazy").setup({
     },
   },
 })
-
--- vim.api.nvim_create_augroup("copilot_chat", { clear = true })
--- vim.api.nvim_create_autocmd("FileType", {
---   group = "copilot_chat",
---   pattern = "copilot-chat",
---   callback = function()
---     vim.bo.filetype = "markdown"
---   end,
--- })
 
 vim.g.python3_host_prog = "/opt/homebrew/Caskroom/miniconda/base/bin/python3"
 

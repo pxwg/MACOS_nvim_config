@@ -1,17 +1,7 @@
 -- Autocmds are automatically loaded on the VeryLazy event
 -- Default autocmds that are always set: https://github.com/LazyVim/LazyVim/blob/main/lua/lazyvim/config/autocmds.lua
 -- Add any additional autocmds here
---
 
--- this autocmd is for the later version of copilot-chat which couldn't use nvim-cmp, for the configuration here is unnecessary
--- vim.api.nvim_create_augroup("chat", { clear = true })
--- vim.api.nvim_create_autocmd("FileType", {
---   group = "copilot_chat",
---   pattern = "copilot-chat",
---   callback = function()
---     vim.bo.filetype = "markdown"
---   end,
--- })
 -- Set conceal level
 local keymap = vim.keymap
 local tex = require("util.latex")

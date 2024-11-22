@@ -1,13 +1,12 @@
 return {
   "catppuccin/nvim",
-  lazy = true,
   name = "catppuccin",
   opts = {
     integrations = {
       aerial = true,
       alpha = true,
       cmp = true,
-      dashboard = true,
+      dashboard = false,
       flash = true,
       grug_far = true,
       gitsigns = true,
