@@ -79,25 +79,6 @@ require("lazy").setup({
   },
 })
 
-local function setup_copilot_chat()
-  vim.api.nvim_exec(
-    [[
-    autocmd VimEnter * CopilotChat
-    ]],
-    false
-  )
-  vim.api.nvim_exec(
-    [[
-    autocmd VimEnter * CopilotChatClose
-    ]],
-    false
-  )
-end
-
-vim.api.nvim_create_autocmd("User", {
-  pattern = "dashbroad",
-  callback = setup_copilot_chat,
-})
 -- vim.api.nvim_create_augroup("copilot_chat", { clear = true })
 -- vim.api.nvim_create_autocmd("FileType", {
 --   group = "copilot_chat",

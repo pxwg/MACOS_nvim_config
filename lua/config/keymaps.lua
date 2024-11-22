@@ -4,8 +4,6 @@
 
 local keymap = vim.keymap
 local Util = require("lazyvim.util")
-local luasnip = require("luasnip")
-local cmp = require("cmp")
 local tex = require("util.latex")
 local synctex = require("util.synctex_view")
 local rime = require("lsp.rime_2")
