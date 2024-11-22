@@ -5,8 +5,9 @@ return {
   opts = {
     bigfile = { enabled = true },
     notifier = { enabled = true },
+    debug = { enabled = true },
+    notify = { enabled = true },
     quickfile = { enabled = true },
-    statuscolumn = { enabled = true },
     words = { enabled = true },
     dashboard = {
       preset = {
@@ -21,15 +22,16 @@ return {
     -(((---(((-------            /    |
                                 V__) ||
         ]],
+        ---@type snacks.dashboard.Item[]
         keys = {
           {
-            action = "Telescope find_files",
+            action = ":lua Snacks.dashboard.pick('files')",
             desc = "Find file",
             icon = " ",
             key = "f",
           },
           {
-            action = "Telescope oldfiles",
+            action = ":lua Snacks.dashboard.pick('oldfiles')",
             desc = "Recent files",
             icon = " ",
             key = "r",
@@ -53,7 +55,7 @@ return {
             desc = "Config",
             action = ":lua Snacks.dashboard.pick('files', {cwd = vim.fn.stdpath('config')})",
           },
-          { icon = " ", key = "s", desc = "Restore Session", action = ":lua require('persistence').load()" },
+          { icon = " ", key = "s", desc = "Restore Session", section = "session" },
           { icon = " ", key = "x", desc = "Lazy Extras", action = ":LazyExtras" },
           { icon = "󰒲 ", key = "l", desc = "Lazy", action = ":Lazy" },
           { icon = " ", key = "q", desc = "Quit", action = ":qa" },
