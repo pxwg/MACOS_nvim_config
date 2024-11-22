@@ -26,6 +26,7 @@ return {
           "neo-tree",
           "Trouble",
           "trouble",
+          "copilot",
           "lazy",
           "mason",
           "notify",
