@@ -30,7 +30,7 @@
 
 * fork 并为本配置改写 [tdf](https://github.com/itsjunetime/tdf) , 实现鼠标点击的 pdf 位置读取，并使用 synctex 实现精确到*段落*的反向搜索 (本任务为长线作战，并不期待短期内实现，因为学习 rust 本身足够困难，作为物理系学生并没有多少时间)。因此一个替代方案是提交 issue，但我并不确定是否会因此在主分支上得到解决方案;
 
-* 自行维护 [copilotchat.nvim](https://github.com/CopilotC-Nvim/CopilotChat.nvim) 的 fork 分支以实现高版本对 nvim-cmp 的兼容;
+* 自行维护 [copilotchat.nvim](https://github.com/CopilotC-Nvim/CopilotChat.nvim) 的 fork 以实现高版本对 nvim-cmp 的兼容;
 
 * 优化 rime-ls 的加载行为，不在开机时触发，而是在特定文件类型中触发 (说真的，我目前还不会);
 
