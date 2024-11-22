@@ -5,6 +5,8 @@ return {
   opts = {
     bigfile = { enabled = true },
     notifier = { enabled = true },
+    git = { enabled = true },
+    lazygit = { enabled = true },
     debug = { enabled = true },
     notify = { enabled = true },
     quickfile = { enabled = true },
@@ -79,7 +81,6 @@ return {
           icon = " ",
           title = "Git Status",
           section = "terminal",
-          -- enabled = LazyVim.git.get_root() ~= nil,
           cmd = "hub status --short --branch --renames",
           height = 5,
           padding = 1,
