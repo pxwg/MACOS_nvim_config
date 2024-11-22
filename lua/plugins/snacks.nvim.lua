@@ -11,54 +11,69 @@ return {
     dashboard = {
       preset = {
         header = [[
+
+
+
                                   /^ ^\
                                  / 0 0 \
         |\__/,|   (`\            V\ Y /V
       _.|o o  |_   ) )            / - \
     -(((---(((-------            /    |
                                 V__) ||
-
         ]],
-        -- stylua: ignore
-        ---@type snacks.dashboard.Item[]
         keys = {
-          { icon = " ", key = "f", title = "Find File", action = ":lua Snacks.dashboard.pick('files')" },
-          { icon = " ", key = "r", title = "Recent Files", action = ":lua Snacks.dashboard.pick('oldfiles')" },
           {
+            action = "Telescope find_files",
+            desc = "Find file",
+            icon = " ",
+            key = "f",
+          },
+          {
+            action = "Telescope oldfiles",
+            desc = "Recent files",
+            icon = " ",
+            key = "r",
+          },
+          {
+            action = ":cd /Users/pxwg-dogggie/Desktop/physics/notes/",
+            desc = "Physics Notes",
             icon = " ",
             key = "p",
-            title = "Physics Notes",
-            action = ":cd /Users/pxwg-dogggie/Desktop/physics/notes/"},
+          },
           {
             icon = " ",
             key = "n",
-            title = "New Draft",
-            action = ":lua require('util.new_drafts').create_and_open_new_draft()"},
-          { icon = " ", key = "g", title = "Find Text", action = ":lua Snacks.dashboard.pick('live_grep')"},
+            desc = "New Draft",
+            action = ":lua require('util.new_drafts').create_and_open_new_draft()",
+          },
+          { icon = " ", key = "g", desc = "Find Text", action = ":lua Snacks.dashboard.pick('live_grep')" },
           {
             icon = " ",
             key = "c",
-            title = "Config",
-            action = ":lua Snacks.dashboard.pick('files', {cwd = vim.fn.stdpath('config')})"
-            },
-          { icon = " ", key = "s", title = "Restore Session", action = ":lua require('persistence').load()" },
-          { icon = " ", key = "x", title = "Lazy Extras", action = ":LazyExtras"},
-          { icon = "󰒲 ", key = "l", title = "Lazy", action = ":Lazy" },
-          { icon = " ", key = "q", title = "Quit", action = ":qa" },
+            desc = "Config",
+            action = ":lua Snacks.dashboard.pick('files', {cwd = vim.fn.stdpath('config')})",
+          },
+          { icon = " ", key = "s", desc = "Restore Session", action = ":lua require('persistence').load()" },
+          { icon = " ", key = "x", desc = "Lazy Extras", action = ":LazyExtras" },
+          { icon = "󰒲 ", key = "l", desc = "Lazy", action = ":Lazy" },
+          { icon = " ", key = "q", desc = "Quit", action = ":qa" },
         },
       },
       sections = {
         { pane = 1, section = "header", padding = 1 },
-        -- {
-        --   pane = 2,
-        --   section = "cat_and_dog",
-        --   padding = 1,
-        -- },
-        { icon = " ", title = "Keymaps", section = "keys", indent = 1, padding = 1 },
-        { pane = 2, icon = " ", title = "Recent Files", section = "recent_files", indent = 2, padding = 1 },
-        { pane = 2, icon = " ", title = "Projects", section = "projects", indent = 2, padding = 1 },
         {
           pane = 2,
+          section = "terminal",
+          cmd = "macmon",
+          height = 15,
+          ttl = 15 * 100,
+          padding = 1,
+        },
+        { icon = " ", title = "Keymaps", section = "keys", indent = 4, padding = 1 },
+        { pane = 2, icon = " ", title = "Recent Files", section = "recent_files", indent = 3, padding = 1 },
+        { pane = 2, icon = " ", title = "Projects", section = "projects", indent = 3, padding = 1 },
+        {
+          pane = 1,
           icon = " ",
           title = "Git Status",
           section = "terminal",
