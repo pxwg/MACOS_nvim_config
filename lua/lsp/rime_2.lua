@@ -138,23 +138,6 @@ vim.api.nvim_create_autocmd("FileType", {
       vim.cmd("LspStart rime_ls")
       rime_ls_client = vim.lsp.get_clients({ name = "rime_ls" })
     end
-    -- if #rime_ls_client > 0 then
-    --   vim.lsp.buf_attach_client(env.buf, rime_ls_client[1].id)
-    -- end
-    -- for numkey = 1, 9 do
-    --   local numkey_str = tostring(numkey)
-    --   vim.keymap.set({ "i", "s" }, numkey_str, function()
-    --     local visible = cmp.visible()
-    --     vim.fn.feedkeys(numkey_str, "n")
-    --     if visible then
-    --       vim.schedule(auto_upload_rime)
-    --     end
-    --   end, {
-    --     noremap = true,
-    --     silent = true,
-    --     buffer = true,
-    --   })
-    -- end
     --
     for numkey = 1, 9 do
       local numkey_str = tostring(numkey)

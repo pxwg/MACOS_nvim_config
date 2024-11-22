@@ -123,7 +123,15 @@ keymap.set({ "i", "n", "s" }, "<c-z>", "<cmd>undo<cr>")
 
 keymap.set("i", "<c-e>", "<esc><c-e>a")
 
-vim.api.nvim_set_keymap("n", "<C-c>", ":CopilotChat<CR>", { noremap = true, silent = true })
+-- rime_ls for Copilot-Chat
+keymap.set("n", "<C-c>", function()
+  vim.cmd("CopilotChat")
+  vim.cmd("LspStart rime_ls")
+end, { noremap = true, silent = true })
+keymap.set("n", "<leader>aa", function()
+  vim.cmd("CopilotChat")
+  vim.cmd("LspStart rime_ls")
+end, { noremap = true, silent = true, desc = "Toggle (Copilot-Chat)" })
 
 keymap.set("i", "<C-d>", " ")
 
