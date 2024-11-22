@@ -3,6 +3,7 @@
 -- Add any additional autocmds here
 --
 
+-- this autocmd is for the later version of copilot-chat which couldn't use nvim-cmp, for the configuration here is unnecessary
 -- vim.api.nvim_create_augroup("chat", { clear = true })
 -- vim.api.nvim_create_autocmd("FileType", {
 --   group = "copilot_chat",
@@ -19,7 +20,7 @@ local rime = require("lsp.rime_2")
 vim.cmd([[set conceallevel=2]])
 
 local rime_ls_active = true
-local rime_toggled = true --默认打开
+local rime_toggled = true --默认打开rime_ls
 
 _G.toggle_rime_and_set_flag = function()
   rime.toggle_rime()
@@ -60,25 +61,3 @@ vim.cmd.sleep("10m") -- 如果没有这个延时, 信息就不能显示出来了
 vim.cmd([[
 set spell
 set spelllang=en,cjk]])
-
--- local function set_latex_md_settings()
---   if vim.bo.filetype == "tex" or vim.bo.filetype == "markdown" then
---     vim.o.tabstop = 1
---     vim.o.expandtab = true -- Pressing the TAB key will insert spaces instead of a TAB character
---     vim.o.softtabstop = 1 -- Number of spaces inserted instead of a TAB character
---     vim.o.shiftwidth = 1 -- Number of spaces inserted when indenting
---   end
--- end
---
--- -- Bind the function to the BufRead and BufNewFile events for LaTeX and Markdown files
--- vim.api.nvim_create_autocmd({ "BufRead", "BufNewFile" }, {
---   pattern = { "*.tex", "*.md" },
---   callback = set_latex_md_settings,
--- })
-
--- vim.api.nvim_create_autocmd({ "Filetype" }, {
---   pattern = "copilot-chat",
---   callback = function()
---     vim.cmd("setlocal filetype=markdown")
---   end,
--- })
