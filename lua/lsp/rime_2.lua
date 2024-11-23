@@ -15,7 +15,7 @@ function M.setup_rime()
 
   require("lualine").setup({
     sections = {
-      lualine_x = { rime_status, "copilot", "encoding", "fileformat", "filetype" },
+      lualine_x = { rime_status, "copilot", "filetype" },
     },
   })
 

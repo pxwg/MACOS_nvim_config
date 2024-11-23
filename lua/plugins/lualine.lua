@@ -1,6 +1,6 @@
 return {
   "lukas-reineke/indent-blankline.nvim",
-  event = "LazyFile",
+  lazy = true,
   opts = function()
     LazyVim.toggle.map("<leader>ug", {
       name = "Indention Guides",
