@@ -8,7 +8,6 @@ vim.opt.rtp:prepend(vim.env.LAZY or lazypath)
 vim.o.timeoutlen = 50
 vim.o.ttimeout = true
 vim.o.ttimeoutlen = 10
-vim.o.confirm = false
 
 require("lazy").setup({
   {

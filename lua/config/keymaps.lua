@@ -81,10 +81,10 @@ local function save_and_delete_last_line()
     -- Restore the original window view
     vim.fn.winrestview(view)
     -- Save the file again
-    vim.cmd("write")
+    vim.cmd("w")
   else
     -- Just save the file
-    vim.cmd("write")
+    vim.cmd("w")
   end
 end
 
