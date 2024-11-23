@@ -6,19 +6,6 @@ function M.setup_rime()
   -- global status
   vim.g.rime_enabled = true
 
-  -- update lualine
-  local function rime_status()
-    if vim.g.rime_enabled then
-      return "ㄓ"
-    end
-  end
-
-  require("lualine").setup({
-    sections = {
-      lualine_x = { rime_status, "copilot", "filetype" },
-    },
-  })
-
   -- add rime-ls to lspconfig as a custom server
   -- see `:h lspconfig-new`
   local lspconfig = require("lspconfig")
@@ -153,39 +140,6 @@ vim.api.nvim_create_autocmd("FileType", {
         buffer = true,
       })
     end
-    -- for i = 1, #punc_en do
-    --   local src = punc_en[i] .. "<space>"
-    --   local dst = 'rime_enabled ? "' .. punc_zh[i] .. '" : "' .. punc_en[i] .. ' "'
-    --   vim.keymap.set({ "i", "s" }, src, dst, {
-    --     noremap = true,
-    --     silent = false,
-    --     expr = true,
-    --     buffer = true,
-    --   })
-    -- end
-    -- vim.keymap.set({ "i", "s" }, "<space>", function()
-    --   if not vim.g.rime_enabled then
-    --     vim.api.nvim_feedkeys(vim.api.nvim_replace_termcodes("<C-d>", true, true, true), "m", false)
-    --   else
-    --     local entry = cmp.get_selected_entry()
-    --     if entry ~= nil then
-    --       vim.api.nvim_feedkeys(vim.api.nvim_replace_termcodes("<C-x>", true, true, true), "m", false)
-    --     end
-    --     entry = cmp.core.view:get_first_entry()
-    --     if is_rime_entry(entry) then
-    --       cmp.confirm({
-    --         behavior = cmp.ConfirmBehavior.Replace,
-    --         select = true,
-    --       })
-    --     else
-    --       vim.api.nvim_feedkeys(vim.api.nvim_replace_termcodes("<C-x>", true, true, true), "m", false)
-    --     end
-    --   end
-    -- end, {
-    --   noremap = true,
-    --   silent = true,
-    --   buffer = true,
-    -- })
   end,
 })
 

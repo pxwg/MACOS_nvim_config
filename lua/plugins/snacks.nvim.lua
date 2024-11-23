@@ -1,3 +1,9 @@
+local function get_battery_status()
+  local handle = io.popen("pmset -g batt | grep -Eo '[0-9]+%'")
+  local result = handle:read("*a")
+  handle:close()
+  return result:match("%d+")
+end
 return {
   "folke/snacks.nvim",
   priority = 1000,
@@ -86,6 +92,12 @@ return {
           padding = 1,
           ttl = 5 * 60,
           indent = 3,
+        },
+        {
+          pane = 2,
+          icon = ":",
+          title = "Battery " .. get_battery_status() .. "%",
+          height = 1,
         },
         { section = "startup" },
       },

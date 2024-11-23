@@ -1,40 +1,47 @@
+local function get_rime_status()
+  local clients = vim.lsp.get_active_clients()
+  for _, client in ipairs(clients) do
+    if client.name == "rime_ls" then
+      return "ㄓ"
+    end
+  end
+  return ""
+end
+
+local function get_battery_status()
+  local handle = io.popen("pmset -g batt")
+  if handle == nil then
+    return "N/A"
+  end
+  local result = handle:read("*a")
+  handle:close()
+  if result == nil then
+    return "N/A"
+  end
+  local battery_percentage = result:match("(%d+)%%")
+  return battery_percentage or "N/A"
+end
+
 return {
-  "lukas-reineke/indent-blankline.nvim",
-  lazy = true,
-  opts = function()
-    LazyVim.toggle.map("<leader>ug", {
-      name = "Indention Guides",
-      get = function()
-        return require("ibl.config").get_config(0).enabled
-      end,
-      set = function(state)
-        require("ibl").setup_buffer(0, { enabled = state })
+  "nvim-lualine/lualine.nvim",
+  event = "VeryLazy",
+  opts = function(_, opts)
+    local options = {
+      theme = "auto",
+      globalstatus = vim.o.laststatus == 3,
+      disabled_filetypes = { statusline = { "dashboard", "alpha", "ministarter", "snacks_dashboard" } },
+    }
+    opts.options = options
+
+    table.insert(opts.sections.lualine_x, {
+      function()
+        return get_rime_status()
       end,
     })
-
-    return {
-      indent = {
-        char = "│",
-        tab_char = "│",
-      },
-      scope = { show_start = false, show_end = false },
-      exclude = {
-        filetypes = {
-          "help",
-          "alpha",
-          "dashboard",
-          "neo-tree",
-          "Trouble",
-          "trouble",
-          "copilot",
-          "lazy",
-          "mason",
-          "notify",
-          "toggleterm",
-          "lazyterm",
-        },
-      },
-    }
+    table.insert(opts.sections.lualine_y, {
+      function()
+        return ": " .. get_battery_status()
+      end,
+    })
   end,
-  main = "ibl",
 }
