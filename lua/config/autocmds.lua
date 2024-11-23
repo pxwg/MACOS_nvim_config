@@ -5,17 +5,25 @@
 -- Set conceal level
 local keymap = vim.keymap
 local tex = require("util.latex")
-local rime = require("lsp.rime_2")
 
 vim.cmd([[set conceallevel=2]])
 
+keymap.set("n", "<localleader>e", " ", { call = require("lsp.rime_2").setup_rime() })
+
 local rime_ls_active = true
-local rime_toggled = true --默认打开rime_ls
+local rime_toggled = true --默认打开require("lsp.rime_2")_ls
 
 _G.toggle_rime_and_set_flag = function()
-  rime.toggle_rime()
+  require("lsp.rime_2").toggle_rime()
   rime_toggled = false
 end
+
+vim.api.nvim_create_autocmd({ "BufRead", "BufNewFile" }, {
+  pattern = { "*.tex", "*.md", "*.copilot-chat" },
+  callback = function()
+    require("lsp.rime_2").setup_require("lsp.rime_2")()
+  end,
+})
 
 vim.api.nvim_create_autocmd("CursorMovedI", {
   pattern = "*",
@@ -23,12 +31,12 @@ vim.api.nvim_create_autocmd("CursorMovedI", {
     if vim.bo.filetype == "tex" then
       if tex.in_mathzone() == true or tex.in_table() == true or tex.in_tikz() == true then
         if rime_toggled == true then
-          rime.toggle_rime()
+          require("lsp.rime_2").toggle_rime()
           rime_toggled = false
         end
       else
         if rime_toggled == false then
-          rime.toggle_rime()
+          require("lsp.rime_2").toggle_rime()
           rime_toggled = true
         end
       end
