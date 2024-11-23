@@ -45,7 +45,7 @@
 
 * MacOS & iTerm2 (目前没有跨平台方案) 😢;
 
-* neovim v9.5+，LazyVim v13.0- (目前没有改变所有api以适应 Breaking Update 的癖好，虽然期中考试考完了但也没有这么多时间，因此 LazyVim 被锁定在 v12.44.1）;
+* neovim v0.9.5+，LazyVim v13.0- (目前没有改变所有 api 以适应 Breaking Update 的癖好，虽然期中考试考完了但也没有这么多时间，因此 LazyVim 被锁定在 v12.44.1）;
 
 * 可以使用 brew 安装的 hub, tdf, inkscape, skim, SizeUp, rimels。其余 neovim 插件可以在配置中自行安装。
 
