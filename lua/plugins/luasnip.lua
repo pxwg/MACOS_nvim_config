@@ -1,6 +1,8 @@
 return {
   {
     "L3MON4D3/LuaSnip",
+    priority = 1000,
+    lazy = false,
     config = function()
       require("luasnip").config.set_config({
         enable_autosnippets = true,
@@ -13,21 +15,6 @@ return {
         vim.o.undolevels = vim.o.undolevels
         auto_expand(...)
       end
-      -- local types = require("luasnip.util.types")
-      -- require("luasnip").config.setup({
-      --   ext_opts = {
-      --     [types.choiceNode] = {
-      --       active = {
-      --         virt_text = { { "●", "GruvboxOrange" } },
-      --       },
-      --     },
-      --     [types.insertNode] = {
-      --       active = {
-      --         virt_text = { { "●", "GruvboxBlue" } },
-      --       },
-      --     },
-      --   },
-      -- })
     end,
     keys = function()
       return {
@@ -65,17 +52,6 @@ return {
           "<Plug>luasnip-prev-choice",
           mode = { "i", "s" },
         },
-        -- {
-        --   "<tab>",
-        --   function()
-        --     if require("luasnip").expand_or_jumpable() then
-        --       require("luasnip").expand_or_jump()
-        --     else
-        --       return "<tab>"
-        --     end
-        --   end,
-        --   mode = { "i", "s" },
-        -- },
       }
     end,
   },
