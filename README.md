@@ -35,19 +35,37 @@
 
 * 自行维护 [copilotchat.nvim](https://github.com/CopilotC-Nvim/CopilotChat.nvim) 的 fork 以实现高版本对 nvim-cmp 的兼容 ✅;
 
-* 优化 rime-ls 的加载行为，不在开机时触发，而是在特定文件类型中触发 (说真的，我目前还不会) ✅ (部分);
+* 优化 rime-ls 的加载行为，不在开机时触发，而是在特定文件类型中触发 (说真的，我目前还不会) ✅ (部分，暂时不再尝试更进一步操作，因为这会拖慢 tex 文件的加载速度);
 
-* 优化 snack 中 dashboard 的 logo 变成自己画的图。
+* 优化 snack 中 dashboard 的 logo 变成自己画的图;
+
+* 更换所有配置文件至 LazyVim API，精简后续配置，增加运行速度，为日后迁移到 LazyVim v13.+做准备;
+
+* 增加 boostrapping 脚本，实现自动利用 Homebrew 安装依赖。
 
 ## 🤝 Thanks to
 
-* [YinFengQi](https://github.com/YinFengQi)
+* [YinFengQi](https://github.com/YinFengQi) 我使用 Neovim 的动机来源于他的酷炫操作😲;
 
-## 📦 Requirements
+* [Kaiser-Yang](https://github.com/Kaiser-Yang) ，参考了 ta 的 rime_ls 配置;
+
+* [Fireond](https://github.com/Fireond) ，参考了 ta 的 luasnip 配置;
+
+* [castel](https://github.com/gillescastel) ，参考了他的 inkscape 配置，让我首次意识到原来 inkscape 可以这么用🤯。
+
+## 📦 Requirements and Usage
+
+* 安装：直接 clone 到 `~/.config/nvim` 即可，换言之，运行
+```shell
+git clone https://github.com/pxwg/MACOS_nvim_config.git ~/.config/nvim
+```
+打开 neovim 即可自动安装插件，需要进行版本管理的插件已经在 lazylock 中锁定，避免冲突;
 
 * MacOS & iTerm2 (目前没有跨平台方案) 😢;
 
-* neovim v0.9.5+，LazyVim v13.0- (目前没有改变所有 api 以适应 Breaking Update 的癖好，虽然期中考试考完了但也没有这么多时间，因此 LazyVim 被锁定在 v12.44.1）;
+* neovim v0.9.5+，LazyVim v13.0- (目前没有改变所有 api 以适应 Breaking Update 的癖好，虽然期中考试考完了但也没有这么多时间，因此 LazyVim 被锁定在 v12.44.1, LazyVim 不需要下载，因为本配置文件会自行 boostrap 它);
 
-* 可以使用 brew 安装的 hub, tdf, inkscape, skim, SizeUp, rimels, autocorrect。其余 neovim 插件可以在配置中自行安装。
+* 可以使用 brew 安装的 hub, tdf, inkscape, skim, SizeUp, rimels, autocorrect。其余 neovim 插件可以在配置中自行安装;
+
+* 利用类似 `install_name_tool -add_rpath /usr/local/lib /Users/pxwg-dogggie/Desktop/rime-ls-0.4.0/target/release/rime_ls` 的方式让 rime_ls 找到其依赖库。
 
