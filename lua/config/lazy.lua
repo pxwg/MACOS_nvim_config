@@ -54,8 +54,7 @@ vim.cmd([[
         highlight Conceal guifg=#f5c2e7
         highlight Pmenu guibg=#1e1e2e
         highlight! BorderBG guibg=NONE guifg=#b4befe
-      ]])
-vim.cmd([[
-  highlight Normal guibg=#191C28
+        highlight Normal guibg=#191C28
+        highlight! NormalNC guibg=#191C28
 ]])
 vim.o.pumblend = 0
