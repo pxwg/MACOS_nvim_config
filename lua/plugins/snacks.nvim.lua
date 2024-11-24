@@ -1,21 +1,4 @@
-local function get_battery_status()
-  local handle = io.popen("pmset -g batt | grep -Eo '[0-9]+%'")
-  local result = handle:read("*a")
-  handle:close()
-  return result:match("%d+")
-end
-
-local function get_battery_time()
-  local handle = io.popen('pmset -g batt | grep -Eo "\\d+:\\d+"')
-  if handle then
-    local result = handle:read("*a")
-    handle:close()
-    if result then
-      return result:match("%d+:%d+")
-    end
-  end
-  return "N/A"
-end
+local battery = require("util.battery")
 
 return {
   "folke/snacks.nvim",
@@ -109,7 +92,7 @@ return {
         {
           pane = 2,
           icon = ":",
-          title = "Battery-" .. get_battery_status() .. "%  Remain Time-" .. get_battery_time(),
+          title = "Battery: " .. battery.get_battery_status() .. "%  Remain Time: " .. battery.get_battery_time(),
           height = 1,
         },
         { section = "startup" },

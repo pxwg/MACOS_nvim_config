@@ -8,19 +8,7 @@ local function get_rime_status()
   return ""
 end
 
-local function get_battery_status()
-  local handle = io.popen("pmset -g batt")
-  if handle == nil then
-    return "N/A"
-  end
-  local result = handle:read("*a")
-  handle:close()
-  if result == nil then
-    return "N/A"
-  end
-  local battery_percentage = result:match("(%d+)%%")
-  return battery_percentage or "N/A"
-end
+local battery = require("util.battery")
 
 return {
   "nvim-lualine/lualine.nvim",
@@ -40,7 +28,7 @@ return {
     })
     table.insert(opts.sections.lualine_y, {
       function()
-        return ": " .. get_battery_status()
+        return ": " .. battery.get_battery_status() .. " 󰥔 " .. battery.get_battery_time()
       end,
     })
   end,
