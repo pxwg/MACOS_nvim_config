@@ -116,6 +116,7 @@ local function auto_upload_rime()
 end
 local punc_en = { [[\]], [[_]], [["]], [[']], [[<]], [[>]] }
 local punc_zh = { [[、]], [[——]], [[“]], [[”]], [[《]], [[》]] }
+
 vim.api.nvim_create_autocmd("FileType", {
   pattern = rime_ls_filetypes,
   callback = function(env)
@@ -124,6 +125,17 @@ vim.api.nvim_create_autocmd("FileType", {
     if #rime_ls_client == 0 then
       vim.cmd("LspStart rime_ls")
       rime_ls_client = vim.lsp.get_clients({ name = "rime_ls" })
+    end
+
+    for i = 1, #punc_en do
+      local src = punc_en[i] .. "<space>"
+      local dst = 'rime_enabled ? "' .. punc_zh[i] .. '" : "' .. punc_en[i] .. ' "'
+      vim.keymap.set({ "i", "s" }, src, dst, {
+        noremap = true,
+        silent = false,
+        expr = true,
+        buffer = true,
+      })
     end
     --
     for numkey = 1, 9 do
