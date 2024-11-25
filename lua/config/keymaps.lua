@@ -75,7 +75,6 @@ local function save_and_delete_last_line()
     -- Save the current window view
     local view = vim.fn.winsaveview()
     -- Join the undo history to make the operation non-undoable
-    vim.api.nvim_command("undojoin")
     -- Delete the last line
     vim.api.nvim_buf_set_lines(0, -2, -1, false, {})
     -- Restore the original window view
@@ -91,15 +90,15 @@ end
 -- Set up an autocmd to trigger the function after LSP completion
 --
 
-vim.api.nvim_exec(
-  [[
-  augroup SaveAndDeleteLastLine
-    autocmd!
-    autocmd CompleteDone * lua save_and_delete_last_line()
-  augroup END
-]],
-  false
-)
+-- vim.api.nvim_exec(
+--   [[
+--   augroup SaveAndDeleteLastLine
+--     autocmd!
+--     autocmd CompleteDone * lua save_and_delete_last_line()
+--   augroup END
+-- ]],
+--   false
+-- )
 
 _G.save_and_delete_last_line = save_and_delete_last_line
 -- keymap.set("i", "<C-l>", "<NOP>", { noremap = true, silent = true })

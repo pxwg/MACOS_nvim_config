@@ -21,7 +21,7 @@ end
 vim.api.nvim_create_autocmd({ "BufRead", "BufNewFile" }, {
   pattern = { "*.tex", "*.md", "*.copilot-chat" },
   callback = function()
-    require("lsp.rime_2").setup_require("lsp.rime_2")()
+    require("lsp.rime_2").setup_rime()
   end,
 })
 
