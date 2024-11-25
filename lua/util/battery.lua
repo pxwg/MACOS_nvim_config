@@ -1,12 +1,16 @@
 local M = {}
 
 M.get_battery_time = function()
-  local handle = io.popen('pmset -g batt | grep -Eo "\\d+:\\d+"')
+  local handle = io.popen("pmset -g batt")
   if handle then
     local result = handle:read("*a")
     handle:close()
     if result then
-      return result:match("%d+:%d+")
+      if result:match("charged") then
+        return "charged"
+      elseif result:match("discharging") then
+        return result:match("%d+:%d+") or "N/A"
+      end
     end
   end
   return "N/A"
