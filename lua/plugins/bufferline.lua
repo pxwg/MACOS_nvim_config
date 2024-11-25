@@ -14,7 +14,7 @@ return {
       end
       return true
     end
-    opts.options.always_show_bufferline = true
+    opts.options.always_show_bufferline = false
     return opts
   end,
 }
