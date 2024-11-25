@@ -6,10 +6,10 @@ M.get_battery_time = function()
     local result = handle:read("*a")
     handle:close()
     if result then
-      if result:match("charging") or result:match("charged") then
+      if result:match("discharging") then
+        return "N/A"
+      elseif result:match("charging") or result:match("charged") then
         return "  "
-      elseif result:match("discharging") then
-        return result:match("%d+:%d+") or "N/A"
       elseif result:match("finished charging") then
         return "   "
       end
