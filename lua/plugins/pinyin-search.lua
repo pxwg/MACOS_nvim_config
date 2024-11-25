@@ -1,6 +1,6 @@
 return {
   "ppwwyyxx/vim-PinyinSearch",
-  lazy = false,
+  event = "BufRead",
   config = function()
     vim.g.PinyinSearch_Dict = "/Users/pxwg-dogggie/.local/share/nvim/lazy/vim-PinyinSearch/PinyinSearch.dict"
     -- 绑定键以运行 PinyinSearch 命令
