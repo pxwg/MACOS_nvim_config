@@ -83,6 +83,7 @@ return {
           icon = " ",
           title = "Git Status",
           section = "terminal",
+          enabled = vim.fn.isdirectory(".git") == 1,
           cmd = "hub status --short --branch --renames",
           height = 5,
           padding = 1,
