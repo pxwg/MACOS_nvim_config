@@ -21,7 +21,7 @@ M.get_battery_status = function()
       return result:match("%d+")
     end
   end
-  return nil
+  return "N/A"
 end
 
 return M
