@@ -1,10 +1,5 @@
 return {
   "akinsho/bufferline.nvim",
-  -- highlights = {
-  --   bac = {
-  --     guibg = "#191C28",
-  --   },
-  -- },
   opts = function(_, opts)
     opts.options = opts.options or {}
     opts.options.custom_filter = function(buf_number)

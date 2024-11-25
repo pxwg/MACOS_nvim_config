@@ -52,7 +52,7 @@ vim.g.python3_host_prog = "/opt/homebrew/Caskroom/miniconda/base/bin/python3"
 
 vim.cmd([[
         highlight Conceal guifg=#f5c2e7
-        highlight Pmenu guibg=#1e1e2e
+        highlight Pmenu guibg=#191C28
         highlight! BorderBG guibg=NONE guifg=#b4befe
         highlight Normal guibg=#191C28
         highlight! NormalNC guibg=#191C28
