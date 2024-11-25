@@ -6,4 +6,4 @@ local opt = vim.opt
 opt.relativenumber = true
 opt.conceallevel = 0
 opt.wrap = true
-require("lazyvim.util").toggle.diagnostics()
+-- require("lazyvim.util").toggle.diagnostics()
