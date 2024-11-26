@@ -1,5 +1,6 @@
 return {
   "akinsho/bufferline.nvim",
+  enabled = false,
   opts = function(_, opts)
     opts.options = opts.options or {}
     opts.options.custom_filter = function(buf_number)
@@ -9,7 +10,7 @@ return {
       end
       return true
     end
-    opts.options.always_show_bufferline = false
+    opts.options.always_show_bufferline = true
     return opts
   end,
 }
