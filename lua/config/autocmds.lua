@@ -18,7 +18,7 @@ _G.toggle_rime_and_set_flag = function()
   rime_toggled = false
 end
 
-vim.api.nvim_create_autocmd({ "BufRead", "BufNewFile" }, {
+vim.api.nvim_create_autocmd({ "BufEnter" }, {
   pattern = { "*.tex", "*.md", "*.copilot-chat" },
   callback = function()
     require("lsp.rime_2").setup_rime()
