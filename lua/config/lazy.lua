@@ -56,5 +56,7 @@ vim.cmd([[
         highlight! BorderBG guibg=NONE guifg=#b4befe
         highlight Normal guibg=#191C28
         highlight! NormalNC guibg=#191C28
+
 ]])
+
 vim.o.pumblend = 0

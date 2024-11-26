@@ -1,5 +1,6 @@
 return {
   "akinsho/bufferline.nvim",
+  priority = 100,
   enabled = false,
   opts = function(_, opts)
     opts.options = opts.options or {}

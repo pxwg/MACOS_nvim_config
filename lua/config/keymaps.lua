@@ -69,6 +69,11 @@ end, { desc = "Lazygit (cwd)" })
 keymap.set("n", "<leader>gb", LazyVim.lazygit.blame_line, { desc = "Git Blame Line" })
 keymap.set("n", "<leader>gB", LazyVim.lazygit.browse, { desc = "Git Browse" })
 
+keymap.set("n", "<leader>h", function()
+  local harpoon = require("harpoon")
+  harpoon.ui:toggle_quick_menu(harpoon:list())
+end, { desc = "Harpoon Quick Menu" })
+
 local function save_and_delete_last_line()
   local ft = vim.bo.filetype
   if ft == "tex" or ft == "markdown" then
