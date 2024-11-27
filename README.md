@@ -19,8 +19,6 @@
 
 ![tdf 下的 pdf 预览](./readme_fig/tdf.png)
 
-
-
 * OS X 环境下的 [inkscape](https://inkscape.org/) 集成，实现 latex 文档编辑时的图片绘制快捷键调用，利用 AppleScript 实现。在存在 ipad 分屏的时候优先跳转到 ipad 分屏的 inkscape 窗口进行手绘，在不存在 ipad 分屏的时候跳转到 macos 的 inkscape 窗口进行绘图，利用 [SizeUp](https://www.irradiatedsoftware.com/sizeup/) 的 AppleScript 接口实现窗口管理;
 
 * 为了集成上述七扭八歪配置做出了一系列反人类举动，通过配置加载序列目前启动速度稳定在 50ms 左右;
@@ -40,6 +38,8 @@
 * 优化 snack 中 dashboard 的 logo 变成自己画的图;
 
 * 更换所有配置文件至 LazyVim API，精简后续配置，增加运行速度，为日后迁移到 LazyVim v13.+做准备;
+
+* 更换所有配置至组合 kitty+macOS，实现更快更省电的性能展现 (iTerm2 有时候会卡，并且在打开 GPU 加速的时候会导致电池电量下降速度加快); 
 
 * 增加 boostrapping 脚本，实现自动利用 Homebrew 安装依赖。
 

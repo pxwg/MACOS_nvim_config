@@ -92,7 +92,7 @@ return {
         },
         {
           pane = 2,
-          icon = ":",
+          icon = " ",
           title = "Battery: " .. battery.get_battery_status() .. "%  Remain Time: " .. battery.get_battery_time(),
           height = 1,
         },

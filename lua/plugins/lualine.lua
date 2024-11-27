@@ -13,7 +13,7 @@ local devicons = require("nvim-web-devicons")
 local yellow = "#f5c2e7"
 local yellow_orange = "#f5c2e7"
 local background_color = "#191C28"
-local grey = "#282829"
+local grey = "#b4bef1"
 local light_blue = "#9CDCFE"
 
 vim.api.nvim_set_hl(0, "HarpoonInactive", { fg = grey, bg = background_color })
@@ -107,7 +107,7 @@ return {
     })
     table.insert(opts.sections.lualine_y, {
       function()
-        return ": " .. battery.get_battery_status() .. " 󰥔 " .. battery.get_battery_time()
+        return "  " .. battery.get_battery_status() .. " 󰥔 " .. battery.get_battery_time()
       end,
     })
   end,
