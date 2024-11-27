@@ -10,11 +10,11 @@
 
 ## ✈️  Features
 
-### 本配置关键：$\LaTeX$ 与中文输入法集成
+### 本配置关键： $\LaTeX$ 与中文输入法集成
 
 * $\LaTeX$ 公式与 (一直在更新的) snippet 补全，实验报告数据处理的 python 计算快捷键集成;
 
-* 基于 LSP [rime-ls](https://github.com/wlh320/rime-ls) 的中文输入法，自动匹配数学公式 (基于 [treesitter](https://github.com/nvim-treesitter/nvim-treesitter)) 转换为英文输入法，在英文输入环境中匹配数学公式并不切换输入法，实现中 - 英-$\LaTeX$ 的完全集成
+* 基于 LSP [rime-ls](https://github.com/wlh320/rime-ls) 的中文输入法，自动匹配数学公式 (基于 [treesitter](https://github.com/nvim-treesitter/nvim-treesitter)) 转换为英文输入法，在英文输入环境中匹配数学公式并不切换输入法，实现中 - 英- $\LaTeX$ 的完全集成
 
 * 集成 [copilotchat.nvim](https://github.com/CopilotC-Nvim/CopilotChat.nvim) 插件实现中文输入 (维护了一个 fork 以实现对其的兼容)
 
