@@ -5,6 +5,10 @@
 -- Set conceal level
 local keymap = vim.keymap
 local tex = require("util.latex")
+local toggle_rime_and_set_flag = function()
+  require("lsp.rime_2").toggle_rime()
+  rime_toggled = false
+end
 
 vim.cmd([[set conceallevel=2]])
 
@@ -13,11 +17,6 @@ keymap.set("n", "<localleader>e", " ", { call = require("lsp.rime_2").setup_rime
 local rime_ls_active = true
 local rime_toggled = true --默认打开require("lsp.rime_2")_ls
 
-_G.toggle_rime_and_set_flag = function()
-  require("lsp.rime_2").toggle_rime()
-  rime_toggled = false
-end
-
 vim.api.nvim_create_autocmd({ "BufEnter" }, {
   pattern = { "*.tex", "*.md", "*.copilot-chat" },
   callback = function()
@@ -25,15 +24,44 @@ vim.api.nvim_create_autocmd({ "BufEnter" }, {
   end,
 })
 
+-- vim.api.nvim_create_autocmd("CursorMovedI", {
+--   pattern = "*",
+--   callback = function()
+--     if vim.bo.filetype == "tex" then
+--       if tex.in_mathzone() == true or tex.in_table() == true or tex.in_tikz() == true then
+--         if rime_toggled == true then
+--           require("lsp.rime_2").toggle_rime()
+--           rime_toggled = false
+--         end
+--       else
+--         if rime_toggled == false then
+--           require("lsp.rime_2").toggle_rime()
+--           rime_toggled = true
+--         end
+--       end
+--     end
+--   end,
+-- })
+
+keymap.set("i", "jn", function()
+  require("lsp.rime_2").toggle_rime()
+  rime_toggled = not rime_toggled
+  rime_ls_active = not rime_ls_active
+end)
+
 vim.api.nvim_create_autocmd("CursorMovedI", {
   pattern = "*",
   callback = function()
     if vim.bo.filetype == "tex" then
-      if tex.in_mathzone() == true or tex.in_table() == true or tex.in_tikz() == true then
+      -- in the mathzone or table or tikz and rime is active, disable rime
+      if (tex.in_mathzone() == true or tex.in_table() == true or tex.in_tikz() == true) and rime_ls_active == true then
         if rime_toggled == true then
           require("lsp.rime_2").toggle_rime()
           rime_toggled = false
         end
+        -- in the text but rime is not active(by hand), do nothing
+      elseif rime_ls_active == false then
+        -- in the text but rime is active(by hand ), thus the configuration is for mathzone or table or tikz
       else
         if rime_toggled == false then
           require("lsp.rime_2").toggle_rime()
