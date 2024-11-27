@@ -1,6 +1,7 @@
 # 我的 neovim 配置 (基于 MacOS 和 iTerm2)
 
 ![dashboard](./readme_fig/dashboard.png)
+
 这是本人自用的 Neovim 配置，fork 自小马的 Neovim [配置](https://github.com/YinFengQi/nvim-config-based-on-lazyvim)。因为不满于 Neovim 原生的中文输入支持 (需要频繁切换输入法，且例如 `jj` `jk` 等的字母快捷键不能在中文输入法被激活时使用)，进行了基于 [rime](https://github.com/rime) 的中文输入法集成，实现了中文数学笔记的无输入法切换输入，目前中文输入经短期测试可以流畅使用，已被用于课堂笔记 (虽然现在很多都是用英文写的了) 、论文和实验报告 (这个必须得中文写) 的书写中。
 
 *基本配置思路*：不出 BUG 就不动，出了 BUG 就修复，出了 BUG 修复不了就换插件 (这句话是 Copilot 写的)。*基本要求*：流畅书写第一位，能耗第二位，能不用 gui/gpu 加速就不用，尽可能保持终端的快速流畅低功耗 (这句话是我写的，目前在 M3 MacBook Pro 上可以使用约 15 小时，如果打开 gpu 加速大约可以用 6 小时)。
@@ -35,9 +36,9 @@
 
 * [snacks](https://github.com/folke/snacks.nvim) Dashboard 的 logo 是我和女朋友的互称，即猫猫狗狗。目前选自 [ASCII 狗狗图](https://www.asciiart.eu/animals/dogs) 与 [ASCII](https://www.asciiart.eu/animals/cats)，以后想要转换成自己画的图;
 
-* 因为过往老 MacBook Pro 的黑暗三小时 VSCode 续航支持，我对 **续航** 具有较高的要求。鉴于整体需要使用 GPU 加速，不可避免会压缩 M3 MacBook Pro 的续航时间，因此我配置了一个电池电量监控，用 pmset 读取电池电量与剩余时间体现在 Dashboard 与 [lualine](https://github.com/nvim-lualine/lualine.nvim) 中，当我使用 kitty 终端时续航可以达到 12 小时以上，比较令人满意;
+* 因为过往老 MacBook Pro 的黑暗三小时 VSCode 续航支持，我对 **续航** 具有较高的要求。鉴于整体需要使用 GPU 加速，不可避免会压缩 M3 MacBook Pro 的续航时间，因此我配置了一个电池电量监控，用 `pmset` 读取电池电量与剩余时间体现在 Dashboard 与 [lualine](https://github.com/nvim-lualine/lualine.nvim) 中，当我使用 kitty 终端时续航可以达到 12 小时以上，比较令人满意;
 
-* 取消了占地方还不实用的 [bufferline](https://github.com/akinsho/bufferline.nvim)  插件 (这个插件事实上不符合我对 Neovim **全键盘控制哲学**的认识，因为它在 ui 层面诱导了鼠标的操作，并且确实很占空间)，集成 [harpoon](https://github.com/ThePrimeagen/harpoon/tree/harpoon2) 与 bufferline 的功能，配合[telescope](https://github.com/nvim-telescope/telescope.nvim) 的 buffer 搜索快捷键 `<leader>,`等实现 buffer 管理。
+* 取消了占地方还不实用的 [bufferline](https://github.com/akinsho/bufferline.nvim)  插件 (这个插件事实上不符合我对 Neovim **全键盘控制哲学**的认识，因为它在 ui 层面诱导了鼠标的操作，并且确实很占空间)，集成 [harpoon](https://github.com/ThePrimeagen/harpoon/tree/harpoon2) 与 bufferline 的功能，配合 [telescope](https://github.com/nvim-telescope/telescope.nvim) 的 buffer 搜索快捷键 `<leader>,`等实现 buffer 管理。
 
 ## 🤔 TODO
 
@@ -51,7 +52,7 @@
 
 * 更换所有配置文件至 LazyVim API，精简后续配置，增加运行速度，为日后迁移到 LazyVim v13.+做准备;
 
-* 更换所有配置至组合 kitty+macOS，实现更快更省电的性能展现 (iTerm2 有时候会卡，并且在打开 GPU 加速的时候会导致电池电量下降速度加快); 
+* 更换所有配置至组合 kitty+macOS，实现更快更省电的性能展现 (iTerm2 有时候会卡，并且在打开 GPU 加速的时候会导致电池电量下降速度加快) (目前已经可以实现基本使用，除了 pdf 预览);
 
 * 优化 telescope 的使用，增加词频搜索等功能; 
 
@@ -75,7 +76,7 @@ git clone https://github.com/pxwg/MACOS_nvim_config.git ~/.config/nvim
 ```
 打开 neovim 即可自动安装插件，需要进行版本管理的插件已经在 lazylock 中锁定，避免冲突;
 
-* MacOS & iTerm2 (目前没有跨平台方案) 😢;
+* MacOS & iTerm2 (目前没有跨平台方案) 😢 ，正在迁移到 kitty;
 
 * neovim v0.9.5+，LazyVim v13.0- (目前没有改变所有 api 以适应 Breaking Update 的癖好，虽然期中考试考完了但也没有这么多时间，因此 LazyVim 被锁定在 v12.44.1, LazyVim 不需要下载，因为本配置文件会自行 boostrap 它);
 
