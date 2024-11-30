@@ -10,6 +10,25 @@ local toggle_rime_and_set_flag = function()
   rime_toggled = false
 end
 
+-- import quotes
+local quotes = {}
+local home = os.getenv("HOME")
+local file_path = home .. "/quotes.txt"
+
+local file = io.open(file_path, "r")
+
+if file then
+  for line in file:lines() do
+    table.insert(quotes, line)
+  end
+  file:close()
+else
+  print("无法打开文件")
+end
+
+math.randomseed(os.time())
+local random_quote = quotes[math.random(#quotes)]
+
 vim.cmd([[set conceallevel=2]])
 
 keymap.set("n", "<localleader>e", " ", { call = require("lsp.rime_2").setup_rime() })
@@ -78,15 +97,17 @@ if vim.g.neovide then
   vim.g.neovide_fullscreen = true
   vim.g.neovide_refresh_rate = 144
   vim.g.neovide_transparency = 0.8
-  vim.g.neovide_cursor_vfx_mode = "railgun"
-  vim.g.neovide_transparency = 1
+  vim.g.neovide_transparency = 0.85
   vim.g.neovide_transparency_point = 0.8
   vim.opt.linespace = -1
   vim.g.neovide_show_border = false
   vim.g.neovide_cursor_animation_length = 0.03
 end
 
-vim.cmd.sleep("10m") -- 如果没有这个延时, 信息就不能显示出来了
+if string.match(vim.env.PATH, "tex") then
+  vim.notify(random_quote, vim.log.levels.INFO, { title = "今日格言", position = "bottom" })
+end
+
 vim.cmd([[
 set spell
 set spelllang=en,cjk]])
