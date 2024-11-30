@@ -82,5 +82,7 @@ git clone https://github.com/pxwg/MACOS_nvim_config.git ~/.config/nvim
 
 * 可以使用 brew 安装的 hub, tdf, inkscape, skim, SizeUp, rimels, autocorrect。其余 neovim 插件可以在配置中自行安装;
 
-* 利用类似 `install_name_tool -add_rpath /usr/local/lib /Users/pxwg-dogggie/Desktop/rime-ls-0.4.0/target/release/rime_ls` 的方式让 rime_ls 找到其依赖库。
+* 利用类似 `install_name_tool -add_rpath /usr/local/lib /Users/pxwg-dogggie/Desktop/rime-ls-0.4.0/target/release/rime_ls` 的方式让 rime_ls 找到其依赖库; 
+
+* (可选) 在用户下新增文件~/quotes.txt，在其中添加你喜欢的格言，一行一条格言，将会在启动时随机输出。
 
