@@ -18,7 +18,6 @@ return {
         header = [[
 
 
-
                               /^ ^\
                              / 0 0 \
         |\__/,|   (`\        V\ Y /V
@@ -74,6 +73,9 @@ return {
           height = 15,
           ttl = 15 * 100,
           padding = 1,
+          enabled = function()
+            return vim.api.nvim_win_get_width(0) >= 120 and vim.api.nvim_win_get_height(0) >= 20
+          end,
         },
         { icon = " ", title = "Keymaps", section = "keys", indent = 4, padding = 1 },
         { pane = 2, icon = " ", title = "Recent Files", section = "recent_files", indent = 3, padding = 1 },
