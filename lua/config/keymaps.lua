@@ -166,3 +166,6 @@ keymap.set(
   "<C-f>",
   [[ : silent exec '!inkscape-figures edit "'.b:vimtex.root.'/figures/" > /dev/null 2>&1 &'<CR><CR>:redraw!<CR>]]
 )
+
+-- BufferLinePick
+keymap.set("n", "<leader>bg", ":BufferLinePick<CR>", { noremap = true, silent = true })
