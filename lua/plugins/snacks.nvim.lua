@@ -11,7 +11,13 @@ return {
     lazygit = { enabled = true },
     debug = { enabled = true },
     notify = { enabled = true },
-    quickfile = { enabled = true },
+    quickfile = {
+      enabled = true,
+      {
+        -- any treesitter langs to exclude
+        exclude = { "latex" },
+      },
+    },
     words = { enabled = true },
     dashboard = {
       preset = {
