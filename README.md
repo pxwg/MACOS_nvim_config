@@ -38,8 +38,6 @@
 
 * 因为过往老 MacBook Pro 的黑暗三小时 VSCode 续航支持，我对 **续航** 具有较高的要求。鉴于整体需要使用 GPU 加速，不可避免会压缩 M3 MacBook Pro 的续航时间，因此我配置了一个电池电量监控，用 `pmset` 读取电池电量与剩余时间体现在 Dashboard 与 [lualine](https://github.com/nvim-lualine/lualine.nvim) 中，当我使用 kitty 终端时续航可以达到 12 小时以上，比较令人满意;
 
-* 取消了占地方还不实用的 [bufferline](https://github.com/akinsho/bufferline.nvim)  插件 (这个插件事实上不符合我对 Neovim **全键盘控制哲学**的认识，因为它在 ui 层面诱导了鼠标的操作，并且确实很占空间)，集成 [harpoon](https://github.com/ThePrimeagen/harpoon/tree/harpoon2) 与 lualine 中 tabline 的功能，配合 [telescope](https://github.com/nvim-telescope/telescope.nvim) 的 buffer 搜索快捷键 `<leader>,`等实现 buffer 管理。
-
 ## 🤔 TODO
 
 * fork 并为本配置改写 [tdf](https://github.com/itsjunetime/tdf) , 实现鼠标点击的 pdf 位置读取，并使用 synctex 实现精确到*段落*的反向搜索 (本任务为长线作战，并不期待短期内实现，因为学习 rust 本身足够困难，作为物理系学生并没有多少时间)。因此一个替代方案是提交 issue，但我并不确定是否会因此在主分支上得到解决方案;
