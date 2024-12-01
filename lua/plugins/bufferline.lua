@@ -3,6 +3,9 @@ return {
   priority = 100,
   -- enabled = false,
   opts = function(_, opts)
+    if (vim.g.colors_name or ""):find("catppuccin") then
+      opts.highlights = require("catppuccin.groups.integrations.bufferline").get()
+    end
     opts.options = opts.options or {}
     opts.options.custom_filter = function(buf_number)
       local buf_ft = vim.bo[buf_number].filetype
