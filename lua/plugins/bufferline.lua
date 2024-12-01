@@ -1,7 +1,7 @@
 return {
   "akinsho/bufferline.nvim",
   priority = 100,
-  enabled = false,
+  -- enabled = false,
   opts = function(_, opts)
     opts.options = opts.options or {}
     opts.options.custom_filter = function(buf_number)
