@@ -4,12 +4,16 @@ if not vim.loop.fs_stat(lazypath) then
   -- stylua: ignore
   vim.fn.system({ "git", "clone", "https://github.com/folke/lazy.nvim.git", lazypath })
 end
+vim.env.LANG = "zh_CN.UTF-8"
 vim.opt.rtp:prepend(vim.env.LAZY or lazypath)
 vim.o.timeoutlen = 50
 vim.o.ttimeout = true
 vim.o.ttimeoutlen = 10
 
 require("lazy").setup({
+  ui = {
+    border = "rounded",
+  },
   {
     "nvim-telescope/telescope.nvim",
     tag = "0.1.8",
@@ -56,6 +60,10 @@ vim.cmd([[
         highlight! BorderBG guibg=NONE guifg=#b4befe
         highlight Normal guibg=#191C28
         highlight! NormalNC guibg=#191C28
+  highlight normalfloat guibg=none
+  highlight floatborder guibg=none
+    highlight NormalFloat guibg=NONE
+    highlight FloatBorder guibg=NONE
 ]])
 
 vim.o.pumblend = 0
