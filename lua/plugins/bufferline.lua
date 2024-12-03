@@ -1,6 +1,7 @@
 return {
   "akinsho/bufferline.nvim",
   priority = 100,
+  optional = true,
   -- enabled = false,
   opts = function(_, opts)
     if (vim.g.colors_name or ""):find("catppuccin") then

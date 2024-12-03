@@ -54,6 +54,8 @@
 
 * 优化 telescope 的使用，增加词频搜索等功能; 
 
+* 集成终端浏览器调用，实现 readme 自由;
+
 * 增加 boostrapping 脚本，实现自动利用 Homebrew 安装依赖。
 
 ## 🤝 Thanks to
