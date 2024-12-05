@@ -60,10 +60,10 @@ vim.cmd([[
         highlight! BorderBG guibg=NONE guifg=#b4befe
         highlight Normal guibg=#191C28
         highlight! NormalNC guibg=#191C28
-  highlight normalfloat guibg=none
-  highlight floatborder guibg=none
-    highlight NormalFloat guibg=NONE
-    highlight FloatBorder guibg=NONE
+  highlight normalfloat guibg=none guifg=none
+  " highlight floatborder guibg=none
+    " highlight NormalFloat guibg=NONE
+    " highlight FloatBorder guibg=NONE
 ]])
 
 vim.o.pumblend = 0
