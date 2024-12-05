@@ -8,6 +8,8 @@
 
 部分联动配置使用 apple script 实现，目前没有跨平台方案。Linux 下 inkscape 联动可以参考[castel 的绘图配置](https://github.com/gillescastel/inkscape-figures) 与 [castel 的图片管理配置](https://github.com/gillescastel/inkscape-shortcut-manager)。
 
+
+
 ## ✈️  Features
 
 ### 本配置关键： $\LaTeX$ 与中文输入法集成

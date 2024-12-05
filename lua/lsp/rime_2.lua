@@ -52,8 +52,7 @@ A language server for librime
       end)
     end
     -- keymaps for executing command
-    vim.keymap.set("n", "<localleader>f", toggle_rime)
-    -- vim.keymap.set("i", "jn", toggle_rime)
+    vim.keymap.set("i", "jn", toggle_rime)
     vim.keymap.set("n", "<localleader>rs", function()
       vim.lsp.buf.execute_command({ command = "rime-ls.sync-user-data" })
     end)
@@ -117,43 +116,43 @@ end
 local punc_en = { [[\]], [[_]], [["]], [[']], [[<]], [[>]] }
 local punc_zh = { [[、]], [[——]], [[“]], [[”]], [[《]], [[》]] }
 
-vim.api.nvim_create_autocmd("FileType", {
-  pattern = rime_ls_filetypes,
-  callback = function(env)
-    -- copilot cannot attach client automatically, we must attach manually.
-    local rime_ls_client = vim.lsp.get_clients({ name = "rime_ls" })
-    if #rime_ls_client == 0 then
-      vim.cmd("LspStart rime_ls")
-      rime_ls_client = vim.lsp.get_clients({ name = "rime_ls" })
-    end
-
-    for i = 1, #punc_en do
-      local src = punc_en[i] .. "<space>"
-      local dst = 'rime_enabled ? "' .. punc_zh[i] .. '" : "' .. punc_en[i] .. ' "'
-      vim.keymap.set({ "i", "s" }, src, dst, {
-        noremap = true,
-        silent = false,
-        expr = true,
-        buffer = true,
-      })
-    end
-    --
-    for numkey = 1, 9 do
-      local numkey_str = tostring(numkey)
-      vim.keymap.set({ "i", "s" }, numkey_str, function()
-        local visible = cmp.visible()
-        vim.api.nvim_feedkeys(vim.api.nvim_replace_termcodes(numkey_str, true, false, true), "n", true)
-        if visible then
-          vim.schedule(auto_upload_rime)
-        end
-      end, {
-        noremap = true,
-        silent = true,
-        buffer = true,
-      })
-    end
-  end,
-})
+-- vim.api.nvim_create_autocmd("FileType", {
+--   pattern = rime_ls_filetypes,
+--   callback = function(env)
+--     -- copilot cannot attach client automatically, we must attach manually.
+--     local rime_ls_client = vim.lsp.get_clients({ name = "rime_ls" })
+--     if #rime_ls_client == 0 then
+--       vim.cmd("LspStart rime_ls")
+--       rime_ls_client = vim.lsp.get_clients({ name = "rime_ls" })
+--     end
+--
+--     for i = 1, #punc_en do
+--       local src = punc_en[i] .. "<space>"
+--       local dst = 'rime_enabled ? "' .. punc_zh[i] .. '" : "' .. punc_en[i] .. ' "'
+--       vim.keymap.set({ "i", "s" }, src, dst, {
+--         noremap = true,
+--         silent = false,
+--         expr = true,
+--         buffer = true,
+--       })
+--     end
+--     --
+--     for numkey = 1, 9 do
+--       local numkey_str = tostring(numkey)
+--       vim.keymap.set({ "i", "s" }, numkey_str, function()
+--         local visible = cmp.visible()
+--         vim.api.nvim_feedkeys(vim.api.nvim_replace_termcodes(numkey_str, true, false, true), "n", true)
+--         if visible then
+--           vim.schedule(auto_upload_rime)
+--         end
+--       end, {
+--         noremap = true,
+--         silent = true,
+--         buffer = true,
+--       })
+--     end
+--   end,
+-- })
 
 function M.toggle_rime()
   local client = vim.lsp.get_active_clients({ name = "rime_ls" })[1]

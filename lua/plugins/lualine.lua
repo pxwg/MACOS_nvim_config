@@ -1,15 +1,6 @@
 local battery = require("util.battery")
+local rime = require("util.rime_ls")
 local dashboard = { "dashboard", "alpha", "ministarter", "snacks_dashboard" }
-local function get_rime_status()
-  -- local clients = vim.lsp.get_active_clients()
-  local clients = vim.lsp.get_clients()
-  for _, client in ipairs(clients) do
-    if client.name == "rime_ls" then
-      return "ㄓ"
-    end
-  end
-  return ""
-end
 
 return {
   "nvim-lualine/lualine.nvim",
@@ -23,7 +14,8 @@ return {
     opts.options = options
     table.insert(opts.sections.lualine_y, {
       function()
-        return get_rime_status()
+        -- return rime.check_rime_status()
+        return rime.setup_autocmd()
       end,
     })
     table.insert(opts.sections.lualine_y, {
