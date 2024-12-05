@@ -1,5 +1,15 @@
 local battery = require("util.battery")
 local dashboard = { "dashboard", "alpha", "ministarter", "snacks_dashboard" }
+local function get_rime_status()
+  -- local clients = vim.lsp.get_active_clients()
+  local clients = vim.lsp.get_clients()
+  for _, client in ipairs(clients) do
+    if client.name == "rime_ls" then
+      return "ㄓ"
+    end
+  end
+  return ""
+end
 
 return {
   "nvim-lualine/lualine.nvim",
