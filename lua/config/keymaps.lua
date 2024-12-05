@@ -179,4 +179,9 @@ keymap.set(
 -- BufferLinePick
 keymap.set("n", "<leader>bg", ":BufferLinePick<CR>", { noremap = true, silent = true })
 
-keymap.set({ "n", "i" }, "<localleader>f", "<ESC>:LspStart rime_ls<CR>", { noremap = true, silent = true })
+keymap.set(
+  { "n", "i" },
+  "<localleader>f",
+  "<ESC>:LspStart rime_ls<CR>",
+  { noremap = true, silent = true, desc = "start rime-ls" }
+)

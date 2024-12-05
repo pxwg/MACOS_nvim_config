@@ -44,7 +44,7 @@ A language server for librime
       end)
     end
     -- keymaps for executing command
-    vim.keymap.set("i", "jn", toggle_rime)
+    -- vim.keymap.set("i", "jn", toggle_rime)
     vim.keymap.set("n", "<localleader>rs", function()
       vim.lsp.buf.execute_command({ command = "rime-ls.sync-user-data" })
     end)

@@ -72,6 +72,12 @@ keymap.set("n", "<localleader>e", " ", { call = require("lsp.rime_2").setup_rime
 local rime_ls_active = true
 local rime_toggled = true --默认打开require("lsp.rime_2")_ls
 
+keymap.set("i", "jn", function()
+  require("lsp.rime_2").toggle_rime()
+  rime_toggled = not rime_toggled
+  rime_ls_active = not rime_ls_active
+end, { noremap = true, silent = true, desc = "toggle rime-ls" })
+
 vim.api.nvim_create_autocmd({ "BufEnter" }, {
   pattern = { "*.tex", "*.md", "*.copilot-chat" },
   callback = function()
@@ -97,12 +103,6 @@ vim.api.nvim_create_autocmd({ "BufEnter" }, {
 --     end
 --   end,
 -- })
-
-keymap.set("i", "jn", function()
-  require("lsp.rime_2").toggle_rime()
-  rime_toggled = not rime_toggled
-  rime_ls_active = not rime_ls_active
-end)
 
 vim.api.nvim_create_autocmd("CursorMovedI", {
   pattern = "*",
