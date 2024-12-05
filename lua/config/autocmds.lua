@@ -170,18 +170,18 @@ set spelllang=en,cjk]])
 --   end
 --   return false
 -- end
-
--- cannot be used for now
+--
+-- -- cannot be used for now
 -- vim.api.nvim_create_autocmd("CursorMoved", {
 --   pattern = "*",
 --   callback = function()
 --     local ft = vim.bo.filetype
 --     if ft ~= "tex" and ft ~= "markdown" and ft ~= "copilot-chat" then
 --       if is_comment() and rime_ls_active_f() then
---         vim.api.nvim_command("LspRestart rime_ls")
+--         vim.api.nvim_feedkeys(vim.api.nvim_replace_termcodes("<localleader>f", true, true, true), "n", false)
 --         print("restart")
 --       elseif is_comment() and rime_ls_active_f() == false then
---         vim.api.nvim_command("LspStart rime_ls")
+--         vim.api.nvim_feedkeys(vim.api.nvim_replace_termcodes("<localleader>f", true, true, true), "n", false)
 --         print("start")
 --       elseif is_comment() == false and rime_ls_active_f() then
 --         vim.api.nvim_command("LspStop rime_ls")
@@ -189,6 +189,7 @@ set spelllang=en,cjk]])
 --     end
 --   end,
 -- })
+
 local punc_en = { [[\]], [[_]], [["]], [[']], [[<]], [[>]] }
 local punc_zh = { [[、]], [[——]], [[“]], [[”]], [[《]], [[》]] }
 
