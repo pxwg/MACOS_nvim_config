@@ -10,9 +10,9 @@ M.get_battery_time = function()
         local time_remaining = result:match("(%d+:%d+)")
         return time_remaining or "N/A"
       elseif result:match("charging") or result:match("charged") then
-        return "  "
+        return " "
       elseif result:match("finished charging") then
-        return "   "
+        return " "
       end
     end
   end
