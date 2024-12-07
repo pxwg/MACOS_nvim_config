@@ -77,11 +77,17 @@ return {
       local job = require("plenary.job")
 
       local sympy_script = string.format(
-        "from latex2sympy2 import latex2latex; import re; origin = r'%s'; standard = re.sub(r'\\\\mathrm{d}', 'd', origin); latex = latex2latex(standard); output = origin + ' = ' + latex; print(output)",
-        -- origin = re.sub(r'^\s+|\s+$', '', origin)
-        -- parsed = parse_expr(origin)
-        -- output = origin + parsed
-        -- print_latex(parsed)
+        [[
+from sympy import symbols, latex
+from latex2sympy2 import latex2sympy
+
+x, y = symbols("x y")
+theta = symbols("theta")
+origin = r'%s'
+sympy_expr = latex2sympy(origin)
+expanded_expr = sympy_expr.expand()
+print(latex(expanded_expr))
+    ]],
         to_eval
       )
 
