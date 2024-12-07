@@ -78,16 +78,15 @@ return {
 
       local sympy_script = string.format(
         [[
-from sympy import symbols, latex
-from latex2sympy2 import latex2sympy
+from latex2sympy2 import latex2latex
+import re
 
-x, y = symbols("x y")
-theta = symbols("theta")
 origin = r'%s'
-sympy_expr = latex2sympy(origin)
-expanded_expr = sympy_expr.expand()
-print(latex(expanded_expr))
-    ]],
+standard = re.sub(r'\\mathrm{d}', 'd', origin)
+latex = latex2latex(standard)
+output = origin + ' = ' + latex
+print(output)
+  ]],
         to_eval
       )
 
@@ -310,18 +309,18 @@ print(output)
     end)
   ),
   s(
-    { trig = "exd", wordTrig = false, snippetType = "autosnippet" },
-    fmta("expand <> expand", {
+    { trig = "pex", wordTrig = false, snippetType = "autosnippet" },
+    fmta("pexpand <> pexpand", {
       i(1),
     }),
     { condition = tex.in_mathzone }
   ),
   s( -- This one evaluates anything inside the simpy block
-    { trig = "expand.*expands", regTrig = true, desc = "expand block evaluator", snippetType = "autosnippet" },
+    { trig = "pexpand.*pexpands", regTrig = true, desc = "expand block evaluator", snippetType = "autosnippet" },
     d(1, function(_, parent)
       -- Gets the part of the block we actually want, and replaces spaces
       -- at the beginning and at the end
-      local to_eval = string.gsub(parent.trigger, "^expand(.*)expands", "%1")
+      local to_eval = string.gsub(parent.trigger, "^pexpand(.*)pexpands", "%1")
       to_eval = string.gsub(to_eval, "^%s+(.*)%s+$", "%1")
       to_eval = string.gsub(to_eval, "\\mathrm{i}", "i")
       to_eval = string.gsub(to_eval, "\\left", "")
