@@ -22,6 +22,15 @@ vim.api.nvim_create_autocmd("CursorMovedI", {
   end,
 })
 
+-- keymap.set("n", "<leader>in", function()
+--   -- 进入普通模式
+--   vim.cmd("normal! <Esc>")
+--   -- 关闭宏录制
+--   vim.cmd("q")
+--   -- 关闭其他可能的记录功能
+--   vim.cmd("nohlsearch")
+--   vim.cmd("set nomore")
+-- end, { noremap = true, silent = true, desc = "Initialize Neovim State" })
 -- keymap.set("n", "<localleader>e", " ", { call = rime.setup_rime() })
 
 -- keymapping for forward search
@@ -169,3 +178,10 @@ keymap.set(
 
 -- BufferLinePick
 keymap.set("n", "<leader>bg", ":BufferLinePick<CR>", { noremap = true, silent = true })
+
+keymap.set(
+  { "n", "i" },
+  "<localleader>f",
+  "<ESC>:LspStart rime_ls<CR>",
+  { noremap = true, silent = true, desc = "start rime-ls" }
+)

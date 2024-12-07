@@ -1,4 +1,5 @@
 local battery = require("util.battery")
+local rime = require("util.rime_ls")
 local dashboard = { "dashboard", "alpha", "ministarter", "snacks_dashboard" }
 
 return {
@@ -13,7 +14,8 @@ return {
     opts.options = options
     table.insert(opts.sections.lualine_y, {
       function()
-        return get_rime_status()
+        -- return rime.check_rime_status()
+        return rime.setup_autocmd()
       end,
     })
     table.insert(opts.sections.lualine_y, {

@@ -12,7 +12,9 @@
 
 ### 本配置关键： $\LaTeX$ 与中文输入法集成
 
-* $\LaTeX$ 公式与 (一直在更新的) snippet 补全，实验报告数据处理的 python 计算快捷键集成;
+* $\LaTeX$ 公式与 (一直在更新的) snippet 补全，python 与 Mathematica 计算快捷键集成;
+
+>基本逻辑：使用's' 触发所有的补全功能，使用; 'p' 或'm' 触发指定的快捷键功能，利用'cal' 或'ex' 触发符号计算与符号展开功能
 
 * 基于 LSP [rime-ls](https://github.com/wlh320/rime-ls) 的中文输入法，自动匹配数学公式 (基于 [treesitter](https://github.com/nvim-treesitter/nvim-treesitter)) 转换为英文输入法，在英文输入环境中匹配数学公式并不切换输入法，实现中 - 英 - $\LaTeX$ 的完全集成
 
@@ -85,4 +87,5 @@ git clone https://github.com/pxwg/MACOS_nvim_config.git ~/.config/nvim
 * 利用类似 `install_name_tool -add_rpath /usr/local/lib /Users/pxwg-dogggie/Desktop/rime-ls-0.4.0/target/release/rime_ls` 的方式让 rime_ls 找到其依赖库; 
 
 * (可选) 在用户下新增文件~/quotes.txt，在其中添加你喜欢的格言，一行一条格言，将会在启动时随机输出。
+
 

@@ -18,14 +18,6 @@ function M.setup_rime()
         filetypes = rime_ls_filetypes,
         single_file_support = true,
       },
-      -- float = {
-      --   -- focusable = false,
-      --   style = "minimal",
-      --   border = "rounded",
-      --   source = "always",
-      --   header = "",
-      --   prefix = "",
-      -- },
       settings = {},
       docs = {
         description = [[
@@ -52,7 +44,6 @@ A language server for librime
       end)
     end
     -- keymaps for executing command
-    vim.keymap.set("n", "<localleader>f", toggle_rime)
     -- vim.keymap.set("i", "jn", toggle_rime)
     vim.keymap.set("n", "<localleader>rs", function()
       vim.lsp.buf.execute_command({ command = "rime-ls.sync-user-data" })
@@ -80,80 +71,6 @@ A language server for librime
     capabilities = capabilities,
   })
 end
-
-local function is_rime_entry(entry)
-  return entry ~= nil and entry.source.name == "nvim_lsp" and entry.source.source.client.name == "rime_ls"
-end
-local function auto_upload_rime()
-  if not cmp.visible() then
-    return
-  end
-  local entries = cmp.core.view:get_entries()
-  if entries == nil or #entries == 0 then
-    return
-  end
-  local first_entry = cmp.get_selected_entry()
-  if first_entry == nil then
-    first_entry = cmp.core.view:get_first_entry()
-  end
-  if first_entry ~= nil and is_rime_entry(first_entry) then
-    local rime_ls_entry_occur = false
-    for _, entry in ipairs(entries) do
-      if is_rime_entry(entry) then
-        if rime_ls_entry_occur then
-          return
-        end
-        rime_ls_entry_occur = true
-      end
-    end
-    if rime_ls_entry_occur then
-      cmp.confirm({
-        behavior = cmp.ConfirmBehavior.Insert,
-        select = true,
-      })
-    end
-  end
-end
-local punc_en = { [[\]], [[_]], [["]], [[']], [[<]], [[>]] }
-local punc_zh = { [[、]], [[——]], [[“]], [[”]], [[《]], [[》]] }
-
-vim.api.nvim_create_autocmd("FileType", {
-  pattern = rime_ls_filetypes,
-  callback = function(env)
-    -- copilot cannot attach client automatically, we must attach manually.
-    local rime_ls_client = vim.lsp.get_clients({ name = "rime_ls" })
-    if #rime_ls_client == 0 then
-      vim.cmd("LspStart rime_ls")
-      rime_ls_client = vim.lsp.get_clients({ name = "rime_ls" })
-    end
-
-    for i = 1, #punc_en do
-      local src = punc_en[i] .. "<space>"
-      local dst = 'rime_enabled ? "' .. punc_zh[i] .. '" : "' .. punc_en[i] .. ' "'
-      vim.keymap.set({ "i", "s" }, src, dst, {
-        noremap = true,
-        silent = false,
-        expr = true,
-        buffer = true,
-      })
-    end
-    --
-    for numkey = 1, 9 do
-      local numkey_str = tostring(numkey)
-      vim.keymap.set({ "i", "s" }, numkey_str, function()
-        local visible = cmp.visible()
-        vim.api.nvim_feedkeys(vim.api.nvim_replace_termcodes(numkey_str, true, false, true), "n", true)
-        if visible then
-          vim.schedule(auto_upload_rime)
-        end
-      end, {
-        noremap = true,
-        silent = true,
-        buffer = true,
-      })
-    end
-  end,
-})
 
 function M.toggle_rime()
   local client = vim.lsp.get_active_clients({ name = "rime_ls" })[1]
