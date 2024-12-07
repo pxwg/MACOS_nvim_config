@@ -315,25 +315,23 @@ print(output)
     d(1, function(_, parent)
       -- Gets the part of the block we actually want, and replaces spaces
       -- at the beginning and at the end
-      local to_eval = string.gsub(parent.trigger, "^expand(.*)expand ", "%1")
+      local to_eval = string.gsub(parent.trigger, "^expand(.*)expands", "%1")
       to_eval = string.gsub(to_eval, "^%s+(.*)%s+$", "%1")
-      local pattern = { "\\ab" }
-      local repl = { "" }
-      for i = 1, #pattern do
-        to_eval = string.gsub(to_eval, pattern[i], repl[i])
-      end
+      to_eval = string.gsub(to_eval, "\\mathrm{i}", "i")
+      to_eval = string.gsub(to_eval, "\\left", "")
+      to_eval = string.gsub(to_eval, "\\right", "")
 
       local Job = require("plenary.job")
 
       local sympy_script = string.format(
         [[
-        from sympy import *
-        from latex2sympy2 import latex2sympy, latex2latex
-        x, y = symbols('x y')
-        theta = symbols('theta')
-        origin = r'%s'
-        expand = latex2sympy(origin).expand()
-        print(latex(expand))
+from sympy import symbols, latex
+from latex2sympy2 import latex2sympy
+
+origin = r'%s'  
+sympy_expr = latex2sympy(origin)
+expanded_expr = sympy_expr.expand()
+print(latex(expanded_expr))
             ]],
         to_eval
       )
