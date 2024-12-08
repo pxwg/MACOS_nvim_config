@@ -5,7 +5,8 @@
 local keymap = vim.keymap
 local Util = require("lazyvim.util")
 local tex = require("util.latex")
-local synctex = require("util.synctex_view")
+-- local synctex = require("util.synctex_view")
+local synctex = require("util.tdf")
 
 vim.api.nvim_create_autocmd("CursorMovedI", {
   pattern = "*",
@@ -34,12 +35,19 @@ vim.api.nvim_create_autocmd("CursorMovedI", {
 -- keymap.set("n", "<localleader>e", " ", { call = rime.setup_rime() })
 
 -- keymapping for forward search
+-- keymap.set(
+--   "n",
+--   "<localleader>lf",
+--   " ",
+--   { noremap = true, silent = true, desc = "Forward Searching", callback = synctex.synctex_view }
+-- )
 keymap.set(
   "n",
   "<localleader>lf",
   " ",
-  { noremap = true, silent = true, desc = "Forward Searching", callback = synctex.synctex_view }
-)
+  { noremap = true, silent = true, desc = "Forward Searching", callback = synctex.synctex_forward }
+) -- modified for kitty with HammerSpoon
+
 -- kemap for inverse search
 keymap.set(
   "n",
