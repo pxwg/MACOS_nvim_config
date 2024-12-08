@@ -24,7 +24,7 @@
 
 ![中文输入法](./readme_fig/cn_input.png)
 
-* iTerm2 终端下的 pdf 终端预览，基于 [tdf](https://github.com/itsjunetime/tdf) 阅读器与 GPU 加速，允许利用快捷键 `<localleader>lf` 实现精确到*字符*的正向查找，利用快捷键 `<localleader>li` 输入页码实现精确到*页面*的反向查找，利用 AppleScript 与 synctex 实现 (现在精确到段落的反向查找由 [skim](https://skim-app.sourceforge.io/) 提供）;
+* iTerm2 终端下的 pdf 终端预览，基于 [tdf](https://github.com/itsjunetime/tdf) 阅读器与 GPU 加速，允许利用快捷键 `<localleader>lf` 实现精确到*字符*的正向查找，利用快捷键 `<localleader>li` 输入页码实现精确到*页面*的反向查找，利用 [Hammerspoon](https://www.hammerspoon.org/) 与 synctex 实现 (现在精确到段落的反向查找由 [skim](https://skim-app.sourceforge.io/) 提供）;
 
 ![tdf 下的 pdf 预览](./readme_fig/tdf.png)
 
