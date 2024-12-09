@@ -30,6 +30,19 @@ function StartHammerspoon()
     end,
   })
 end
+
+local file_path = "/tmp/nvim_hammerspoon_latex.txt"
+local file = io.open(file_path, "r")
+if not file then
+  file = io.open(file_path, "w")
+  if not file then
+    print("failed to create " .. file_path)
+    return
+  end
+  file:close()
+  print(file_path .. " created")
+end
+
 require("lazy").setup({
   ui = {
     border = "rounded",

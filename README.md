@@ -12,7 +12,7 @@
 
 ### 本配置关键： $\LaTeX$ 与中文输入法集成
 
-* $\LaTeX$ 公式与 (一直在更新的) snippet 补全，python 与 Mathematica 计算快捷键集成;
+* $\LaTeX$ 公式与 (一直在更新的) snippet 补全，python 与 Mathematica 计算快捷键集成，包含符号计算、符号展开等功能;
 
 >基本逻辑：使用's' 触发所有的补全功能，使用; 'p' 或'm' 触发指定的快捷键功能，利用'cal' 或'ex' 触发符号计算与符号展开功能
 
@@ -24,7 +24,7 @@
 
 ![中文输入法](./readme_fig/cn_input.png)
 
-* iTerm2 终端下的 pdf 终端预览，基于 [tdf](https://github.com/itsjunetime/tdf) 阅读器与 GPU 加速，允许利用快捷键 `<localleader>lf` 实现精确到*字符*的正向查找，利用快捷键 `<localleader>li` 输入页码实现精确到*页面*的反向查找，利用 [Hammerspoon](https://www.hammerspoon.org/) 与 synctex 实现 (现在精确到段落的反向查找由 [skim](https://skim-app.sourceforge.io/) 提供）;
+* iTerm2 终端下的 pdf 终端预览，基于 [tdf](https://github.com/itsjunetime/tdf) 阅读器与 GPU 加速，允许利用快捷键 `<localleader>lf` 实现精确到*字符*的正向查找，利用快捷键 `<localleader>li` 输入页码实现精确到*段落*的反向查找，利用 [Hammerspoon](https://www.hammerspoon.org/) 与 synctex 实现。纯终端配置的优点在于不需要打开 GUI，可以在终端下进行快速预览并且省电，在本配置下可以实现几乎与 GUI 一样的预览效果 (在反向查找方面还需要加强，并需要自适应 PDF 区域的支持，但总算是实现了常见的反向查找了!); 
 
 ![tdf 下的 pdf 预览](./readme_fig/tdf.png)
 
@@ -52,7 +52,9 @@
 
 * 更换所有配置文件至 LazyVim API，精简后续配置，增加运行速度，为日后迁移到 LazyVim v13.+做准备;
 
-* 更换所有配置至组合 kitty+macOS，实现更快更省电的性能展现 (iTerm2 有时候会卡，并且在打开 GPU 加速的时候会导致电池电量下降速度加快) (目前已经可以实现基本使用，除了 pdf 预览);
+* 更换所有配置至组合 kitty+macOS，实现更快更省电的性能展现 (iTerm2 有时候会卡，并且在打开 GPU 加速的时候会导致电池电量下降速度加快) (目前已经可以实现基本使用，~除了 pdf 预览~) ✅;
+
+* 优化 tdf+Hammerspoon 的 pdf 预览，实现对源文件*位置*的精确跳转，而不仅限于 main.tex 的*行列*跳转 (目前还不能实现光标级跳转，因为本人电脑的 synctex 有问题，不能解析正确的列数，因此跳转被硬编码成行首);
 
 * 优化 telescope 的使用，增加词频搜索等功能; 
 
@@ -82,10 +84,9 @@ git clone https://github.com/pxwg/MACOS_nvim_config.git ~/.config/nvim
 
 * neovim v0.9.5+，LazyVim v13.0- (目前没有改变所有 api 以适应 Breaking Update 的癖好，虽然期中考试考完了但也没有这么多时间，因此 LazyVim 被锁定在 v12.44.1, LazyVim 不需要下载，因为本配置文件会自行 boostrap 它);
 
-* 可以使用 brew 安装的 hub, tdf, inkscape, skim, SizeUp, rimels, autocorrect。其余 neovim 插件可以在配置中自行安装;
+* 可以使用 brew 安装的 hub, *tdf*, *inkscape*, skim, SizeUp, rimels, autocorrect。其余 neovim 插件可以在配置中自行安装;
 
-* 利用类似 `install_name_tool -add_rpath /usr/local/lib /Users/pxwg-dogggie/Desktop/rime-ls-0.4.0/target/release/rime_ls` 的方式让 rime_ls 找到其依赖库; 
+* 利用类似 `install_name_tool -add_rpath /usr/local/lib /path/to/your/rime_ls` 的方式让 *rime_ls* 找到其依赖库; 
 
 * (可选) 在用户下新增文件~/quotes.txt，在其中添加你喜欢的格言，一行一条格言，将会在启动时随机输出。
-
 

@@ -36,7 +36,7 @@ return {
     fmta(
       [[
 % !TeX program = xelatex
-\documentclass[12pt]{<>}
+\documentclass[14pt]{<>}
 \usepackage[mocha,styleAll]{catppuccinpalette}
 \input{../preamble.tex}
 \fancyhf{}
@@ -66,7 +66,7 @@ return {
 
     ]],
       {
-        i(1, "article"),
+        i(1, "extarticle"),
         i(2, "year"),
         i(3, "tietle"),
         rep(3),

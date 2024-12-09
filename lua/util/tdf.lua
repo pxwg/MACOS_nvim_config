@@ -60,17 +60,14 @@ function M.synctex_forward()
   -- print("synctex_command:", synctex_command)
   -- print("result:", result)
 
-  -- 提取 Page, x, y 参数的值
   local page = result:match("Page:(%d+)")
   local x = result:match("x:([%d%.]+)")
   local y = result:match("y:([%d%.]+)")
 
-  -- -- 打印提取的值以进行调试
   -- print("Page:" .. page)
   -- print("x:" .. x)
   -- print("y:" .. y)
 
-  -- 构建命令行并执行
   if page and x and y then
     local hs_command = string.format("hs -c 'drawRedDotOnA4(%s,%s,%s)'", x, y, page)
     local hs_result = vim.fn.system(hs_command)
@@ -81,6 +78,7 @@ function M.synctex_forward()
   end
 end
 
+-- TODO: need to consider the inverse searching which could trigger to the source file (via synctex 'input')
 function M.synctex_inverse()
   local page_number = getPages()
   page_number = tonumber(page_number)
