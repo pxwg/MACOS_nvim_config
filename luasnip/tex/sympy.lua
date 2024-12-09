@@ -336,7 +336,8 @@ from latex2sympy2 import latex2sympy
 origin = r'%s'  
 sympy_expr = latex2sympy(origin)
 expanded_expr = sympy_expr.expand()
-print(latex(expanded_expr))
+output = origin + ' = ' + latex(expanded_expr)
+print(output)
             ]],
         to_eval
       )

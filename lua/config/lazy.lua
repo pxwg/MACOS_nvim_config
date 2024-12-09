@@ -9,7 +9,27 @@ vim.opt.rtp:prepend(vim.env.LAZY or lazypath)
 vim.o.timeoutlen = 50
 vim.o.ttimeout = true
 vim.o.ttimeoutlen = 10
+vim.cmd([[
+  command! StartHammerspoon lua StartHammerspoon()
+]])
 
+function StartHammerspoon()
+  local job = vim.fn.jobstart("hs -c \"require('latex_pdf_view')\"", {
+    on_stdout = function(_, data, _)
+      for _, line in ipairs(data) do
+        print(line)
+      end
+    end,
+    on_stderr = function(_, data, _)
+      for _, line in ipairs(data) do
+        print(line)
+      end
+    end,
+    on_exit = function(_, code, _)
+      print("Hammerspoon exited with code " .. code)
+    end,
+  })
+end
 require("lazy").setup({
   ui = {
     border = "rounded",

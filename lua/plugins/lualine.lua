@@ -10,6 +10,8 @@ return {
       theme = "auto",
       globalstatus = vim.o.laststatus == 3,
       disabled_filetypes = { statusline = dashboard },
+      section_separators = { right = "", left = "" },
+      component_separators = { left = "󰩃 ", right = "󰄛 " },
     }
     opts.options = options
     table.insert(opts.sections.lualine_y, {
@@ -20,7 +22,7 @@ return {
     })
     table.insert(opts.sections.lualine_y, {
       function()
-        return "  " .. battery.get_battery_status() .. " 󰥔 " .. battery.get_battery_time()
+        return "  " .. battery.get_battery_status() .. " 󰥔  " .. battery.get_battery_time()
       end,
     })
   end,
