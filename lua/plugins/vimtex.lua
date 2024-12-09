@@ -1,11 +1,11 @@
-local synctex = require("util.synctex_view")
+local synctex = require("util.tdf")
 return {
   "lervag/vimtex",
   -- lazy = true,
   config = function()
     vim.cmd([[
 let g:tex_flavor='latex'
-let g:vimtex_view_method='skim'
+let g:vimtex_view_method=''
 let g:vimtex_quickfix_mode=0
 let g:vimtex_fold_enabled=0
 " let g:tex_conceal='abdmg'
@@ -55,21 +55,18 @@ augroup END
       "n",
       "<localleader>lf",
       " ",
-      { noremap = true, silent = true, desc = "Forward Searching", callback = synctex.synctex_view }
+      { noremap = true, silent = true, desc = "Forward Searching", callback = synctex.synctex_forward() }
     )
     -- keymapping for inverse search
-    vim.keymap.set(
-      "n",
-      "<localleader>li",
-      " ",
-      { noremap = true, silent = true, desc = "Inverse Searching", callback = synctex.synctex_edit }
-    )
+    -- vim.keymap.set(
+    --   "n",
+    --   "<localleader>li",
+    --   " ",
+    --   { noremap = true, silent = true, desc = "Inverse Searching", callback = synctex.synctex_edit }
+    -- )
     -- keymapping for show pdf
     vim.keymap.set("n", "<localleader>lp", function()
       synctex.convert_tex_to_pdf()
-      vim.defer_fn(function()
-        synctex.synctex_view()
-      end, 1500)
     end, { noremap = true, silent = true, desc = "View PDF in Terminal" })
   end,
 }

@@ -10,6 +10,7 @@ local toggle_rime_and_set_flag = function()
   rime_toggled = false
 end
 local cmp = require("cmp")
+local tdf = require("util.tdf")
 
 -- import quotes
 local quotes = {}
@@ -229,5 +230,37 @@ vim.api.nvim_create_autocmd("FileType", {
         buffer = true,
       })
     end
+  end,
+})
+
+local uv = vim.loop
+local handle
+
+local function watch_file_changes()
+  local file_path = "/tmp/nvim_hammerspoon_latex.txt"
+
+  local function on_change(err, filename, status)
+    if err then
+      print("Error watching file:", err)
+      return
+    end
+    if status.change then
+      tdf.synctex_inverse()
+    end
+  end
+
+  if not handle then
+    handle = uv.new_fs_event()
+    uv.fs_event_start(handle, file_path, {}, vim.schedule_wrap(on_change))
+  end
+end
+
+-- 执行tdf.synctex_inverse()
+
+vim.api.nvim_create_autocmd("FileType", {
+  pattern = "tex",
+  callback = function()
+    watch_file_changes()
+    -- vim.fn.system("hs -c openLaTeX")
   end,
 })

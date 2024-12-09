@@ -56,12 +56,12 @@ keymap.set(
   { noremap = true, silent = true, desc = "Inverse Searching", callback = synctex.synctex_edit }
 )
 -- keymapping for show pdf
-keymap.set("n", "<localleader>lp", function()
-  synctex.convert_tex_to_pdf()
-  vim.defer_fn(function()
-    synctex.synctex_view()
-  end, 1500)
-end, { noremap = true, silent = true, desc = "View PDF in Terminal" })
+-- keymap.set("n", "<localleader>lp", function()
+--   synctex.convert_tex_to_pdf()
+--   vim.defer_fn(function()
+--     synctex.synctex_view()
+--   end, 1500)
+-- end, { noremap = true, silent = true, desc = "View PDF in Terminal" })
 
 -- Key mappings
 keymap.set({ "i", "s" }, "jj", "<Esc>")
@@ -193,3 +193,27 @@ keymap.set(
   "<ESC>:LspStart rime_ls<CR>",
   { noremap = true, silent = true, desc = "start rime-ls" }
 )
+
+local function is_rightmost_window()
+  local current_win = vim.api.nvim_get_current_win()
+  local current_pos = vim.api.nvim_win_get_position(current_win)[2]
+  local max_col = current_pos
+
+  for _, win in ipairs(vim.api.nvim_list_wins()) do
+    local pos = vim.api.nvim_win_get_position(win)[2]
+    if pos > max_col then
+      max_col = pos
+    end
+  end
+
+  return current_pos == max_col
+end
+
+-- 切换到右侧窗口，并检查是否已经是最右侧窗口
+keymap.set("n", "<C-l>", function()
+  if is_rightmost_window() then
+    vim.fn.system("hs -c 'focusNextWindow()'")
+  else
+    vim.cmd("wincmd l")
+  end
+end, { noremap = true, silent = true, desc = "Move to right window" })
