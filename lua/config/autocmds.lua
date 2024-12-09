@@ -261,6 +261,5 @@ vim.api.nvim_create_autocmd("FileType", {
   pattern = "tex",
   callback = function()
     watch_file_changes()
-    -- vim.fn.system("hs -c openLaTeX")
   end,
 })
