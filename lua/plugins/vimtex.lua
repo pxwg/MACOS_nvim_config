@@ -67,7 +67,7 @@ augroup END
     -- keymapping for show pdf
     vim.keymap.set("n", "<localleader>lp", function()
       synctex.convert_tex_to_pdf()
-      vim.fn.system("hs -c enterLaTeXMode")
+      vim.fn.system("hs -c 'enterLaTeXMode()'")
     end, { noremap = true, silent = true, desc = "View PDF in Terminal" })
   end,
 }
