@@ -114,8 +114,11 @@ function M.synctex_inverse()
 
   -- Execute the command and get the result
   local handle = io.popen(synctex_command)
-  local result = handle:read("*a")
-  handle:close()
+  local result = nil
+  if handle then
+    result = handle:read("*a")
+    handle:close()
+  end
   local line = result:match("Line:(%d+)")
   local column = result:match("Column:(%-?%d+)")
 
