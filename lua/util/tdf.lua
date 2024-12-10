@@ -21,6 +21,8 @@ end
 
 _G.getPages = getPages
 
+-- TODO: need to consider the inverse searching which could trigger to the source file (via synctex 'input')
+
 function M.convert_tex_to_pdf()
   local tex_filename = vim.fn.expand("%:t")
   local tex_filepath = vim.fn.expand("%:p")
