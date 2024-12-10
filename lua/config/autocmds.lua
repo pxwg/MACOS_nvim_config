@@ -73,6 +73,9 @@ keymap.set("n", "<localleader>e", " ", { call = require("lsp.rime_2").setup_rime
 local rime_ls_active = true
 local rime_toggled = true --默认打开require("lsp.rime_2")_ls
 
+_G.rime_toggled = rime_toggled
+_G.rime_ls_active = rime_ls_active
+
 keymap.set("i", "jn", function()
   require("lsp.rime_2").toggle_rime()
   rime_toggled = not rime_toggled
@@ -105,28 +108,32 @@ vim.api.nvim_create_autocmd({ "BufEnter" }, {
 --   end,
 -- })
 
-vim.api.nvim_create_autocmd("CursorMovedI", {
-  pattern = "*",
-  callback = function()
-    if vim.bo.filetype == "tex" then
-      -- in the mathzone or table or tikz and rime is active, disable rime
-      if (tex.in_mathzone() == true or tex.in_table() == true or tex.in_tikz() == true) and rime_ls_active == true then
-        if rime_toggled == true then
-          require("lsp.rime_2").toggle_rime()
-          rime_toggled = false
-        end
-        -- in the text but rime is not active(by hand), do nothing
-      elseif rime_ls_active == false then
-        -- in the text but rime is active(by hand ), thus the configuration is for mathzone or table or tikz
-      else
-        if rime_toggled == false then
-          require("lsp.rime_2").toggle_rime()
-          rime_toggled = true
-        end
+local function switch_rime_math()
+  if vim.bo.filetype == "tex" then
+    -- in the mathzone or table or tikz and rime is active, disable rime
+    if (tex.in_mathzone() == true or tex.in_table() == true or tex.in_tikz() == true) and rime_ls_active == true then
+      if _G.rime_toggled == true then
+        require("lsp.rime_2").toggle_rime()
+        _G.rime_toggled = false
+      end
+      -- in the text but rime is not active(by hand), do nothing
+    elseif rime_ls_active == false then
+      -- in the text but rime is active(by hand ), thus the configuration is for mathzone or table or tikz
+    else
+      if _G.rime_toggled == false then
+        require("lsp.rime_2").toggle_rime()
+        _G.rime_toggled = true
       end
     end
-  end,
+  end
+end
+
+vim.api.nvim_create_autocmd("CursorMovedI", {
+  pattern = "*",
+  callback = switch_rime_math,
 })
+
+-- TODO: 让这段代码可以监控数学区域内的中文输入法是否打开，如果打开则打印到lualine ✅
 
 if vim.g.neovide then
   vim.g.neovide_scale_factor = 1

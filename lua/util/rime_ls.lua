@@ -1,13 +1,13 @@
 local M = {}
 
 function M.check_rime_status()
-  local clients = vim.lsp.get_active_clients()
+  local clients = vim.lsp.get_clients()
   for _, client in ipairs(clients) do
     if client.name == "rime_ls" then
-      return "ㄓ"
+      return true
     end
   end
-  return ""
+  return false
 end
 
 -- cannot be used in this way
