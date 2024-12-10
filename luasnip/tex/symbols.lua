@@ -13,7 +13,7 @@ local tex = require("util.latex")
 
 return {
   s({
-    trig = "(%a)rm", -- Regex for any letter followed by 'arm'
+    trig = "(%a+)rm", -- Regex for any letter followed by 'arm'
     snippetType = "autosnippet",
     wordTrig = false, -- Allows partial word matches
     regTrig = true, -- Enables regex usage

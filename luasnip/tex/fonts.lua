@@ -84,6 +84,19 @@ return {
     { condition = tex.in_mathzone }
   ),
 
+  s(
+    {
+      trig = "(%a+)frk",
+      snippetType = "autosnippet",
+      wordTrig = true,
+      trigEngine = "pattern",
+    },
+    { f(function(_, snip)
+      return "\\mathfrak{" .. snip.captures[1] .. "}"
+    end), i(0) },
+    { condition = tex.in_mathzone }
+  ),
+
   s({
     trig = "(%A+)bb",
     snippetType = "autosnippet",
