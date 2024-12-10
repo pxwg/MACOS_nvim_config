@@ -34,6 +34,11 @@ function M.convert_tex_to_pdf()
 
   local result = vim.fn.system(synctex_command)
 
+  if vim.fn.filereadable(pdf_filepath) == 0 then
+    print("Error: PDF file not found at " .. pdf_filepath)
+    return
+  end
+
   local page = result:match("Page:(%d+)")
   local x = result:match("x:([%d%.]+)")
   local y = result:match("y:([%d%.]+)")
