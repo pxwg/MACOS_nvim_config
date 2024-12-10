@@ -26,6 +26,7 @@ function M.convert_tex_to_pdf()
   local tex_filepath = vim.fn.expand("%:p")
   local pdf_filename = tex_filename:gsub("%.tex$", ".pdf")
   local pdf_filepath = [["]] .. vim.fn.expand("%:p:h") .. "/" .. pdf_filename .. [["]]
+  local pdf_pos = vim.fn.expand("%:p:h") .. "/" .. pdf_filename
 
   local line_number = vim.fn.line(".")
   local column_number = vim.fn.col(".")
@@ -34,8 +35,8 @@ function M.convert_tex_to_pdf()
 
   local result = vim.fn.system(synctex_command)
 
-  if vim.fn.filereadable(pdf_filepath) == 0 then
-    print("Error: PDF file not found at " .. pdf_filepath)
+  if vim.fn.filereadable(pdf_pos) == 0 then
+    vim.notify("Error: PDF file not found at " .. pdf_filepath, vim.log.levels.WARN)
     return
   end
 
@@ -45,6 +46,7 @@ function M.convert_tex_to_pdf()
 
   local hs_command = string.format("hs -c 'openPDF(%s,%s,%s,%s)'", pdf_filepath, x, y, page)
   vim.fn.system(hs_command)
+  vim.fn.system("hs -c 'enterLaTeXMode()'")
 end
 
 function M.synctex_forward()
