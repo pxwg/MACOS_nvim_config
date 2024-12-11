@@ -67,7 +67,9 @@ A language server for librime
       callback = function()
         if client.attached_buffers[bufnr] then
           client.attached_buffers[bufnr] = false
-          client.config.on_detach(client, bufnr)
+          if client.config.on_detach then
+            client.config.on_detach(client, bufnr)
+          end
         end
       end,
     })
@@ -76,6 +78,7 @@ A language server for librime
   lspconfig.rime_ls.setup({
     on_attach = attach_in_insert_mode,
   })
+
   lspconfig.texlab.setup({
     on_attach = attach_in_insert_mode,
   })
