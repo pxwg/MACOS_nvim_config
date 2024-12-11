@@ -23,27 +23,63 @@ local tex = require("util.latex")
 --   end
 -- end
 
+-- local function rime_toggle_color()
+--   if rime.check_rime_status() and rime_toggled then
+--     return { bg = "#74c7ec", fg = "#313244", gui = "bold" }
+--   elseif rime_ls_active then
+--     if tex.in_text() then
+--       return { bg = "#f38ba8", fg = "#313244", gui = "bold" }
+--     else
+--       return { bg = "#fab387", fg = "#313244", gui = "bold" }
+--     end
+--   end
+--   if not rime_toggled and not rime_ls_active then
+--     if not tex.in_text() then
+--       return { bg = "#fab387", fg = "#313244", gui = "bold" }
+--     else
+--       return { bg = "#74c7ec", fg = "#313244", gui = "bold" }
+--     end
+--   end
+-- end
+--
+-- local function rime_toggle_word()
+--   if rime.check_rime_status() and rime_toggled then
+--     return "cn"
+--   elseif rime_ls_active then
+--     if tex.in_text() then
+--       return "error"
+--     else
+--       return "math"
+--     end
+--   end
+--   if not rime_toggled and not rime_ls_active then
+--     if tex.in_text() then
+--       return "eng"
+--     else
+--       return "math"
+--     end
+--   end
+-- end
+
 local function rime_toggle_color()
   if rime.check_rime_status() and rime_toggled then
     return { bg = "#74c7ec", fg = "#313244", gui = "bold" }
   elseif rime_ls_active then
-    if tex.in_text() then
-      return { bg = "#f38ba8", fg = "#313244", gui = "bold" }
-    else
-      return { bg = "#fab387", fg = "#313244", gui = "bold" }
-    end
+    return tex.in_text() and { bg = "#f38ba8", fg = "#313244", gui = "bold" }
+      or { bg = "#fab387", fg = "#313244", gui = "bold" }
+  elseif not rime_toggled and not rime_ls_active then
+    return tex.in_text() and { bg = "#74c7ec", fg = "#313244", gui = "bold" }
+      or { bg = "#fab387", fg = "#313244", gui = "bold" }
   end
 end
 
 local function rime_toggle_word()
   if rime.check_rime_status() and rime_toggled then
-    return "text"
+    return "cn"
   elseif rime_ls_active then
-    if tex.in_text() then
-      return "error"
-    else
-      return "math"
-    end
+    return tex.in_text() and "error" or "math"
+  elseif not rime_toggled and not rime_ls_active then
+    return tex.in_text() and "en" or "math"
   end
 end
 

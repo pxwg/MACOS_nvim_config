@@ -77,15 +77,31 @@ _G.rime_toggled = rime_toggled
 _G.rime_ls_active = rime_ls_active
 
 keymap.set("i", "jn", function()
+  vim.cmd("LspStart rime_ls")
   require("lsp.rime_2").toggle_rime()
-  rime_toggled = not rime_toggled
-  rime_ls_active = not rime_ls_active
+  _G.rime_toggled = not _G.rime_toggled
+  _G.rime_ls_active = not _G.rime_ls_active
 end, { noremap = true, silent = true, desc = "toggle rime-ls" })
 
 vim.api.nvim_create_autocmd({ "BufEnter" }, {
   pattern = { "*.tex", "*.md", "*.copilot-chat" },
   callback = function()
     require("lsp.rime_2").setup_rime()
+  end,
+})
+
+-- 基本逻辑: 在text 区域，rime_toggle = true 始终成立, rime_ls_active = true 在中文输入法下成立。如果在数学区域，则rime_toggle = false, rime_ls_active = true 应当始终成立, 如果
+
+vim.api.nvim_create_autocmd({ "BufEnter" }, {
+  pattern = { "*" },
+  callback = function()
+    -- TODO: deactivate rime from user update
+    -- if not _G.rime_ls_active and not _G.rime_ls_active then
+    -- return nil
+    -- else
+    _G.rime_toggled = true
+    _G.rime_ls_active = true
+    -- end
   end,
 })
 
@@ -117,7 +133,7 @@ local function switch_rime_math()
         _G.rime_toggled = false
       end
       -- in the text but rime is not active(by hand), do nothing
-    elseif rime_ls_active == false then
+    elseif _G.rime_ls_active == false then
       -- in the text but rime is active(by hand ), thus the configuration is for mathzone or table or tikz
     else
       if _G.rime_toggled == false then
@@ -134,7 +150,7 @@ vim.api.nvim_create_autocmd("CursorMovedI", {
 })
 
 -- TODO: 让这段代码可以监控数学区域内的中文输入法是否打开，如果打开则打印到lualine ✅
--- TODO: 支持英文输入的状态栏检测
+-- TODO: 支持英文输入的状态栏检测(单buffer) 每次进入buffer  需要手动改变输入法✅
 
 if vim.g.neovide then
   vim.g.neovide_scale_factor = 1
