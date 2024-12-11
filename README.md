@@ -22,12 +22,11 @@
 
 * 利用 [autoformat](https://github.com/huacnlee/autocorrect) 插件实现中文标点自动格式化 (对 latex 与 markdown 开启，在应用端修正了上游 formatter 的添加空行问题)，利用 [jieba](https://github.com/fxsjy/jieba) 实现中文分词;
 
-
 * 集成 [copilotchat.nvim](https://github.com/CopilotC-Nvim/CopilotChat.nvim) 插件实现中文输入 (维护了一个 fork 以实现对其的兼容，在主分支中已经被弃用);
 
 ![中文输入法](./readme_fig/cn_input.png)
 
-* iTerm2 / kitty 终端下的 pdf 终端预览，基于 [tdf](https://github.com/itsjunetime/tdf) 阅读器与 GPU 加速，允许利用快捷键 `<localleader>lf` 实现精确到*字符*的正向查找，利用快捷键 `<localleader>li` 输入页码实现精确到*段落*的反向查找，利用 [Hammerspoon](https://www.hammerspoon.org/) 与 synctex 实现。纯终端配置的优点在于不需要打开 GUI，可以在终端下进行快速预览并且省电，在本配置下可以实现几乎与 GUI 一样的预览效果 (在反向查找方面还需要加强，并需要自适应 PDF 区域的支持，但总算是实现了常见的反向查找了!); 
+* iTerm2 / kitty 终端下的 pdf 终端预览，基于 [tdf](https://github.com/itsjunetime/tdf) 阅读器与 GPU 加速，允许利用快捷键 `<localleader>lf` 实现精确到*字符*的正向查找，利用快捷键 `<localleader>li` 输入页码实现精确到*段落*的反向查找，利用 [Hammerspoon](https://www.hammerspoon.org/) 与 synctex 实现。纯终端配置的优点在于不需要打开 GUI，可以在终端下进行快速预览并且省电，在本配置下可以实现几乎与 GUI 一样的预览效果。反向查找可以精确到 input 的源文件，例如，我在文件中 `input{}` 了一个文件，可以直接跳转到该文件的对应位置;
 
 ![tdf 下的 pdf 预览](./readme_fig/latex.png)
 
@@ -58,8 +57,6 @@
 * 优化 snack 中 dashboard 的 logo 变成自己画的图;
 
 * 更换所有配置文件至 LazyVim API，精简后续配置，增加运行速度，为日后迁移到 LazyVim v13.+做准备;
-
-* 优化 tdf+Hammerspoon 的 pdf 预览，实现对源文件*位置*的精确跳转，而不仅限于 main.tex 的*行列*跳转 (基本利用 Hammerspoon 实现，目前还不能实现光标级跳转，因为本人电脑的 synctex 有问题，不能解析正确的列数，因此跳转被硬编码成行首)✅;
 
 * 优化 telescope 的使用，增加词频搜索等功能; 
 
