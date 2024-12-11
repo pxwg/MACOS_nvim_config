@@ -1,4 +1,4 @@
-# 我的 neovim 配置 (基于 MacOS 和 kitty, 主要部分跨平台)
+# 我的 neovim 配置 (基于 MacOS 和 kitty, 主要功能跨平台)
 
 ![dashboard](./readme_fig/dashboard_new.png)
 
@@ -12,7 +12,7 @@
 
 ## ✈️  Features
 
-### 本配置关键： $\LaTeX$ 与中文输入法集成
+### 本配置关键： $\LaTeX$ 与中文输入法全终端集成
 
 * $\LaTeX$ 公式与 (一直在更新的) snippet 补全，python 与 Mathematica 计算快捷键集成，包含符号计算、符号展开等功能;
 
