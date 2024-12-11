@@ -11,6 +11,7 @@ local toggle_rime_and_set_flag = function()
 end
 local cmp = require("cmp")
 local tdf = require("util.tdf")
+local lspconfig = require("lspconfig")
 
 -- import quotes
 local quotes = {}
@@ -285,5 +286,44 @@ vim.api.nvim_create_autocmd("FileType", {
   pattern = "tex",
   callback = function()
     watch_file_changes()
+  end,
+})
+
+-- Function to attach LSP only in insert mode, which could boost the performance
+local function attach_in_insert_mode(client, bufnr)
+  vim.api.nvim_create_autocmd("InsertEnter", {
+    buffer = bufnr,
+    callback = function()
+      if not client.attached_buffers[bufnr] then
+        client.attached_buffers[bufnr] = true
+        client.config.on_attach(client, bufnr)
+      end
+    end,
+  })
+
+  vim.api.nvim_create_autocmd("InsertLeave", {
+    buffer = bufnr,
+    callback = function()
+      if client.attached_buffers[bufnr] then
+        client.attached_buffers[bufnr] = false
+        if client.config.on_detach then
+          client.config.on_detach(client, bufnr)
+        end
+      end
+    end,
+  })
+end
+
+lspconfig.rime_ls.setup({
+  on_attach = attach_in_insert_mode,
+  on_detach = function(client, bufnr)
+    -- Default on_detach function
+  end,
+})
+
+lspconfig.texlab.setup({
+  on_attach = attach_in_insert_mode,
+  on_detach = function(client, bufnr)
+    -- Default on_detach function
   end,
 })
