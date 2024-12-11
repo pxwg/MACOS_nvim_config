@@ -1,5 +1,26 @@
 local M = {}
 
+function M.get_largest_pdf_in_current_dir()
+  local current_dir = vim.fn.expand("%:p:h")
+  local pdf_files = vim.fn.globpath(current_dir, "*.pdf", false, true)
+  if #pdf_files == 0 then
+    return nil
+  end
+
+  local largest_pdf = pdf_files[1]
+  local largest_size = vim.fn.getfsize(largest_pdf)
+
+  for _, pdf in ipairs(pdf_files) do
+    local size = vim.fn.getfsize(pdf)
+    if size > largest_size then
+      largest_pdf = pdf
+      largest_size = size
+    end
+  end
+
+  return largest_pdf
+end
+
 local function getPages()
   local handle = io.popen('hs -c "print(getPages())"')
   if not handle then
@@ -27,8 +48,10 @@ function M.convert_tex_to_pdf()
   local tex_filename = vim.fn.expand("%:t")
   local tex_filepath = vim.fn.expand("%:p")
   local pdf_filename = tex_filename:gsub("%.tex$", ".pdf")
-  local pdf_filepath = [["]] .. vim.fn.expand("%:p:h") .. "/" .. pdf_filename .. [["]]
-  local pdf_pos = vim.fn.expand("%:p:h") .. "/" .. pdf_filename
+  -- local pdf_filepath = [["]] .. vim.fn.expand("%:p:h") .. "/" .. pdf_filename .. [["]]
+  local pdf_filepath = [["]] .. M.get_largest_pdf_in_current_dir() .. [["]]
+  local pdf_pos = M.get_largest_pdf_in_current_dir()
+  pdf_pos = tostring(pdf_pos)
 
   local line_number = vim.fn.line(".")
   local column_number = vim.fn.col(".")
@@ -157,27 +180,6 @@ end
 --   end
 -- end
 
-function M.get_largest_pdf_in_current_dir()
-  local current_dir = vim.fn.expand("%:p:h")
-  local pdf_files = vim.fn.globpath(current_dir, "*.pdf", false, true)
-  if #pdf_files == 0 then
-    return nil
-  end
-
-  local largest_pdf = pdf_files[1]
-  local largest_size = vim.fn.getfsize(largest_pdf)
-
-  for _, pdf in ipairs(pdf_files) do
-    local size = vim.fn.getfsize(pdf)
-    if size > largest_size then
-      largest_pdf = pdf
-      largest_size = size
-    end
-  end
-
-  return largest_pdf
-end
-
 function M.synctex_inverse(pdf_file)
   local page_number = tonumber(getPages())
 
@@ -197,9 +199,8 @@ function M.synctex_inverse(pdf_file)
   end
 
   -- Get the current file path and pdf file path
-  -- local pdf_filename = vim.fn.expand("%:t"):gsub("%.tex$", ".pdf")
   local pdf_filepath = M.get_largest_pdf_in_current_dir()
-  print("pdf_filename:", pdf_filepath)
+  -- print("pdf_filename:", pdf_filepath)
 
   -- Construct the synctex edit command
   local synctex_command = string.format("synctex edit -o %s:%s:%s:%s", page_number, x, y, pdf_filepath)
