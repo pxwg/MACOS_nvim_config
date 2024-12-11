@@ -1,5 +1,26 @@
 local M = {}
 
+function M.get_largest_pdf_in_current_dir()
+  local current_dir = vim.fn.expand("%:p:h")
+  local pdf_files = vim.fn.globpath(current_dir, "*.pdf", false, true)
+  if #pdf_files == 0 then
+    return nil
+  end
+
+  local largest_pdf = pdf_files[1]
+  local largest_size = vim.fn.getfsize(largest_pdf)
+
+  for _, pdf in ipairs(pdf_files) do
+    local size = vim.fn.getfsize(pdf)
+    if size > largest_size then
+      largest_pdf = pdf
+      largest_size = size
+    end
+  end
+
+  return largest_pdf
+end
+
 local function getPages()
   local handle = io.popen('hs -c "print(getPages())"')
   if not handle then
@@ -27,8 +48,10 @@ function M.convert_tex_to_pdf()
   local tex_filename = vim.fn.expand("%:t")
   local tex_filepath = vim.fn.expand("%:p")
   local pdf_filename = tex_filename:gsub("%.tex$", ".pdf")
-  local pdf_filepath = [["]] .. vim.fn.expand("%:p:h") .. "/" .. pdf_filename .. [["]]
-  local pdf_pos = vim.fn.expand("%:p:h") .. "/" .. pdf_filename
+  -- local pdf_filepath = [["]] .. vim.fn.expand("%:p:h") .. "/" .. pdf_filename .. [["]]
+  local pdf_filepath = [["]] .. M.get_largest_pdf_in_current_dir() .. [["]]
+  local pdf_pos = M.get_largest_pdf_in_current_dir()
+  pdf_pos = tostring(pdf_pos)
 
   local line_number = vim.fn.line(".")
   local column_number = vim.fn.col(".")
@@ -88,53 +111,139 @@ function M.synctex_forward()
 end
 
 -- TODO: need to consider the inverse searching which could trigger to the source file (via synctex 'input')
-function M.synctex_inverse()
-  local page_number = getPages()
-  page_number = tonumber(page_number)
+-- function M.synctex_inverse()
+--   local page_number = getPages()
+--   page_number = tonumber(page_number)
+--
+--   -- Read x and y from /tmp/nvim_hammerspoon_latex.txt
+--   local file = io.open("/tmp/nvim_hammerspoon_latex.txt", "r")
+--   local x, y
+--   if file then
+--     x = file:read("*line")
+--     y = file:read("*line")
+--     file:close()
+--   else
+--     print("Failed to open /tmp/nvim_hammerspoon_latex.txt")
+--     return
+--   end
+--
+--   -- Check if x and y are not nil
+--   if not x or not y then
+--     print("x or y is nil")
+--     return
+--   end
+--
+--   -- Get the current file path and pdf file path
+--   local pdf_filename = vim.fn.expand("%:t"):gsub("%.tex$", ".pdf")
+--   local pdf_filepath = vim.fn.expand("%:p:h") .. "/" .. pdf_filename
+--   -- Construct the synctex edit command
+--   local synctex_command = string.format("synctex edit -o %s:%s:%s:%s", page_number, x, y, pdf_filepath)
+--
+--   -- Execute the command and get the result
+--   local handle = io.popen(synctex_command)
+--   local result = nil
+--   if handle then
+--     result = handle:read("*a")
+--     handle:close()
+--   end
+--   local line = result:match("Line:(%d+)")
+--   local column = result:match("Column:(%-?%d+)")
+--   local input_line = result:match("(Input:.-)\n")
+--
+--   if input_line then
+--     -- 提取文件路径
+--     local input = input_line:match("Input:(.*)")
+--     -- 检查文件后缀是否为 .tex
+--     if input:match("%.tex$") then
+--       _G.input = input
+--     else
+--       _G.input = nil
+--       print("input = nil")
+--     end
+--   else
+--     print("Failed to extract Input line from result")
+--   end
+--
+--   -- Convert the result to a number and jump to the line
+--   local line_number = tonumber(line)
+--   local column_number = tonumber(column)
+--   -- print("column_number:", column_number)
+--   if line_number and column_number then
+--     if _G.input == nil then
+--       vim.fn.cursor(line_number, 1)
+--     else
+--       vim.api.nvim_command("edit" .. _G.input)
+--       vim.fn.cursor(line_number, 1)
+--     end
+--   else
+--     print("Failed to get line number from synctex edit command")
+--   end
+-- end
+
+function M.synctex_inverse(pdf_file)
+  local page_number = tonumber(getPages())
 
   -- Read x and y from /tmp/nvim_hammerspoon_latex.txt
   local file = io.open("/tmp/nvim_hammerspoon_latex.txt", "r")
-  local x, y
-  if file then
-    x = file:read("*line")
-    y = file:read("*line")
-    file:close()
-  else
+  if not file then
     print("Failed to open /tmp/nvim_hammerspoon_latex.txt")
     return
   end
 
-  -- Check if x and y are not nil
+  local x, y = file:read("*line"), file:read("*line")
+  file:close()
+
   if not x or not y then
     print("x or y is nil")
     return
   end
 
   -- Get the current file path and pdf file path
-  local pdf_filename = vim.fn.expand("%:t"):gsub("%.tex$", ".pdf")
-  local pdf_filepath = vim.fn.expand("%:p:h") .. "/" .. pdf_filename
+  local pdf_filepath = M.get_largest_pdf_in_current_dir()
+  -- print("pdf_filename:", pdf_filepath)
+
   -- Construct the synctex edit command
   local synctex_command = string.format("synctex edit -o %s:%s:%s:%s", page_number, x, y, pdf_filepath)
 
   -- Execute the command and get the result
   local handle = io.popen(synctex_command)
-  local result = nil
-  if handle then
-    result = handle:read("*a")
-    handle:close()
+  if not handle then
+    print("Failed to execute synctex command")
+    return
   end
+
+  local result = handle:read("*a")
+  handle:close()
+
   local line = result:match("Line:(%d+)")
   local column = result:match("Column:(%-?%d+)")
+  local input_line = result:match("(Input:.-)\n")
+
+  if not input_line then
+    print("Failed to extract Input line from result")
+    return
+  end
+
+  -- 提取文件路径
+  local input = input_line:match("Input:(.*)")
+  -- 检查文件后缀是否为 .tex
+  if not input:match("%.tex$") then
+    print("input = nil")
+    return
+  end
 
   -- Convert the result to a number and jump to the line
   local line_number = tonumber(line)
   local column_number = tonumber(column)
-  -- print("column_number:", column_number)
-  if line_number and column_number then
-    vim.fn.cursor(line_number, 1)
-  else
+
+  if not line_number or not column_number then
     print("Failed to get line number from synctex edit command")
+    return
   end
+
+  -- Open the input file and jump to the specific line and column
+  vim.api.nvim_command("edit " .. input)
+  vim.fn.cursor(line_number, column_number > 0 and column_number or 1)
 end
 
 return M
