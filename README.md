@@ -1,4 +1,4 @@
-# 我的 neovim 配置 (基于 MacOS 和 kitty, 主要部分跨平台)
+# 我的 neovim 配置 (基于 MacOS 和 kitty, 主要功能跨平台)
 
 ![dashboard](./readme_fig/dashboard_new.png)
 
@@ -12,7 +12,7 @@
 
 ## ✈️  Features
 
-### 本配置关键： $\LaTeX$ 与中文输入法集成
+### 本配置关键： $\LaTeX$ 与中文输入法全终端集成
 
 * $\LaTeX$ 公式与 (一直在更新的) snippet 补全，python 与 Mathematica 计算快捷键集成，包含符号计算、符号展开等功能;
 
@@ -87,7 +87,7 @@ git clone https://github.com/pxwg/MACOS_nvim_config.git ~/.config/nvim
 ```
 打开 neovim 即可自动安装插件，需要进行版本管理的插件已经在 lazylock 中锁定，避免冲突;
 
-* MacOS & kitty，除了依赖 Hammerspoon 的终端 PDF 阅读器双向查找与部分性能检测 UI 外，其余功能均可在其他平台使用;
+* MacOS & kitty (你当然也可以用 iTerm，但是请自行修改双向查找对应的代码)，除了依赖 Hammerspoon 的终端 PDF 阅读器双向查找与部分性能检测 UI 外，其余功能均可在其他平台使用;
 
 * neovim v0.9.5+，LazyVim v13.0- (目前没有改变所有 api 以适应 Breaking Update 的癖好，虽然期中考试考完了但也没有这么多时间，因此 LazyVim 被锁定在 v12.44.1, LazyVim 不需要下载，因为本配置文件会自行 boostrap 它);
 
