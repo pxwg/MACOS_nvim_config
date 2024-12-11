@@ -134,6 +134,7 @@ vim.api.nvim_create_autocmd("CursorMovedI", {
 })
 
 -- TODO: 让这段代码可以监控数学区域内的中文输入法是否打开，如果打开则打印到lualine ✅
+-- TODO: 支持英文输入的状态栏检测
 
 if vim.g.neovide then
   vim.g.neovide_scale_factor = 1

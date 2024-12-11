@@ -24,9 +24,11 @@
 
 * 利用 [autoformat](https://github.com/huacnlee/autocorrect) 插件实现中文标点自动格式化 (对 latex 与 markdown 开启，在应用端修正了上游 formatter 的添加空行问题)，利用 [jieba](https://github.com/fxsjy/jieba) 实现中文分词;
 
+* 配备环境检测输入法状态栏，如果输入法自动切换功能失效，则会在正常输入环境中现实 error，提醒用户切换输入法，其他状态栏包括`text` 环境与`math` 环境，对应正常输入与公式 / 表格/ 图片输入两类模式，基于[treesitter](https://github.com/nvim-treesitter/nvim-treesitter) 实现 (目前处于实验阶段，暂未支持英语输入状态栏显示，可能需要重写一些配置);
+
 ![中文输入法](./readme_fig/cn_input.png)
 
-* iTerm2/kitty 终端下的 pdf 终端预览，基于 [tdf](https://github.com/itsjunetime/tdf) 阅读器与 GPU 加速，允许利用快捷键 `<localleader>lf` 实现精确到*字符*的正向查找，利用快捷键 `<localleader>li` 输入页码实现精确到*段落*的反向查找，利用 [Hammerspoon](https://www.hammerspoon.org/) 与 synctex 实现。纯终端配置的优点在于不需要打开 GUI，可以在终端下进行快速预览并且省电，在本配置下可以实现几乎与 GUI 一样的预览效果 (在反向查找方面还需要加强，并需要自适应 PDF 区域的支持，但总算是实现了常见的反向查找了!); 
+* iTerm2 / kitty 终端下的 pdf 终端预览，基于 [tdf](https://github.com/itsjunetime/tdf) 阅读器与 GPU 加速，允许利用快捷键 `<localleader>lf` 实现精确到*字符*的正向查找，利用快捷键 `<localleader>li` 输入页码实现精确到*段落*的反向查找，利用 [Hammerspoon](https://www.hammerspoon.org/) 与 synctex 实现。纯终端配置的优点在于不需要打开 GUI，可以在终端下进行快速预览并且省电，在本配置下可以实现几乎与 GUI 一样的预览效果 (在反向查找方面还需要加强，并需要自适应 PDF 区域的支持，但总算是实现了常见的反向查找了!); 
 
 ![tdf 下的 pdf 预览](./readme_fig/latex.png)
 
