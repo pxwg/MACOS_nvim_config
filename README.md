@@ -1,4 +1,4 @@
-# 我的 neovim 配置 (基于 MacOS 和 iTerm2)
+# 我的 neovim 配置 (基于 MacOS 和 kitty, 主要部分跨平台)
 
 ![dashboard](./readme_fig/dashboard_new.png)
 
@@ -18,13 +18,12 @@
 
 >基本逻辑：使用's' 触发所有的补全功能，使用; 'p' 或'm' 触发指定的快捷键功能，利用'cal' 或'ex' 触发符号计算与符号展开功能
 
-* 基于 LSP [rime-ls](https://github.com/wlh320/rime-ls) 的中文输入法，自动匹配数学公式 (基于 [treesitter](https://github.com/nvim-treesitter/nvim-treesitter)) 转换为英文输入法，在英文输入环境中匹配数学公式并不切换输入法，实现中 - 英 - $\LaTeX$ 的完全集成
-
-* 集成 [copilotchat.nvim](https://github.com/CopilotC-Nvim/CopilotChat.nvim) 插件实现中文输入 (维护了一个 fork 以实现对其的兼容)
+* 基于 LSP [rime-ls](https://github.com/wlh320/rime-ls) 的中文输入法，自动匹配数学公式 (基于 [treesitter](https://github.com/nvim-treesitter/nvim-treesitter)) 转换为英文输入法，在英文输入环境中匹配数学公式并不切换输入法，实现中 - 英 - $\LaTeX$ 的完全集成，并通过合理的配置优化文件编辑速度 (具体而言，只在 insert 模式进行 lsp 触发，最大限度保持了浏览文件过程中的跳转速度);
 
 * 利用 [autoformat](https://github.com/huacnlee/autocorrect) 插件实现中文标点自动格式化 (对 latex 与 markdown 开启，在应用端修正了上游 formatter 的添加空行问题)，利用 [jieba](https://github.com/fxsjy/jieba) 实现中文分词;
 
-* 配备环境检测输入法状态栏，如果输入法自动切换功能失效，则会在正常输入环境中现实 error，提醒用户切换输入法，其他状态栏包括`text` 环境与`math` 环境，对应正常输入与公式 / 表格/ 图片输入两类模式，基于[treesitter](https://github.com/nvim-treesitter/nvim-treesitter) 实现 (目前处于实验阶段，暂未支持英语输入状态栏显示，可能需要重写一些配置);
+
+* 集成 [copilotchat.nvim](https://github.com/CopilotC-Nvim/CopilotChat.nvim) 插件实现中文输入 (维护了一个 fork 以实现对其的兼容，在主分支中已经被弃用);
 
 ![中文输入法](./readme_fig/cn_input.png)
 
@@ -42,29 +41,31 @@
 
 * [snacks](https://github.com/folke/snacks.nvim) Dashboard 的 logo 是我和女朋友的互称，即猫猫狗狗。目前选自 [ASCII 狗狗图](https://www.asciiart.eu/animals/dogs) 与 [ASCII](https://www.asciiart.eu/animals/cats)，以后想要转换成自己画的图;
 
+* 配备环境检测输入法状态栏，如果输入法自动切换功能失效，则会在正常输入环境中现实 error，提醒用户切换输入法，其他状态栏包括 `text` 环境与 `math` 环境，对应正常输入与公式 / 表格/ 图片输入两类模式，基于[treesitter](https://github.com/nvim-treesitter/nvim-treesitter) 与一些 `if` 判断实现 ;
+
 * lualine 中的分隔符号是可爱的小猫󰄛 和小狗󰩃 !
 
 * 因为过往老 MacBook Pro 的黑暗三小时 VSCode 续航支持，我对 **续航** 具有较高的要求。鉴于整体需要使用 GPU 加速，不可避免会压缩 M3 MacBook Pro 的续航时间，因此我配置了一个电池电量监控，用 `pmset` 读取电池电量与剩余时间体现在 Dashboard 与 [lualine](https://github.com/nvim-lualine/lualine.nvim) 中，当我使用 kitty 终端时续航可以达到 12 小时以上，比较令人满意;
 
+<div style="text-align: center;">
+<img src="./readme_fig/lualine.png" alt="lualine" width="300"/>
+</div>
+
 ## 🤔 TODO
 
-* fork 并为本配置改写 [tdf](https://github.com/itsjunetime/tdf) , 实现鼠标点击的 pdf 位置读取，并使用 synctex 实现精确到*段落*的反向搜索 (本任务为长线作战，并不期待短期内实现，因为学习 rust 本身足够困难，作为物理系学生并没有多少时间)。因此一个替代方案是提交 issue，但我并不确定是否会因此在主分支上得到解决方案;
-
-* 自行维护 [copilotchat.nvim](https://github.com/CopilotC-Nvim/CopilotChat.nvim) 的 fork 以实现高版本对 nvim-cmp 的兼容 ✅;
-
-* 优化 rime-ls 的加载行为，不在开机时触发，而是在特定文件类型中触发 (说真的，我目前还不会) ✅ (部分，暂时不再尝试更进一步操作，因为这会拖慢 tex 文件的加载速度);
+* fork 并为本配置改写 [tdf](https://github.com/itsjunetime/tdf) , 实现鼠标点击的 pdf 位置读取，并使用 synctex 实现精确到*段落*的反向搜索 (本任务为长线作战，并不期待短期内实现，因为学习 rust 本身足够困难，作为物理系学生并没有多少时间)。因此一个替代方案是提交 issue，但我并不确定是否会因此在主分支上得到解决方案 (目前通过 Hammerspoon 利用模拟鼠标交互的方式暂时解决，满足基本需求✅);
 
 * 优化 snack 中 dashboard 的 logo 变成自己画的图;
 
 * 更换所有配置文件至 LazyVim API，精简后续配置，增加运行速度，为日后迁移到 LazyVim v13.+做准备;
 
-* 更换所有配置至组合 kitty+macOS，实现更快更省电的性能展现 (iTerm2 有时候会卡，并且在打开 GPU 加速的时候会导致电池电量下降速度加快) (目前已经可以实现基本使用，~除了 pdf 预览~) ✅;
-
-* 优化 tdf+Hammerspoon 的 pdf 预览，实现对源文件*位置*的精确跳转，而不仅限于 main.tex 的*行列*跳转 (目前还不能实现光标级跳转，因为本人电脑的 synctex 有问题，不能解析正确的列数，因此跳转被硬编码成行首);
+* 优化 tdf+Hammerspoon 的 pdf 预览，实现对源文件*位置*的精确跳转，而不仅限于 main.tex 的*行列*跳转 (基本利用 Hammerspoon 实现，目前还不能实现光标级跳转，因为本人电脑的 synctex 有问题，不能解析正确的列数，因此跳转被硬编码成行首)✅;
 
 * 优化 telescope 的使用，增加词频搜索等功能; 
 
 * 集成终端浏览器调用，实现 readme 自由;
+
+* 集成 `numpy` 插件进行 $\LaTeX$ 数值计算;
 
 * 增加 boostrapping 脚本，实现自动利用 Homebrew 安装依赖。
 
@@ -86,7 +87,7 @@ git clone https://github.com/pxwg/MACOS_nvim_config.git ~/.config/nvim
 ```
 打开 neovim 即可自动安装插件，需要进行版本管理的插件已经在 lazylock 中锁定，避免冲突;
 
-* MacOS & iTerm2 (目前没有跨平台方案) 😢 ，正在迁移到 kitty;
+* MacOS & kitty，除了依赖 Hammerspoon 的终端 PDF 阅读器双向查找与部分性能检测 UI 外，其余功能均可在其他平台使用;
 
 * neovim v0.9.5+，LazyVim v13.0- (目前没有改变所有 api 以适应 Breaking Update 的癖好，虽然期中考试考完了但也没有这么多时间，因此 LazyVim 被锁定在 v12.44.1, LazyVim 不需要下载，因为本配置文件会自行 boostrap 它);
 
