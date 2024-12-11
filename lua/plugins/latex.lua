@@ -1,6 +1,8 @@
 return {
   {
     "ryleelyman/latex.nvim",
+    lazy = true,
+    priority = 100,
     opts = {
       conceals = {
         add = {

@@ -50,6 +50,36 @@ A language server for librime
     end)
   end
 
+  -- Function to attach LSP only in insert mode, which could boost the performance
+  local function attach_in_insert_mode(client, bufnr)
+    vim.api.nvim_create_autocmd("InsertEnter", {
+      buffer = bufnr,
+      callback = function()
+        if not client.attached_buffers[bufnr] then
+          client.attached_buffers[bufnr] = true
+          client.config.on_attach(client, bufnr)
+        end
+      end,
+    })
+
+    vim.api.nvim_create_autocmd("InsertLeave", {
+      buffer = bufnr,
+      callback = function()
+        if client.attached_buffers[bufnr] then
+          client.attached_buffers[bufnr] = false
+          client.config.on_detach(client, bufnr)
+        end
+      end,
+    })
+  end
+
+  lspconfig.rime_ls.setup({
+    on_attach = attach_in_insert_mode,
+  })
+  lspconfig.texlab.setup({
+    on_attach = attach_in_insert_mode,
+  })
+
   -- nvim-cmp supports additional completion capabilities, so broadcast that to servers
   local capabilities = vim.lsp.protocol.make_client_capabilities()
   capabilities = require("cmp_nvim_lsp").default_capabilities(capabilities)
