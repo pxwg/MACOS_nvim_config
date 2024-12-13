@@ -11,6 +11,7 @@ local toggle_rime_and_set_flag = function()
 end
 local cmp = require("cmp")
 local tdf = require("util.tdf")
+local lspconfig = require("lspconfig")
 
 -- import quotes
 local quotes = {}

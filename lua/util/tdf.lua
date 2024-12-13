@@ -78,7 +78,8 @@ function M.synctex_forward()
   local tex_filename = vim.fn.expand("%:t")
   local tex_filepath = vim.fn.expand("%:p")
   local pdf_filename = tex_filename:gsub("%.tex$", ".pdf")
-  local pdf_filepath = vim.fn.expand("%:p:h") .. "/" .. pdf_filename
+  -- local pdf_filepath = vim.fn.expand("%:p:h") .. "/" .. pdf_filename
+  local pdf_filepath = M.get_largest_pdf_in_current_dir()
 
   local line_number = vim.fn.line(".")
   local column_number = vim.fn.col(".")
