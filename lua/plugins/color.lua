@@ -55,7 +55,7 @@ return {
         vimtex = false,
         mini = true,
       },
-      transparent = true,
+      groups = { all = { Normal = { bg = "NONE" }, NormalNC = { bg = "NONE" } } },
     },
   },
   specs = {
