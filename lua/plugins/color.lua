@@ -46,7 +46,7 @@ return {
     lazy = false,
     name = "nightfox",
     opts = {
-      terminal_colors = true,
+      terminal_colors = false,
       modules = {
         snacks = true,
         telescope = false,
