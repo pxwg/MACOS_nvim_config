@@ -94,17 +94,12 @@ end, { desc = "Harpoon Quick Menu" })
 local function save_and_delete_last_line()
   local ft = vim.bo.filetype
   if ft == "tex" or ft == "markdown" then
-    -- Save the current window view
-    local view = vim.fn.winsaveview()
-    -- Join the undo history to make the operation non-undoable
-    -- Delete the last line
-    vim.api.nvim_buf_set_lines(0, -2, -1, false, {})
-    -- Restore the original window view
-    vim.fn.winrestview(view)
-    -- Save the file again
+    -- 修复一些上游的问题: autoformat 插件会在最后一行多加一个空行，需要额外删除
     vim.cmd("w")
+    local view = vim.fn.winsaveview()
+    vim.api.nvim_buf_set_lines(0, -2, -1, false, {})
+    vim.fn.winrestview(view)
   else
-    -- Just save the file
     vim.cmd("w")
   end
 end
