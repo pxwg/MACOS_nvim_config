@@ -70,6 +70,7 @@ require("lazy").setup({
     version = false, -- always use the latest git commit
     -- version = "*", -- try installing the latest stable version for plugins that support semver
   },
+
   {
     "neovim/nvim-lspconfig",
     optional = true,
@@ -88,15 +89,12 @@ require("lazy").setup({
 vim.g.python3_host_prog = "/opt/homebrew/Caskroom/miniconda/base/bin/python3"
 
 vim.cmd([[
-        highlight Conceal guifg=#f5c2e7
         highlight Pmenu guibg=#191C28
         highlight! BorderBG guibg=NONE guifg=#b4befe
         highlight Normal guibg=#191C28
         highlight! NormalNC guibg=#191C28
-  highlight normalfloat guibg=none guifg=none
-  " highlight floatborder guibg=none
-    " highlight NormalFloat guibg=NONE
-    " highlight FloatBorder guibg=NONE
-]])
+        hi! link Conceal Normal
+        highlight normalfloat guibg=none guifg=none
+        highlight WinSeparator guibg=None guifg=#bac2de]])
 
 vim.o.pumblend = 0
