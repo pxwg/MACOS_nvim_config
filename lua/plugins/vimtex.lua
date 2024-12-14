@@ -43,13 +43,6 @@ let g:vimtex_compiler_latexmk = {
         \}
 ]])
 
-    vim.cmd([[
-augroup FoldTextHighlight
-    autocmd!
-    autocmd FileType tex highlight Folded guifg=#A0A0A0 guibg=#282828
-augroup END
-]])
-
     -- keymapping for forward search
     vim.keymap.set(
       "n",
