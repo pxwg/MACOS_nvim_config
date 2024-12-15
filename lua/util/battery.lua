@@ -16,7 +16,7 @@ M.get_battery_time = function()
       end
     end
   end
-  return "  "
+  return " "
 end
 
 M.get_battery_status = function()
