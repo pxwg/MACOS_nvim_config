@@ -67,6 +67,8 @@ return {
           { icon = " ", key = "s", desc = "Restore Session", section = "session" },
           { icon = " ", key = "x", desc = "Lazy Extras", action = ":LazyExtras" },
           { icon = "󰒲 ", key = "l", desc = "Lazy", action = ":Lazy" },
+          { icon = "󰸌 ", key = "d", desc = "Colorscheme", action = ":Telescope colorscheme" },
+          { icon = " ", key = "h", desc = "Help", action = ":Telescope help_tags" },
           { icon = " ", key = "q", desc = "Quit", action = ":qa" },
         },
       },
