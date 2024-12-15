@@ -16,7 +16,9 @@ return {
     config = function()
       require("gruvbox").setup({
         transparent_mode = true,
-        vimtex = false,
+        overrides = {
+          PmenuSel = { bg = "#0e3631", fg = "#fbf1c7", italic = true },
+        },
       })
     end,
   },
