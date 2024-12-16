@@ -31,12 +31,12 @@ return {
   s(
     { trig = "td", wordTrig = false, snippetType = "autosnippet" },
     { t("_{"), i(1), t("}"), i(0) },
-    { condition = tex.in_mathzone }
+    { condition = tex.in_latex }
   ),
   s(
     { trig = "tp", wordTrig = false, snippetType = "autosnippet" },
     { t("^{"), i(1, "2"), t("}"), i(0) },
-    { condition = tex.in_mathzone }
+    { condition = tex.in_latex }
   ),
 
   --自动下标
@@ -50,7 +50,7 @@ return {
         return snip.captures[2]
       end),
     }),
-    { condition = tex.in_mathzone }
+    { condition = tex.in_latex }
   ),
   s(
     { trig = "([%a%)%]%}])_(%d)(%d)", regTrig = true, wordTrig = false, snippetType = "autosnippet" },
@@ -65,7 +65,7 @@ return {
         return snip.captures[3]
       end),
     }),
-    { condition = tex.in_mathzone }
+    { condition = tex.in_latex }
   ),
   s(
     { trig = "(%a)(%a)%2", regTrig = true, wordTrig = true, snippetType = "autosnippet", priority = 100 },
@@ -77,7 +77,7 @@ return {
         return snip.captures[2]
       end),
     }),
-    { condition = tex.in_mathzone }
+    { condition = tex.in_latex }
   ),
   s(
     { trig = "([%a%)%]%}])_(%a)(%a)%3", regTrig = true, wordTrig = false, snippetType = "autosnippet", priority = 2000 },
@@ -92,7 +92,7 @@ return {
         return snip.captures[3]
       end),
     }),
-    { condition = tex.in_mathzone }
+    { condition = tex.in_latex }
   ),
 
   s(
@@ -102,7 +102,7 @@ return {
       i(2),
       i(0),
     }),
-    { condition = tex.in_mathzone }
+    { condition = tex.in_latex }
   ),
 
   s(
@@ -114,7 +114,7 @@ return {
       i(1),
       i(0),
     }),
-    { condition = tex.in_mathzone }
+    { condition = tex.in_latex }
   ),
   s(
     { trig = "(%a)/", regTrig = true, wordTrig = false, snippetType = "autosnippet", priority = 100 },
@@ -124,7 +124,7 @@ return {
       end),
       i(1),
     }),
-    { condition = tex.in_mathzone }
+    { condition = tex.in_latex }
   ),
   s( -- 带括号的分数
     { trig = "%((.+)%)/", regTrig = true, wordTrig = false, snippetType = "autosnippet" },
@@ -134,7 +134,7 @@ return {
       end),
       i(1),
     }),
-    { condition = tex.in_mathzone }
+    { condition = tex.in_latex }
   ),
   s(
     { trig = "(\\%a+)/", regTrig = true, wordTrig = false, snippetType = "autosnippet", priority = 2000 },
@@ -144,7 +144,7 @@ return {
       end),
       i(1),
     }),
-    { condition = tex.in_mathzone }
+    { condition = tex.in_latex }
   ),
   s(
     { trig = "(\\%a+%{%a+%})/", regTrig = true, wordTrig = false, snippetType = "autosnippet", priority = 3000 },
@@ -154,7 +154,7 @@ return {
       end),
       i(1),
     }),
-    { condition = tex.in_mathzone }
+    { condition = tex.in_latex }
   ),
   s(
     { trig = "\\%)(%a)", regTrig = true, wordTrig = false, snippetType = "autosnippet", priority = 2000 },
@@ -171,7 +171,7 @@ return {
       sn(nil, { t("\\lim "), i(1) }),
       sn(nil, { t("\\lim_{"), i(1, "x"), t(" \\to "), i(2, "\\infty"), t("} "), i(0) }),
     }),
-    { condition = tex.in_mathzone }
+    { condition = tex.in_latex }
   ),
   s(
     { trig = "sum", snippetType = "autosnippet" },
@@ -180,7 +180,7 @@ return {
       sn(nil, { t("\\sum_{"), i(1), t("} ") }),
       sn(nil, { t("\\sum "), i(1) }),
     }),
-    { condition = tex.in_mathzone }
+    { condition = tex.in_latex }
   ),
   s(
     { trig = "prod", snippetType = "autosnippet" },
@@ -189,7 +189,7 @@ return {
       sn(nil, { t("\\prod_{"), i(1), t("} ") }),
       sn(nil, { t("\\prod "), i(1) }),
     }),
-    { condition = tex.in_mathzone }
+    { condition = tex.in_latex }
   ),
 
   s(
@@ -198,7 +198,7 @@ return {
       i(1),
       i(0),
     }),
-    { condition = tex.in_mathzone }
+    { condition = tex.in_latex }
   ),
   s(
     { trig = "buu", regTrig = true, wordTrig = false, snippetType = "autosnippet", priority = 2000 },
@@ -206,7 +206,7 @@ return {
       i(1),
       i(0),
     }),
-    { condition = tex.in_mathzone }
+    { condition = tex.in_latex }
   ),
   s(
     { trig = "dint", regTrig = true, wordTrig = false, snippetType = "autosnippet", priority = 1500 },
@@ -231,7 +231,7 @@ return {
         })
       ),
     }),
-    { condition = tex.in_mathzone }
+    { condition = tex.in_latex }
   ),
   s(
     { trig = "bdint", regTrig = true, wordTrig = false, snippetType = "autosnippet", priority = 2000 },
@@ -256,6 +256,6 @@ return {
         })
       ),
     }),
-    { condition = tex.in_mathzone }
+    { condition = tex.in_latex }
   ),
 }

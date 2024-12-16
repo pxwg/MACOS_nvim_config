@@ -24,7 +24,7 @@ return {
     fmta("pcal <> pcal", {
       i(0),
     }),
-    { condition = tex.in_mathzone }
+    { condition = tex.in_latex }
   ),
 
   s(
@@ -32,7 +32,7 @@ return {
     fmta("pcal <> pcal", {
       d(1, get_visual),
     }),
-    { condition = tex.in_mathzone }
+    { condition = tex.in_latex }
   ),
 
   -- This one works for now
@@ -42,7 +42,7 @@ return {
     fmta("ecal <> ecal", {
       d(1, get_visual),
     }),
-    { condition = tex.in_mathzone }
+    { condition = tex.in_latex }
   ),
   s(
     { trig = "pcal", wordTrig = false, snippetType = "autosnippet", priority = 3000 },
@@ -66,7 +66,7 @@ return {
         })
       ),
     }),
-    { condition = tex.in_mathzone }
+    { condition = tex.in_latex }
   ),
 
   s( -- This one evaluates anything inside the simpy block
@@ -319,7 +319,7 @@ print(output)
     fmta("pexpand <> pexpand", {
       i(1),
     }),
-    { condition = tex.in_mathzone }
+    { condition = tex.in_latex }
   ),
   s( -- This one evaluates anything inside the simpy block
     { trig = "pexpand.*pexpands", regTrig = true, desc = "expand block evaluator", snippetType = "autosnippet" },

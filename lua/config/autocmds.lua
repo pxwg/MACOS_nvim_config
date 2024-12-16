@@ -145,9 +145,34 @@ local function switch_rime_math()
   end
 end
 
+local function switch_rime_math_md()
+  if vim.bo.filetype == "markdown" then
+    -- in the mathzone or table or tikz and rime is active, disable rime
+    if tex.in_latex() and rime_ls_active == true then
+      if _G.rime_toggled == true then
+        require("lsp.rime_2").toggle_rime()
+        _G.rime_toggled = false
+      end
+      -- in the text but rime is not active(by hand), do nothing
+    elseif _G.rime_ls_active == false then
+      -- in the text but rime is active(by hand ), thus the configuration is for mathzone or table or tikz
+    else
+      if _G.rime_toggled == false then
+        require("lsp.rime_2").toggle_rime()
+        _G.rime_toggled = true
+      end
+    end
+  end
+end
+
 vim.api.nvim_create_autocmd("CursorMovedI", {
   pattern = "*",
   callback = switch_rime_math,
+})
+
+vim.api.nvim_create_autocmd("CursorMovedI", {
+  pattern = "*",
+  callback = switch_rime_math_md,
 })
 
 -- TODO: 让这段代码可以监控数学区域内的中文输入法是否打开，如果打开则打印到lualine ✅
@@ -286,5 +311,13 @@ vim.api.nvim_create_autocmd("FileType", {
   pattern = "tex",
   callback = function()
     watch_file_changes()
+  end,
+})
+
+-- Disable autoformat for lua files
+vim.api.nvim_create_autocmd({ "FileType" }, {
+  pattern = { "tex" },
+  callback = function()
+    vim.b.autoformat = false
   end,
 })
