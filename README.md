@@ -18,7 +18,7 @@
 
 >基本逻辑：使用's' 触发所有的补全功能，使用; 'p' 或'm' 触发指定的快捷键功能，利用'cal' 或'ex' 触发符号计算与符号展开功能
 
-* 基于 LSP [rime-ls](https://github.com/wlh320/rime-ls) 的中文输入法，自动匹配数学公式 (基于 [treesitter](https://github.com/nvim-treesitter/nvim-treesitter)) 转换为英文输入法，在英文输入环境中匹配数学公式并不切换输入法，实现中 - 英 - $\LaTeX$ 的完全集成，并通过合理的配置优化文件编辑速度 (具体而言，只在 insert 模式进行 lsp 触发)，最大限度保持了浏览文件过程中的跳转速度;
+* 基于 LSP [rime-ls](https://github.com/wlh320/rime-ls) 的中文输入法，自动匹配数学公式 (基于 [treesitter](https://github.com/nvim-treesitter/nvim-treesitter)) 转换为英文输入法，在英文输入环境中匹配数学公式并不切换输入法，实现中 - 英 - $\LaTeX$ 的完全集成，并通过合理的配置优化文件编辑速度 (具体而言，只在 insert 模式进行 lsp 触发)，最大限度保持了浏览文件过程中的跳转速度;利用相同原理配置了 markdown 的中文输入与 $\LaTeX$ 环境识别;
 
 * 利用 [autoformat](https://github.com/huacnlee/autocorrect) 插件实现中文标点自动格式化 (对 latex 与 markdown 开启，在应用端修正了上游 formatter 的添加空行问题)，利用 [jieba](https://github.com/fxsjy/jieba) 实现中文分词;
 
