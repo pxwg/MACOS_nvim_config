@@ -3,6 +3,7 @@
 -- Add any additional keymaps here
 
 local keymap = vim.keymap
+local cn = require("util.autocorrect")
 local Util = require("lazyvim.util")
 local tex = require("util.latex")
 -- local synctex = require("util.synctex_view")
@@ -93,16 +94,25 @@ end, { desc = "Harpoon Quick Menu" })
 
 local function save_and_delete_last_line()
   local ft = vim.bo.filetype
+  local cursor_pos = vim.fn.getpos(".") -- 记录光标位置
+
   if ft == "tex" or ft == "markdown" then
     -- 修复一些上游的问题: autoformat 插件会在最后一行多加一个空行，需要额外删除
+    vim.cmd("w")
     local view = vim.fn.winsaveview()
     vim.api.nvim_buf_set_lines(0, -2, -1, false, {})
     vim.fn.winrestview(view)
+    cn.autocorrect()
     vim.cmd("w")
   else
     vim.cmd("w")
   end
+  vim.fn.setpos(".", cursor_pos) -- 恢复光标位置
 end
+
+keymap.set("n", "<leader>ua", function()
+  cn.autocorrect()
+end, { noremap = true, silent = true, desc = "AutoCorrect For Chinese File" })
 
 -- Set up an autocmd to trigger the function after LSP completion
 --
