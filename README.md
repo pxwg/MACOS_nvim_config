@@ -30,7 +30,7 @@
 
 * iTerm2 / kitty 终端下的 pdf 终端预览，基于 [tdf](https://github.com/itsjunetime/tdf) 阅读器与 GPU 加速，允许利用快捷键 `<localleader>lf` 实现精确到*字符*的正向查找，利用快捷键 `<localleader>li` 输入页码实现精确到*段落*的反向查找，利用 [Hammerspoon](https://www.hammerspoon.org/) 与 synctex 实现。纯终端配置的优点在于不需要打开 GUI，可以在终端下进行快速预览并且省电，在本配置下可以实现几乎与 GUI 一样的预览效果。反向查找可以精确到 input 的源文件，例如，我在文件中 `input{}` 了一个文件，可以直接跳转到该文件的对应位置;
 
-![tdf 下的 pdf 预览](./readme_fig/latex.png)
+![tdf 下的 pdf 预览](./readme_fig/tdf_latex.png)
 
 * OS X 环境下的 [inkscape](https://inkscape.org/) 集成，实现 latex 文档编辑时的图片绘制快捷键调用，利用 AppleScript 实现。在存在 ipad 分屏的时候优先跳转到 ipad 分屏的 inkscape 窗口进行手绘，在不存在 ipad 分屏的时候跳转到 macos 的 inkscape 窗口进行绘图，利用 [SizeUp](https://www.irradiatedsoftware.com/sizeup/) 的 AppleScript 接口实现窗口管理;
 
@@ -57,6 +57,8 @@
 * fork 并为本配置改写 [tdf](https://github.com/itsjunetime/tdf) , 实现鼠标点击的 pdf 位置读取，并使用 synctex 实现精确到*段落*的反向搜索 (本任务为长线作战，并不期待短期内实现，因为学习 rust 本身足够困难，作为物理系学生并没有多少时间)。因此一个替代方案是提交 issue，但我并不确定是否会因此在主分支上得到解决方案 (目前通过 Hammerspoon 利用模拟鼠标交互的方式暂时解决，满足基本需求✅);
 
 * 优化 snack 中 dashboard 的 logo 变成自己画的图;
+
+* 实现 tdf 与 WezTerm 的终端预览联动，现在还需要依赖 kitty 展示 PDF，但 kitty 的颜值不是很高，还是更喜欢 WezTerm;
 
 * 更换所有配置文件至 LazyVim API，精简后续配置，增加运行速度，为日后迁移到 LazyVim v13.+做准备;
 
