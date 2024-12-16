@@ -58,6 +58,8 @@
 
 * 优化 snack 中 dashboard 的 logo 变成自己画的图;
 
+* 实现 tdf 与 WezTerm 的终端预览联动，现在还需要依赖 kitty 展示 PDF，但 kitty 的颜值不是很高，还是更喜欢 WezTerm;
+
 * 更换所有配置文件至 LazyVim API，精简后续配置，增加运行速度，为日后迁移到 LazyVim v13.+做准备;
 
 * 优化 telescope 的使用，增加词频搜索等功能; 
