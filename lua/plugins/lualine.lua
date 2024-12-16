@@ -18,6 +18,8 @@ end
 local function rime_toggle_word()
   if rime.check_rime_status() and rime_toggled then
     return "cn"
+  elseif rime_ls_active and tex.in_latex() then
+    return "math"
   elseif rime_ls_active then
     return tex.in_text() and "error" or "math"
   elseif not rime_toggled and not rime_ls_active then

@@ -19,9 +19,16 @@ local tex = require("util.latex")
 -- end
 return {
   s(
-    { trig = "snip", hidden = false, name = "test", dscr = "test2" },
+    { trig = "snip", snippetType = "autosnippet", hidden = false, name = "test", dscr = "test2" },
     fmta(
       [[s( { trig = "<>", snippetType = "autosnippet" }, fmta([[<><>,{<>}), { condition = tex.in_mathzone }),<>]],
+      { i(1), i(2), t("]]"), i(3), i(0) }
+    )
+  ),
+  s(
+    { trig = "msnip", snippetType = "autosnippet", hidden = false, name = "test", dscr = "test2", priority = 10 },
+    fmta(
+      [[s( { trig = "<>", snippetType = "autosnippet" }, fmta([[<><>,{<>}), { condition = tex.in_latex }),<>]],
       { i(1), i(2), t("]]"), i(3), i(0) }
     )
   ),

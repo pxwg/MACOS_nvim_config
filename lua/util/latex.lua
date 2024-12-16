@@ -78,18 +78,18 @@ M.in_table = function()
   return M.in_env("xltabular")
 end
 -- -- For markdown
--- M.in_latex = function()
---   local node = ts_utils.get_node_at_cursor()
---   while node do
---     if node:type() == "latex_block" then
---       print(true)
---       return true
---     end
---     node = node:parent()
---   end
---   print(false)
---   return false
--- end
+M.in_latex = function()
+  local captures = vim.treesitter.get_captures_at_cursor(0)
+  for _, capture in ipairs(captures) do
+    if capture == "markup.math" then
+      return "math"
+    end
+  end
+  return false
+end
+
+-- debugger
+_G.in_latex = M.in_latex
 
 M.clean = function()
   local current_dir = vim.fn.expand("%:p:h")
