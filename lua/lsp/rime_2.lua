@@ -14,7 +14,7 @@ function M.setup_rime()
     configs.rime_ls = {
       default_config = {
         name = "rime_ls",
-        cmd = { vim.fn.expand("~/Desktop/rime-ls-0.4.0/target/release/rime_ls") },
+        cmd = { vim.fn.expand("~/Desktop/rime-ls-0.4.0/target/release/rime_ls") }, -- your path to rime-ls
         filetypes = rime_ls_filetypes,
         single_file_support = true,
       },
