@@ -59,6 +59,12 @@ return {
           d(1, get_visual),
         })
       ),
+      sn(
+        nil,
+        fmta("ncal <> ncal", {
+          d(1, get_visual),
+        })
+      ),
     }),
     { condition = tex.in_mathzone }
   ),
@@ -353,6 +359,51 @@ print(output)
         },
         on_exit = function(j)
           result = j:result()
+        end,
+      }):sync()
+
+      return sn(nil, t(result))
+    end)
+  ),
+  s( -- This one evaluates anything inside the numpy block
+    { trig = "ncal.*ncals", regTrig = true, desc = "numpy block evaluator", snippetType = "autosnippet" },
+    d(1, function(_, parent)
+      -- Gets the part of the block we actually want, and replaces spaces
+      -- at the beginning and at the end
+      local to_eval = string.gsub(parent.trigger, "^ncal(.*)ncals", "%1")
+      to_eval = string.gsub(to_eval, "^%s+(.*)%s+$", "%1")
+      to_eval = string.gsub(to_eval, "\\mathrm{i}", "i")
+      to_eval = string.gsub(to_eval, "\\left", "")
+      to_eval = string.gsub(to_eval, "\\right", "")
+
+      local Job = require("plenary.job")
+
+      local numpy_script = string.format(
+        [[
+import numpy as np
+from sympy import symbols, simplify
+from latex2sympy2 import latex2sympy
+
+origin = r'%s'
+sympy_expr = latex2sympy(origin)
+numeric_expr = sympy_expr.evalf()
+output = origin + ' = ' + str(numeric_expr)
+print(output)
+      ]],
+        to_eval
+      )
+
+      numpy_script = string.gsub(numpy_script, "^[\t%s]+", "")
+      local result = ""
+
+      Job:new({
+        command = "python3",
+        args = {
+          "-c",
+          numpy_script,
+        },
+        on_exit = function(j)
+          result = table.concat(j:result(), "\n")
         end,
       }):sync()
 
