@@ -36,7 +36,12 @@
 
 * 将 rime_ls 与 [copilotchat.nvim](https://github.com/CopilotC-Nvim/CopilotChat.nvim) 插件集成实现中文输入 (维护了一个 fork 以实现对其的兼容，在主分支中这个集成已经被弃用);
 
-* 仿照 [curor](https://www.cursor.com/) 的设计，实现 copilotchat.nvim 的代码片段在所需 buffer 中直接替换;
+* 仿照 [curor](https://www.cursor.com/) 的设计，实现 copilotchat.nvim 的代码片段在所需 buffer 中直接替换，目前还集成了代码块快速跳转功能，比如说这一个代码块
+```python
+print("hello world")
+# 这是一个代码块
+```
+直接输入快捷键 `<space>ag` 就可以跳转到这个代码块并选择。这个操作的设计是为了和 copilotchat.nvim 配合使用，可以实现代码块的快速选取，并利用快捷键 `<space>ai` 或 `<space>aI`快速补全到正文文本之中，这两个快捷键的区别在于一个插入到正文所选文本之后不会返回 copilotchat.nvim 的 buffer，另一个会返回;
 
 * 为了集成上述七扭八歪配置做出了一系列反人类举动，通过配置加载序列目前在 M3 MacBook Pro 上的启动速度稳定在 45ms 左右;
 
@@ -62,13 +67,13 @@
 
 * 优化 snack 中 dashboard 的 logo 变成自己画的图;
 
-* 实现 tdf 与 WezTerm 的终端预览联动，现在还需要依赖 kitty 展示 PDF，但 kitty 的颜值不是很高，还是更喜欢 WezTerm;
+* 加入浮动终端，实现 CopilotChat.nvim 的浮动窗口功能 (没错，类似 cursor)，目标是在浮动窗口输入指令，直接在 cursor 下方补全结果 (怎么看都像是大号版的 nvim-cmp, 区别在于它的阅读范围可以达到整个 buffer，而不是只有当前行);
 
-* 更换所有配置文件至 LazyVim API，精简后续配置，增加运行速度，为日后迁移到 LazyVim v13.+做准备;
+* 实现 tdf 与 WezTerm 的终端预览联动，现在还需要依赖 kitty 展示 PDF，但 kitty 的颜值不是很高，还是更喜欢 WezTerm;
 
 * 优化 telescope 的使用，增加词频搜索等功能; 
 
-* 集成终端浏览器调用，实现 readme 自由;
+* 集成终端浏览器调用，实现 readme 的全终端书写 (这个好无聊呀，暂时不想搞);
 
 * 增加 boostrapping 脚本，实现自动利用 Homebrew 安装依赖。
 
@@ -99,4 +104,3 @@ git clone https://github.com/pxwg/MACOS_nvim_config.git ~/.config/nvim
 * 利用类似 `install_name_tool -add_rpath /usr/local/lib /path/to/your/rime_ls` 的方式让 *rime_ls* 找到其依赖库; 
 
 * (可选) 在用户下新增文件~/quotes.txt，在其中添加你喜欢的格言，一行一条格言，将会在启动时随机输出。
-
