@@ -1,3 +1,4 @@
+-- 这段代码是为了定义一个硬编码n模式下q键关闭的浮动窗口，目标是实现在这个窗口内运行Copilot Chat 的输入，并且直接在cursor 后补全
 local function create_floating_window()
   -- 创建浮动窗口的配置
   local buf = vim.api.nvim_create_buf(false, true)
