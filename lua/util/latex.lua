@@ -88,9 +88,6 @@ M.in_latex = function()
   return false
 end
 
--- debugger
-_G.in_latex = M.in_latex
-
 M.clean = function()
   local current_dir = vim.fn.expand("%:p:h")
   local file_types = { "aux", "log", "out", "fls", "fdb_latexmk", "bcf", "run.xml", "toc", "DS_Store", "bak*", "dvi" }

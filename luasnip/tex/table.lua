@@ -247,7 +247,7 @@ return {
     condition = tex.in_table,
   }),
   s({
-    trig = "n(%d+)s",
+    trig = "n_(%d+)s",
     snippetType = "autosnippet",
     wordTrig = true,
     trigEngine = "pattern",

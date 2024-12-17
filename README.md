@@ -22,9 +22,7 @@
 
 * 基于 LSP [rime-ls](https://github.com/wlh320/rime-ls) 的中文输入法，自动匹配数学公式 (基于 [treesitter](https://github.com/nvim-treesitter/nvim-treesitter)) 转换为英文输入法，在英文输入环境中匹配数学公式并不切换输入法，实现中 - 英 - $\LaTeX$ 的完全集成，并通过合理的配置优化文件编辑速度 (具体而言，只在 insert 模式进行 lsp 触发)，最大限度保持了浏览文件过程中的跳转速度;利用相同原理配置了 markdown 的中文输入与 $\LaTeX$ 环境识别;
 
-* 利用 [autoformat](https://github.com/huacnlee/autocorrect) 插件实现中文标点自动格式化 (对 latex 与 markdown 开启，在应用端修正了上游 formatter 的添加空行问题)，利用 [jieba](https://github.com/fxsjy/jieba) 实现中文分词;
-
-* 集成 [copilotchat.nvim](https://github.com/CopilotC-Nvim/CopilotChat.nvim) 插件实现中文输入 (维护了一个 fork 以实现对其的兼容，在主分支中已经被弃用);
+* 利用 [autoformat](https://github.com/huacnlee/autocorrect) 实现中文标点自动格式化 (对 latex 与 markdown 开启，在应用端修正了上游 formatter 的添加空行问题)，利用 [jieba](https://github.com/fxsjy/jieba) 实现中文分词，部分使用 hack 的方式解决了上游以及自动格式化的一些问题;
 
 ![中文输入法](./readme_fig/cn_input.png)
 
@@ -33,6 +31,12 @@
 ![tdf 下的 pdf 预览](./readme_fig/tdf_latex.png)
 
 * OS X 环境下的 [inkscape](https://inkscape.org/) 集成，实现 latex 文档编辑时的图片绘制快捷键调用，利用 AppleScript 实现。在存在 ipad 分屏的时候优先跳转到 ipad 分屏的 inkscape 窗口进行手绘，在不存在 ipad 分屏的时候跳转到 macos 的 inkscape 窗口进行绘图，利用 [SizeUp](https://www.irradiatedsoftware.com/sizeup/) 的 AppleScript 接口实现窗口管理;
+
+### ai 辅助编辑
+
+* 将 rime_ls 与 [copilotchat.nvim](https://github.com/CopilotC-Nvim/CopilotChat.nvim) 插件集成实现中文输入 (维护了一个 fork 以实现对其的兼容，在主分支中这个集成已经被弃用);
+
+* 仿照 [curor](https://www.cursor.com/) 的设计，实现 copilotchat.nvim 的代码片段在所需 buffer 中直接替换;
 
 * 为了集成上述七扭八歪配置做出了一系列反人类举动，通过配置加载序列目前在 M3 MacBook Pro 上的启动速度稳定在 45ms 左右;
 
