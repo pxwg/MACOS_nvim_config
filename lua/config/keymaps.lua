@@ -8,6 +8,7 @@ local Util = require("lazyvim.util")
 local tex = require("util.latex")
 -- local synctex = require("util.synctex_view")
 local synctex = require("util.tdf")
+local replace = require("util.replace")
 
 vim.api.nvim_create_autocmd("CursorMovedI", {
   pattern = "*",
@@ -222,3 +223,8 @@ keymap.set("n", "<C-l>", function()
     vim.cmd("wincmd l")
   end
 end, { noremap = true, silent = true, desc = "Move to right window" })
+
+-- 类似cursor 的功能，将ai 的代码段直接应用于所选文本
+keymap.set("v", "<leader>ai", function()
+  replace.replace_content()
+end, { noremap = true, silent = true, desc = "Replace selected text with AI code" })
