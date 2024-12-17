@@ -11,8 +11,18 @@ function M.autocorrect()
 
   -- 执行终端命令并获取输出
   local handle = io.popen(cmd)
+  if handle == nil then
+    vim.notify("Failed to execute autocorrect command", vim.log.levels.WARN)
+    return
+  end
+
   local result = handle:read("*a")
   handle:close()
+
+  if result == nil then
+    vim.notify("Failed to read autocorrect command output", vim.log.levels.WARN)
+    return
+  end
 
   local lines = vim.fn.split(result, "\n")
   table.insert(lines, "") --
