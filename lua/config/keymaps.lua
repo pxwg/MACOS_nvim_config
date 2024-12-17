@@ -9,6 +9,7 @@ local tex = require("util.latex")
 -- local synctex = require("util.synctex_view")
 local synctex = require("util.tdf")
 local replace = require("util.replace")
+local choose = require("util.markdown_code")
 
 vim.api.nvim_create_autocmd("CursorMovedI", {
   pattern = "*",
@@ -193,7 +194,6 @@ keymap.set(
 -- BufferLinePick
 keymap.set("n", "<leader>bg", ":BufferLinePick<CR>", { noremap = true, silent = true })
 
-local keymap = vim.keymap
 local rime_active = false
 
 -- 定义一个函数来切换 Rime 输入法
@@ -246,3 +246,8 @@ end, { noremap = true, silent = true, desc = "Replace selected text with AI code
 keymap.set("v", "<leader>ai", function()
   replace.replace_content()
 end, { noremap = true, silent = true, desc = "Replace selected text with AI code" })
+
+-- 直接跳转到copilot 的代码段并选择
+keymap.set("n", "<leader>ag", function()
+  choose.select_markdown_code_block()
+end, { noremap = true, silent = true, desc = "Jump and select AI code" })
