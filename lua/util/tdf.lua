@@ -1,5 +1,7 @@
 local M = {}
 
+-- HACK: 用于对终端pdf 查看器 tdf 的双向查找
+
 function M.get_largest_pdf_in_current_dir()
   local current_dir = vim.fn.expand("%:p:h")
   local pdf_files = vim.fn.globpath(current_dir, "*.pdf", false, true)
