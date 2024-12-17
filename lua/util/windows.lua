@@ -49,7 +49,7 @@ local function create_floating_window()
   vim.api.nvim_buf_set_lines(buf, 0, -1, false, { "Hello, World!", "This is a floating window with a border." })
 
   -- 设置浮动窗口的文件类型为 markdown
-  vim.api.nvim_buf_set_option(buf, "filetype", "markdown")
+  vim.bo[buf].filetype = "markdown"
 
   -- 设置按键映射来关闭窗口和 buffer
   vim.api.nvim_buf_set_keymap(buf, "n", "q", "<Cmd>bd!<CR><Cmd>bd!<CR>", { noremap = true, silent = true })
