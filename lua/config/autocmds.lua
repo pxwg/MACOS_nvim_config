@@ -287,7 +287,7 @@ local uv = vim.loop
 local handle
 
 local function watch_file_changes()
-  local file_path = "/tmp/nvim_hammerspoon_latex.txt"
+  local watch_file_path = "/tmp/nvim_hammerspoon_latex.txt"
 
   local function on_change(err, filename, status)
     if err then
@@ -301,7 +301,7 @@ local function watch_file_changes()
 
   if not handle then
     handle = uv.new_fs_event()
-    uv.fs_event_start(handle, file_path, {}, vim.schedule_wrap(on_change))
+    uv.fs_event_start(handle, watch_file_path, {}, vim.schedule_wrap(on_change))
   end
 end
 
@@ -314,9 +314,19 @@ vim.api.nvim_create_autocmd("FileType", {
   end,
 })
 
--- Disable autoformat for lua files
+-- Disable autoformat for latex files
 vim.api.nvim_create_autocmd({ "FileType" }, {
   pattern = { "tex" },
+  callback = function()
+    vim.b.autoformat = false
+    vim.diagnostic.enable(false)
+  end,
+})
+
+-- Disable autoformat for markdown files
+
+vim.api.nvim_create_autocmd({ "FileType" }, {
+  pattern = { "markdown" },
   callback = function()
     vim.b.autoformat = false
     vim.diagnostic.enable(false)
