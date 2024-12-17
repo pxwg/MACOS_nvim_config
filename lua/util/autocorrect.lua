@@ -1,5 +1,7 @@
 local M = {}
 
+-- HACK: 用于对终端 autocorrect 的修正
+
 function M.autocorrect()
   -- 获取当前 buffer 的绝对路径
   local path = vim.fn.expand("%:p")
