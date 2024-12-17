@@ -128,7 +128,7 @@ vim.api.nvim_create_autocmd({ "BufEnter" }, {
 local function switch_rime_math()
   if vim.bo.filetype == "tex" then
     -- in the mathzone or table or tikz and rime is active, disable rime
-    if (tex.in_mathzone() == true or tex.in_table() == true or tex.in_tikz() == true) and rime_ls_active == true then
+    if (tex.in_mathzone() == true or tex.in_tikz() == true) and rime_ls_active == true then
       if _G.rime_toggled == true then
         require("lsp.rime_2").toggle_rime()
         _G.rime_toggled = false
