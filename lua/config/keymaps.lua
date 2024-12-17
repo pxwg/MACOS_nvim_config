@@ -193,11 +193,25 @@ keymap.set(
 -- BufferLinePick
 keymap.set("n", "<leader>bg", ":BufferLinePick<CR>", { noremap = true, silent = true })
 
+local keymap = vim.keymap
+local rime_active = false
+
+-- 定义一个函数来切换 Rime 输入法
+local function toggle_rime()
+  if rime_active then
+    vim.cmd("LspStop rime_ls")
+  else
+    vim.cmd("LspStart rime_ls")
+  end
+  rime_active = not rime_active
+end
+
+-- 设置快捷键
 keymap.set(
   { "n", "i" },
   "<localleader>f",
-  "<ESC>:LspStart rime_ls<CR>",
-  { noremap = true, silent = true, desc = "start rime-ls" }
+  toggle_rime,
+  { noremap = true, silent = true, desc = "Toggle Rime input method" }
 )
 
 local function is_rightmost_window()
@@ -225,6 +239,10 @@ keymap.set("n", "<C-l>", function()
 end, { noremap = true, silent = true, desc = "Move to right window" })
 
 -- 类似cursor 的功能，将ai 的代码段直接应用于所选文本
+keymap.set("v", "<leader>aI", function()
+  replace.replace_content_and_back()
+end, { noremap = true, silent = true, desc = "Replace selected text with AI code and Back" })
+
 keymap.set("v", "<leader>ai", function()
   replace.replace_content()
 end, { noremap = true, silent = true, desc = "Replace selected text with AI code" })
