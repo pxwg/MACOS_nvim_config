@@ -43,6 +43,7 @@ return {
           texMathZone = { fg = "#5ef1ff" },
           texMathSymbol = { fg = "#5ef1ff" },
           texMathOper = { fg = "#ff5ef1" },
+          FloatBorder = { fg = "#bac2de" },
         },
       },
     },
