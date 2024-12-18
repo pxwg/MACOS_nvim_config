@@ -239,12 +239,12 @@ keymap.set("n", "<C-l>", function()
 end, { noremap = true, silent = true, desc = "Move to right window" })
 
 -- 类似cursor 的功能，将ai 的代码段直接应用于所选文本
-keymap.set("v", "<leader>aI", function()
+keymap.set("n", "<leader>aI", function()
   choose.select_markdown_code_block()
   replace.replace_content_and_back()
 end, { noremap = true, silent = true, desc = "Replace selected text with AI code and Back" })
 
-keymap.set("v", "<leader>ai", function()
+keymap.set("n", "<leader>ai", function()
   choose.select_markdown_code_block()
   replace.replace_content()
 end, { noremap = true, silent = true, desc = "Replace selected text with AI code" })
