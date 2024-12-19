@@ -6,13 +6,5 @@ return {
     "kkharji/sqlite.lua",
     "stevearc/dressing.nvim",
   },
-  opts = {
-    picker = {
-      man_pages = { -- enable man_pages picker. Disable cwd and use frecency sorting.
-        disable = false,
-        use_cwd = false,
-        sorting = "frecency",
-      },
-    },
-  },
+  opts = {},
 }

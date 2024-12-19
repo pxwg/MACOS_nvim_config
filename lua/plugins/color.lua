@@ -29,8 +29,9 @@ return {
     name = "cyberdream",
     opts = {
       transparent = true,
+      borderless_telescope = false,
       extensions = {
-        telescope = false,
+        -- telescope = false,
         notify = false,
         noice = true,
         mini = true,
@@ -43,7 +44,8 @@ return {
           texMathZone = { fg = "#5ef1ff" },
           texMathSymbol = { fg = "#5ef1ff" },
           texMathOper = { fg = "#ff5ef1" },
-          FloatBorder = { fg = "#bac2de" },
+          FloatBorder = { fg = "#a080ff" },
+          TelescopeBorder = { fg = "#a080ff" },
         },
       },
     },
