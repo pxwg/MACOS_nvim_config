@@ -34,13 +34,13 @@ return {
         ---@type snacks.dashboard.Item[]
         keys = {
           {
-            action = ":lua Snacks.dashboard.pick('files')",
+            action = ":lua require('telescope.builtin').find_files()",
             desc = "Find file",
             icon = " ",
             key = "f",
           },
           {
-            action = ":lua Snacks.dashboard.pick('oldfiles')",
+            action = ":Telescope oldfiles",
             desc = "Recent files",
             icon = " ",
             key = "r",
@@ -57,18 +57,41 @@ return {
             desc = "New Draft",
             action = ":lua require('util.new_drafts').create_and_open_new_draft()",
           },
-          { icon = " ", key = "g", desc = "Find Text", action = ":lua Snacks.dashboard.pick('live_grep')" },
+          {
+            icon = " ",
+            key = "g",
+            desc = "Find Text",
+            action = function()
+              require("telescope.builtin").live_grep()
+            end,
+          },
           {
             icon = " ",
             key = "c",
             desc = "Config",
-            action = ":lua Snacks.dashboard.pick('files', {cwd = vim.fn.stdpath('config')})",
+            action = function()
+              require("telescope.builtin").find_files({ cwd = "~/.config/nvim" })
+            end,
           },
           { icon = " ", key = "s", desc = "Restore Session", section = "session" },
           { icon = " ", key = "x", desc = "Lazy Extras", action = ":LazyExtras" },
           { icon = "󰒲 ", key = "l", desc = "Lazy", action = ":Lazy" },
-          { icon = "󰸌 ", key = "d", desc = "Colorscheme", action = ":Telescope colorscheme" },
-          { icon = " ", key = "h", desc = "Help", action = ":Telescope help_tags" },
+          {
+            icon = "󰸌 ",
+            key = "d",
+            desc = "Colorscheme",
+            action = function()
+              require("telescope.builtin").colorscheme()
+            end,
+          },
+          {
+            icon = " ",
+            key = "h",
+            desc = "Help",
+            action = function()
+              require("telescope.builtin").help_tags()
+            end,
+          },
           { icon = " ", key = "q", desc = "Quit", action = ":qa" },
         },
       },

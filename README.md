@@ -73,8 +73,6 @@ print("hello world")
 
 * 实现 tdf 与 WezTerm 的终端预览联动，现在还需要依赖 kitty 展示 PDF，但 kitty 的颜值不是很高，还是更喜欢 WezTerm;
 
-* 优化 telescope 的使用，增加词频搜索等功能; 
-
 * 集成终端浏览器调用，实现 readme 的全终端书写 (这个好无聊呀，暂时不想搞);
 
 * 增加 boostrapping 脚本，实现自动利用 Homebrew 安装依赖。
