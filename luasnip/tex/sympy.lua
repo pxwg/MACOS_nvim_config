@@ -45,7 +45,7 @@ return {
     { condition = tex.in_mathzone }
   ),
   s(
-    { trig = "pcal", wordTrig = false, snippetType = "autosnippet", priority = 2000 },
+    { trig = "pcal", wordTrig = false, snippetType = "autosnippet", priority = 5000 },
     c(1, {
       sn(
         nil,
