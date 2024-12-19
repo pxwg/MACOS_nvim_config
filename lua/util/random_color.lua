@@ -9,7 +9,7 @@ local function get_names()
     if name then
       table.insert(names, name)
       if name == "cyberdream" then
-        for i = 1, 2 do
+        for i = 1, 3 do
           table.insert(names, name)
         end
       end
