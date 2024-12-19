@@ -1,5 +1,6 @@
 return {
   "nvim-telescope/telescope-frecency.nvim",
+  enabled = false,
   lazy = true,
   auto_validate = true,
   ignore_patterns = { "*/.git", "*/.git/*", "*/.DS_Store" },
