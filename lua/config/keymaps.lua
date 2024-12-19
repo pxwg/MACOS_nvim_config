@@ -239,20 +239,20 @@ keymap.set("n", "<C-l>", function()
 end, { noremap = true, silent = true, desc = "Move to right window" })
 
 -- 类似cursor 的功能，将ai 的代码段直接应用于所选文本
-keymap.set("n", "<leader>aR", function()
+keymap.set("n", "<leader>aI", function()
   choose.select_markdown_code_block()
   replace.replace_content_and_back()
 end, { noremap = true, silent = true, desc = "Replace selected text with AI code and back" })
 
-keymap.set("n", "<leader>ar", function()
+keymap.set("n", "<leader>ai", function()
   choose.select_markdown_code_block()
   replace.replace_content()
 end, { noremap = true, silent = true, desc = "Replace selected text with AI code" })
 
-keymap.set("n", "<leader>ai", function()
+keymap.set("n", "<leader>an", function()
   choose.select_markdown_code_block()
   replace.insert_content()
-end, { noremap = true, silent = true, desc = "Insert AI code under the selected text" })
+end, { noremap = true, silent = true, desc = "Insert AI code to the new line" })
 
 -- 直接跳转到copilot 的代码段并选择
 keymap.set("n", "<leader>ag", function()
