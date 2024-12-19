@@ -180,7 +180,7 @@ vim.api.nvim_create_autocmd("CursorMovedI", {
 
 if vim.g.neovide then
   vim.g.neovide_scale_factor = 1
-  vim.o.guifont = "JetBrainsMono_Nerd_Font:h19"
+  vim.o.guifont = "JetBrainsMono_Nerd_Font:h19:Light"
   vim.g.neovide_fullscreen = true
   vim.g.neovide_refresh_rate = 144
   vim.g.neovide_transparency = 0.8

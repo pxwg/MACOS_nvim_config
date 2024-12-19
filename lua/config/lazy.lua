@@ -103,3 +103,5 @@ vim.o.pumblend = 0
 --     highlight! NormalNC guibg=#191C28
 --   ]])
 -- end
+
+require("util.listen_code_change")

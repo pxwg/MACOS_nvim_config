@@ -19,7 +19,7 @@ local tex = require("util.latex")
 -- end
 return {
   s(
-    { trig = "snip", snippetType = "autosnippet", hidden = false, name = "test", dscr = "test2" },
+    { trig = "nsnip", snippetType = "autosnippet", hidden = false, name = "test", dscr = "test2" },
     fmta(
       [[s( { trig = "<>", snippetType = "autosnippet" }, fmta([[<><>,{<>}), { condition = tex.in_mathzone }),<>]],
       { i(1), i(2), t("]]"), i(3), i(0) }

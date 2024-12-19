@@ -45,7 +45,7 @@ return {
     { condition = tex.in_mathzone }
   ),
   s(
-    { trig = "pcal", wordTrig = false, snippetType = "autosnippet", priority = 3000 },
+    { trig = "pcal", wordTrig = false, snippetType = "autosnippet", priority = 2000 },
     c(1, {
       sn(
         nil,
@@ -62,6 +62,12 @@ return {
       sn(
         nil,
         fmta("ncal <> ncal", {
+          d(1, get_visual),
+        })
+      ),
+      sn(
+        nil,
+        fmta("mcalt <> mcalt", {
           d(1, get_visual),
         })
       ),
