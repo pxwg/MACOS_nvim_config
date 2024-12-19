@@ -16,9 +16,9 @@
 
 ### 本配置关键： $\LaTeX$ 与中文输入法全终端集成
 
-* $\LaTeX$ 公式与 (一直在更新的) snippet 补全，python 与 Mathematica 计算快捷键集成，包含符号计算、数值计算、符号展开等功能;
+* $\LaTeX$ 公式与 (一直在更新的) snippet 补全，python 与 Mathematica 计算快捷键集成，包含符号计算、数值计算、符号展开等功能，部分功能集成到性能更好且兼容性更强的[sniprun](https://github.com/michaelb/sniprun) 插件中 (这个插件允许划词运行代码段，我不喜欢它 default 的配置，因此在本配置中修改了其 TUI);
 
->基本逻辑：使用's' 触发所有的补全功能，使用; 'p' 或'm' 触发指定的快捷键功能，利用'cal' 或'ex' 触发符号计算与符号展开功能
+>基本逻辑：使用's' 触发所有的补全功能，使用; 'p' 或'm' 触发指定的快捷键功能，利用'cal' 或'ex' 触发符号计算与符号展开功能，使用切换节点功能`<C-h>` 可以跳转不同的脚本！
 
 * 基于 LSP [rime-ls](https://github.com/wlh320/rime-ls) 的中文输入法，自动匹配数学公式 (基于 [treesitter](https://github.com/nvim-treesitter/nvim-treesitter)) 转换为英文输入法，在英文输入环境中匹配数学公式并不切换输入法，实现中 - 英 - $\LaTeX$ 的完全集成，并通过合理的配置优化文件编辑速度 (具体而言，只在 insert 模式进行 lsp 触发)，最大限度保持了浏览文件过程中的跳转速度;利用相同原理配置了 markdown 的中文输入与 $\LaTeX$ 环境识别;
 
@@ -41,7 +41,7 @@
 print("hello world")
 # 这是一个代码块
 ```
-直接输入快捷键 `<space>ag` 就可以跳转到这个代码块并选择。这个操作的设计是为了和 copilotchat.nvim 配合使用，可以实现代码块的快速选取，并利用快捷键 `<space>ai` 或 `<space>aI`快速补全到正文文本之中，这两个快捷键的区别在于一个插入到正文所选文本之后不会返回 copilotchat.nvim 的 buffer，另一个会返回;
+直接输入快捷键 `<leader>ag` 就可以跳转到这个代码块并选择。这个操作的设计是为了和 copilotchat.nvim 配合使用，可以实现代码块的快速选取，并利用快捷键 `<leader>ar` 或 `<leader>aR`快速补全到正文文本之中，这两个快捷键的区别在于一个插入到正文所选文本之后不会返回 copilotchat.nvim 的 buffer，另一个会返回;同时还添加了`<leader>ai`在所选文段以下插入代码块，用来适应告诉 GPT 你的函数，让他生成一个类似函数的工作情形;
 
 * 为了集成上述七扭八歪配置做出了一系列反人类举动，通过配置加载序列目前在 M3 MacBook Pro 上的启动速度稳定在 45ms 左右;
 
@@ -63,9 +63,11 @@ print("hello world")
 
 ## 🤔 TODO
 
-* fork 并为本配置改写 [tdf](https://github.com/itsjunetime/tdf) , 实现鼠标点击的 pdf 位置读取，并使用 synctex 实现精确到*段落*的反向搜索 (本任务为长线作战，并不期待短期内实现，因为学习 rust 本身足够困难，作为物理系学生并没有多少时间)。因此一个替代方案是提交 issue，但我并不确定是否会因此在主分支上得到解决方案 (目前通过 Hammerspoon 利用模拟鼠标交互的方式暂时解决，满足基本需求✅);
+* fork 并为本配置改写 [tdf](https://github.com/itsjunetime/tdf) , 实现鼠标点击的 pdf 位置读取，并使用 synctex 实现精确到*段落*的反向搜索 (本任务为长线作战，并不期待短期内实现，因为学习 rust 本身足够困难，作为物理系学生并没有多少时间)。因此一个替代方案是提交 issue，但我并不确定是否会因此在主分支上得到解决方案 (目前通过 Hammerspoon 利用模拟鼠标交互的 Hack 方式暂时解决，满足基本需求✅);
 
 * 优化 snack 中 dashboard 的 logo 变成自己画的图;
+
+* 充分利用浮动窗口特性，实现“草稿本”等功能;
 
 * 加入浮动终端，实现 CopilotChat.nvim 的浮动窗口功能 (没错，类似 cursor)，目标是在浮动窗口输入指令，直接在 cursor 下方补全结果 (怎么看都像是大号版的 nvim-cmp, 区别在于它的阅读范围可以达到整个 buffer，而不是只有当前行);
 
