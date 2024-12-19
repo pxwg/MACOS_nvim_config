@@ -8,7 +8,7 @@ local Util = require("lazyvim.util")
 local tex = require("util.latex")
 -- local synctex = require("util.synctex_view")
 local synctex = require("util.tdf")
-local replace = require("util.replace")
+local replace = require("util.replace_ai")
 local choose = require("util.markdown_code")
 
 vim.api.nvim_create_autocmd("CursorMovedI", {
@@ -239,17 +239,55 @@ keymap.set("n", "<C-l>", function()
 end, { noremap = true, silent = true, desc = "Move to right window" })
 
 -- 类似cursor 的功能，将ai 的代码段直接应用于所选文本
-keymap.set("n", "<leader>aI", function()
+keymap.set("n", "<leader>aR", function()
   choose.select_markdown_code_block()
   replace.replace_content_and_back()
-end, { noremap = true, silent = true, desc = "Replace selected text with AI code and Back" })
+end, { noremap = true, silent = true, desc = "Replace selected text with AI code and back" })
 
-keymap.set("n", "<leader>ai", function()
+keymap.set("n", "<leader>ar", function()
   choose.select_markdown_code_block()
   replace.replace_content()
 end, { noremap = true, silent = true, desc = "Replace selected text with AI code" })
+
+keymap.set("n", "<leader>ai", function()
+  choose.select_markdown_code_block()
+  replace.insert_content()
+end, { noremap = true, silent = true, desc = "Insert AI code under the selected text" })
 
 -- 直接跳转到copilot 的代码段并选择
 keymap.set("n", "<leader>ag", function()
   choose.select_markdown_code_block()
 end, { noremap = true, silent = true, desc = "Jump and select AI code" })
+
+-- sniprun  直接触发
+keymap.set({ "n" }, "<leader>cr", function()
+  local caret = vim.fn.winsaveview()
+  vim.cmd("%SnipRun")
+  vim.fn.winrestview(caret)
+end, { noremap = true, silent = true, desc = "Code run full" })
+
+keymap.set({ "v" }, "<leader>cr", function()
+  vim.cmd("SnipRun")
+end, { noremap = true, silent = true, desc = "Code run selected" })
+
+-- sync windows
+_G.is_windows_synced = false
+
+function ToggleSyncWindows()
+  if _G.is_windows_synced then
+    vim.cmd("windo set noscrollbind nocursorbind")
+    _G.is_windows_synced = false
+    print("Windows unsynced")
+  else
+    vim.cmd("windo set scrollbind cursorbind")
+    _G.is_windows_synced = true
+    print("Windows synced")
+  end
+end
+
+keymap.set(
+  "n",
+  "<leader>wS",
+  ":lua ToggleSyncWindows()<CR>",
+  { noremap = true, silent = true, desc = "Toggle Sync Windows" }
+)

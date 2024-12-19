@@ -11,7 +11,15 @@ local toggle_rime_and_set_flag = function()
 end
 local cmp = require("cmp")
 local tdf = require("util.tdf")
-local lspconfig = require("lspconfig")
+
+-- 定义一个命令来同步所有窗口的滚动和光标移动
+vim.api.nvim_create_user_command("SyncWindows", function()
+  vim.cmd("windo set scrollbind cursorbind")
+end, {})
+
+vim.api.nvim_create_user_command("SyncWindowsClear", function()
+  vim.cmd("windo set noscrollbind nocursorbind")
+end, {})
 
 -- import quotes
 local quotes = {}
