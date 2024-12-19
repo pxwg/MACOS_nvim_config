@@ -120,8 +120,8 @@ M.create_floating_window_with_size = function(input_width, input_height)
 
   -- 获取初始光标位置
   local initial_cursor_pos = vim.api.nvim_win_get_cursor(0)
-  local initial_cursor_row = initial_cursor_pos[1] + 1
-  local initial_cursor_col = initial_cursor_pos[2]
+  local initial_cursor_row = initial_cursor_pos[1]
+  local initial_cursor_col = initial_cursor_pos[2] + 9
 
   local function update_window_size()
     vim.schedule(function()
