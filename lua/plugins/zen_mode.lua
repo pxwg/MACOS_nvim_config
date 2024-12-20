@@ -14,7 +14,7 @@ return {
       },
     },
     gitsin = { enabled = true },
-    plugins = { wezterm = { enabled = true, font = "+1.5" } },
+    plugins = { wezterm = { enabled = true, font = "+1" } },
 
     vim.api.nvim_set_keymap(
       "n",

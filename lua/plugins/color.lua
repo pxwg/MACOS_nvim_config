@@ -8,6 +8,7 @@ return {
         snacks = true,
         vimtex = false,
       },
+      highlight_overrides = { all = { Conceal = { fg = "#f5c2e7" } } },
     },
   },
   {
