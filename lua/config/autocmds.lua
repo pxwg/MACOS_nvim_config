@@ -362,9 +362,22 @@ vim.api.nvim_create_autocmd("FileType", {
         'Needs["LSPServer`"];LSPServer`StartServer[]',
       },
       root_dir = root_dir,
+      handlers = {
+        ["textDocument/publishDiagnostics"] = vim.lsp.with(vim.lsp.diagnostic.on_publish_diagnostics, {
+          -- 只显示错误和警告
+          severity_sort = true,
+          underline = true,
+          virtual_text = {
+            severity_limit = "Warning",
+          },
+          signs = {
+            severity_limit = "Warning",
+          },
+        }),
+      },
     })
 
-    vim.b.autoformat = false
+    -- vim.b.autoformat = false
 
     vim.keymap.set("n", "[d", vim.diagnostic.goto_prev)
     vim.keymap.set("n", "]d", vim.diagnostic.goto_next)
@@ -375,6 +388,8 @@ vim.api.nvim_create_autocmd("FileType", {
     vim.keymap.set("n", "gr", vim.lsp.buf.references)
     -- This requires Telescope to be installed.
     vim.keymap.set("n", "<leader>d", ":Telescope lsp_document_symbols<CR>", { noremap = true, silent = true })
+
+    -- vim.notify("Wolfram LSP started", vim.log.levels.INFO, { title = "Wolfram LSP" })
 
     vim.lsp.buf_attach_client(0, client)
   end,
