@@ -46,6 +46,8 @@ return {
           texMathOper = { fg = "#ff5ef1" },
           FloatBorder = { fg = "#a080ff" },
           TelescopeBorder = { fg = "#a080ff" },
+          BorderBG = { fg = "#ff5ea0" },
+          WinSeparator = { fg = "#acacac" },
         },
       },
     },
