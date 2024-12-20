@@ -18,6 +18,7 @@ return {
         transparent_mode = true,
         overrides = {
           PmenuSel = { bg = "#0e3631", fg = "#fbf1c7", italic = true },
+          Conceal = { fg = "#d79921" },
         },
       })
     end,
@@ -27,6 +28,7 @@ return {
     "scottmckendry/cyberdream.nvim",
     lazy = false,
     name = "cyberdream",
+    -- enabled = false,
     opts = {
       transparent = true,
       borderless_telescope = false,
@@ -41,13 +43,22 @@ return {
         variant = "default", -- use "light" for the light variant. Also accepts "auto" to set dark or light colors based on the current value of `vim.o.background`
         saturation = 1,
         highlights = {
-          texMathZone = { fg = "#5ef1ff" },
-          texMathSymbol = { fg = "#5ef1ff" },
-          texMathOper = { fg = "#ff5ef1" },
+          texFileArg = { fg = "#ff5ea0" },
+          Special = { fg = "#5ef1ff" },
+          operator = { fg = "#ff5ea0" },
+          texMathSymbol = { fg = "#ff5ea0" },
+          texMathOper = { fg = "#5ef1ff" },
           FloatBorder = { fg = "#a080ff" },
           TelescopeBorder = { fg = "#a080ff" },
           BorderBG = { fg = "#ff5ea0" },
           WinSeparator = { fg = "#acacac" },
+          texCmdPackage = { fg = "#5eff6c" },
+          texCmdClass = { fg = "#5eff6c" },
+          texMathZone = { fg = "#5ef1ff" },
+          texMathCmd = { fg = "#5ef1ff" },
+          texCmdPart = { fg = "#ffbd5e" },
+          texMathDelim = { fg = "#ffbd5e" },
+          Conceal = { fg = "#5ef1ff" },
         },
       },
     },
@@ -66,7 +77,16 @@ return {
         vimtex = false,
         mini = true,
       },
-      groups = { all = { Normal = { bg = "NONE" }, NormalNC = { bg = "NONE" } } },
+      groups = {
+        all = {
+          Normal = { bg = "NONE" },
+          NormalNC = { bg = "NONE" },
+          Conceal = { fg = "#d3869b" },
+          BufferLineFill = { bg = "NONE" },
+          WinSeparator = { fg = "#bac2de" },
+          BorderBG = { fg = "#b4befe" },
+        },
+      },
     },
   },
   specs = {

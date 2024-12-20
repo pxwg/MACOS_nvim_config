@@ -1,0 +1,26 @@
+return {
+  "folke/zen-mode.nvim",
+  opts = {
+    window = {
+      width = 0.75,
+      options = {
+        signcolumn = "no", -- disable signcolumn
+        number = false, -- disable number column
+        relativenumber = false, -- disable relative numbers
+        -- cursorline = false, -- disable cursorline
+        -- cursorcolumn = false, -- disable cursor column
+        -- foldcolumn = "0", -- disable fold column
+        -- list = false, -- disable whitespace characters
+      },
+    },
+    gitsin = { enabled = true },
+    plugins = { wezterm = { enabled = true, font = "+1.5" } },
+
+    vim.api.nvim_set_keymap(
+      "n",
+      "<leader>z",
+      ":ZenMode<CR>",
+      { noremap = true, silent = true, desc = "Toggle Zen Mode" }
+    ),
+  },
+}

@@ -1,10 +1,18 @@
 return {
   {
     "ryleelyman/latex.nvim",
+    -- enabled = false,
     lazy = true,
     priority = 100,
     opts = {
       conceals = {
+        enabled = {
+          "greek",
+          "math",
+          "script",
+          "delim",
+          "font",
+        },
         add = {
           ["colon"] = ":",
           ["coloneqq"] = "≔",
@@ -41,14 +49,14 @@ return {
       },
       surrounds = { enabled = false },
     },
-    ft = "tex",
+    ft = { "markdown" },
   },
-
-  -- inverse serach for LaTeX
   {
-    "f3fora/nvim-texlabconfig",
-    config = true,
-    build = "go build",
-    ft = "tex",
+    "MeanderingProgrammer/render-markdown.nvim",
+    dependencies = { "nvim-treesitter/nvim-treesitter", "echasnovski/mini.nvim" },
+    opts = {
+      latex = { enabled = false },
+      win_options = { conceallevel = { rendered = 2 } },
+    },
   },
 }

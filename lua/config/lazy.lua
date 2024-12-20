@@ -9,6 +9,7 @@ vim.opt.rtp:prepend(vim.env.LAZY or lazypath)
 vim.o.timeoutlen = 50
 vim.o.ttimeout = true
 vim.o.ttimeoutlen = 10
+-- vim.o.scrolloff = 10
 
 local file_path = "/tmp/nvim_hammerspoon_latex.txt"
 local file = io.open(file_path, "r")
@@ -69,7 +70,6 @@ vim.g.python3_host_prog = "/opt/homebrew/Caskroom/miniconda/base/bin/python3"
 
 vim.cmd([[
         highlight! BorderBG guibg=NONE guifg=#b4befe
-        hi! link Conceal Normal
         highlight normalfloat guibg=none guifg=none
         highlight BufferLineFill guibg=none
         highlight WinSeparator guibg=None guifg=#bac2de]])

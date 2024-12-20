@@ -8,7 +8,7 @@ let g:tex_flavor='latex'
 let g:vimtex_view_method=''
 let g:vimtex_quickfix_mode=0
 let g:vimtex_fold_enabled=0
-" let g:tex_conceal='abdmg'
+let g:tex_conceal='abdmg'
 let g:vimtex_syntax_conceal = {
           \ 'accents': 1,
           \ 'ligatures': 1,
