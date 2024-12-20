@@ -9,7 +9,8 @@ return {
   config = function()
     require("sniprun").setup({
       borders = "rounded",
-      display = { "TempFloatingWindow", "LongTempFloatingWindow", "Api" },
+      display = { "Api" },
+      -- display = { "TempFloatingWindow", "LongTempFloatingWindow", "Api" },
       -- repl_enable = { "Mathematica_original" },
       interpreter_options = {
         Mathematica_original = {

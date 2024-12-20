@@ -81,10 +81,15 @@ end
 
 M.create_floating_window_with_size = function(input_width, input_height)
   local buf = vim.api.nvim_create_buf(false, true)
-  local border_buf = vim.api.nvim_create_buf(false, true)
 
-  local width = input_width
-  local height = input_height
+  local function size_check(in_width, in_height)
+    local out_width = in_width < 9 and 9 or in_width
+    local out_height = in_height < 1 and 1 or in_height
+    return { out_width, out_height }
+  end
+
+  local width = size_check(input_width, input_height)[1]
+  local height = size_check(input_width, input_height)[2]
 
   local win
   -- 获取初始光标位置
@@ -101,10 +106,13 @@ M.create_floating_window_with_size = function(input_width, input_height)
     col = initial_cursor_col,
     border = "rounded",
     title = " Result",
+    title_pos = "center",
   }
 
   -- 打开浮动窗口
   win = vim.api.nvim_open_win(buf, true, opts)
+
+  vim.api.nvim_buf_set_keymap(buf, "n", "q", "<Cmd>:q<CR>", { noremap = true, silent = true })
 
   return buf, win
 end

@@ -389,7 +389,7 @@ vim.api.nvim_create_autocmd("FileType", {
     -- This requires Telescope to be installed.
     vim.keymap.set("n", "<leader>d", ":Telescope lsp_document_symbols<CR>", { noremap = true, silent = true })
 
-    -- vim.notify("Wolfram LSP started", vim.log.levels.INFO, { title = "Wolfram LSP" })
+    vim.notify("Wolfram LSP started", vim.log.levels.INFO, { title = "Wolfram LSP" })
 
     vim.lsp.buf_attach_client(0, client)
   end,

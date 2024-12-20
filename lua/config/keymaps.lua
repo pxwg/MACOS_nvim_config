@@ -291,3 +291,8 @@ keymap.set(
   ":lua ToggleSyncWindows()<CR>",
   { noremap = true, silent = true, desc = "Toggle Sync Windows" }
 )
+
+-- mathematica calculation with float window, trigger when ft = md of tex
+keymap.set("n", "<C-m>", function()
+  require("util.windows").create_floating_window()
+end, { noremap = true, silent = true, desc = "Mathematica Calculation" })
