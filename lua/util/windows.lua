@@ -3,18 +3,24 @@ local M = {}
 M.create_floating_window = function()
   -- 创建浮动窗口的配置
   local buf = vim.api.nvim_create_buf(false, true)
-  local border_buf = vim.api.nvim_create_buf(false, true)
+  vim.api.nvim_buf_set_option(buf, "filetype", "mma")
 
   -- 初始窗口大小
-  local width = 1
-  local height = 1
+  local width = 15
+  local height = 2
 
-  local win, border_win
+  local win
 
   -- 获取初始光标位置
   local initial_cursor_pos = vim.api.nvim_win_get_cursor(0)
   local initial_cursor_row = initial_cursor_pos[1] + 1
   local initial_cursor_col = initial_cursor_pos[2]
+
+  local function size_check(input_width, input_height)
+    local out_width = input_width < 15 and 15 or input_width
+    local out_height = input_height < 2 and 2 or input_height
+    return { out_width, out_height }
+  end
 
   local function update_window_size()
     vim.schedule(function()
@@ -25,21 +31,10 @@ M.create_floating_window = function()
           max_line_length = #line
         end
       end
-      width = max_line_length
-      height = #lines
 
-      -- 更新边框内容
-      local border_lines = {}
-      for i = 1, height + 2 do
-        if i == 1 then
-          table.insert(border_lines, "╭" .. string.rep("─", width) .. "╮")
-        elseif i == height + 2 then
-          table.insert(border_lines, "╰" .. string.rep("─", width) .. "╯")
-        else
-          table.insert(border_lines, "│" .. string.rep(" ", width) .. "│")
-        end
-      end
-      vim.api.nvim_buf_set_lines(border_buf, 0, -1, false, border_lines)
+      local size = size_check(max_line_length, #lines)
+      width = size[1]
+      height = size[2]
 
       -- 更新窗口大小和位置
       vim.api.nvim_win_set_config(win, {
@@ -48,38 +43,13 @@ M.create_floating_window = function()
         width = width,
         height = height,
         row = initial_cursor_row,
-        col = initial_cursor_col + 1,
-      })
-      vim.api.nvim_win_set_config(border_win, {
-        style = "minimal",
-        relative = "editor",
-        width = width + 2,
-        height = height + 2,
-        row = initial_cursor_row - 1,
-        col = initial_cursor_col - 1,
+        col = initial_cursor_col,
+        border = "rounded",
+        title = "󰪚 Mathematica",
+        -- title_pos = "center",
       })
     end)
   end
-
-  local border_opts = {
-    style = "minimal",
-    relative = "editor",
-    width = width + 2,
-    height = height + 2,
-    row = initial_cursor_row - 1,
-    col = initial_cursor_col - 1,
-  }
-
-  -- 设置边框内容
-  local border_lines = {
-    "╭─╮",
-    "│ │",
-    "╰─╯",
-  }
-  vim.api.nvim_buf_set_lines(border_buf, 0, -1, false, border_lines)
-
-  -- 打开边框窗口
-  border_win = vim.api.nvim_open_win(border_buf, true, border_opts)
 
   local opts = {
     style = "minimal",
@@ -88,14 +58,16 @@ M.create_floating_window = function()
     height = height,
     row = initial_cursor_row,
     col = initial_cursor_col,
+    border = "rounded",
+    title = "󰪚 Mathematica",
+    -- title_pos = "center",
   }
 
   -- 打开浮动窗口
   win = vim.api.nvim_open_win(buf, true, opts)
 
   -- 设置按键映射来关闭窗口和 buffer
-  vim.api.nvim_buf_set_keymap(buf, "n", "q", "<Cmd>bd!<CR><Cmd>bd!<CR>", { noremap = true, silent = true })
-  vim.api.nvim_buf_set_keymap(border_buf, "n", "q", "<Cmd>bd!<CR><Cmd>bd!<CR>", { noremap = true, silent = true })
+  vim.api.nvim_buf_set_keymap(buf, "n", "q", "<Cmd>:q<CR>", { noremap = true, silent = true })
 
   -- 监听缓冲区变化
   vim.api.nvim_buf_attach(buf, false, {
