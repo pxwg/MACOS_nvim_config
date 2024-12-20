@@ -315,17 +315,18 @@ end
 
 -- 执行tdf.synctex_inverse()
 
-vim.api.nvim_create_autocmd("FileType", {
-  pattern = "tex",
-  callback = function()
-    watch_file_changes()
-  end,
-})
+-- vim.api.nvim_create_autocmd("FileType", {
+--   pattern = "tex",
+--   callback = function()
+--     watch_file_changes()
+--   end,
+-- })
 
 -- Disable autoformat for latex files
 vim.api.nvim_create_autocmd({ "FileType" }, {
   pattern = { "tex" },
   callback = function()
+    watch_file_changes()
     vim.b.autoformat = false
     vim.diagnostic.enable(false)
   end,
@@ -338,5 +339,43 @@ vim.api.nvim_create_autocmd({ "FileType" }, {
   callback = function()
     vim.b.autoformat = false
     vim.diagnostic.enable(false)
+  end,
+})
+
+-- mathematica snippets
+vim.api.nvim_create_autocmd("FileType", {
+  pattern = "mma",
+  callback = function()
+    local root_dir = vim.fs.dirname(vim.fs.find({ ".git" }, { upward = true })[1])
+
+    local client = vim.lsp.start({
+      name = "wolfram-lsp",
+      cmd = {
+        "/Applications/Wolfram.app/Contents/MacOS/WolframKernel",
+        "kernel",
+        "-noinit",
+        "-noprompt",
+        "-nopaclet",
+        "-noicon",
+        "-nostartuppaclets",
+        "-run",
+        'Needs["LSPServer`"];LSPServer`StartServer[]',
+      },
+      root_dir = root_dir,
+    })
+
+    vim.b.autoformat = false
+
+    vim.keymap.set("n", "[d", vim.diagnostic.goto_prev)
+    vim.keymap.set("n", "]d", vim.diagnostic.goto_next)
+    vim.keymap.set("n", "<leader>kd", vim.diagnostic.open_float)
+    vim.keymap.set("n", "<leader>kw", vim.diagnostic.setqflist)
+    vim.keymap.set("i", "<C-h>", vim.lsp.buf.signature_help)
+    vim.keymap.set("n", "K", vim.lsp.buf.hover)
+    vim.keymap.set("n", "gr", vim.lsp.buf.references)
+    -- This requires Telescope to be installed.
+    vim.keymap.set("n", "<leader>d", ":Telescope lsp_document_symbols<CR>", { noremap = true, silent = true })
+
+    vim.lsp.buf_attach_client(0, client)
   end,
 })

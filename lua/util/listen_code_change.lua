@@ -13,17 +13,17 @@ local api_listener_window = function(d)
   end
 
   if d.status == "ok" then
-    float.create_floating_window_with_size(input_width, input_height)
-    vim.api.nvim_buf_set_lines(0, 0, -1, false, lines)
+    -- float.create_floating_window_with_size(input_width, input_height)
+    -- vim.api.nvim_buf_set_lines(0, 0, -1, false, lines)
     _G.some_global_variable = false
     _G.result = d.message
   elseif d.status == "error" then
-    float.create_floating_window_with_size(input_width, input_height)
-    vim.api.nvim_buf_set_lines(0, 0, -1, false, lines)
+    -- float.create_floating_window_with_size(input_width, input_height)
+    -- vim.api.nvim_buf_set_lines(0, 0, -1, false, lines)
     _G.result = d.message
   else
-    float.create_floating_window_with_size(input_width, input_height)
-    vim.api.nvim_buf_set_lines(0, 0, -1, false, lines)
+    -- float.create_floating_window_with_size(input_width, input_height)
+    -- vim.api.nvim_buf_set_lines(0, 0, -1, false, lines)
     _G.result = d.message
   end
 end

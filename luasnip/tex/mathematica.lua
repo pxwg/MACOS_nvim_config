@@ -112,8 +112,8 @@ return {
       -- at the beginning and at the end
       _G.result = ""
       local to_eval = string.gsub(parent.trigger, "^mcalt(.*)mcalts", "%1")
-      -- local new = to_eval
       to_eval = string.gsub(to_eval, "^%s+(.*)%s+$", "%1")
+      local input = to_eval
 
       -- replace single backslashes with double backslashes
       to_eval = string.gsub(to_eval, "\\mathrm{d}", "d")
@@ -122,30 +122,13 @@ return {
 
       -- local job = require("plenary.job")
 
-      local sympy_script = string.format(
-
-        'a = FullSimplify[ToExpression["%s", TeXForm]]; b = TeXForm[a]; Print[" %s =" b]',
-
-        -- origin = re.sub(r'^\s+|\s+$', '', origin)
-        -- parsed = parse_expr(origin)
-        -- output = origin + parsed
-        -- print_latex(parsed)
-        to_eval,
-        to_eval
-      )
-      -- sympy_script = string.gsub(sympy_script, "^[\t%s]+", "")
-      -- local old = sympy_script
-
-      -- local result = ""
-      -- vim.wait(5000)
-      -- result = _G.result
-      -- local function remove_quotes_if_needed(str)
-      --   if str:match('^".*"$') then
-      --     return str:gsub('^"(.*)"$', "%1")
-      --   else
-      --     return old
-      --   end
-      -- end
+      local sympy_script =
+        string.format('a = FullSimplify[ToExpression["%s", TeXForm]]; b = TeXForm[a]; Print[ b]', to_eval)
+      -- string.format(
+      --   'a = FullSimplify[ToExpression["%s", TeXForm]]; b = TeXForm[a]; Print[" %s =" b]',
+      --   to_eval,
+      --   to_eval
+      -- )
 
       -- local result = execute_and_listen(sympy_script)
       local timeout = 5 -- 设置超时时间为5秒
@@ -161,20 +144,13 @@ return {
         })
       )
 
-      sa.run_string(
-        sympy_script,
-        "mathematica",
-        require("sniprun").setup({
-          display = { "Api" },
-        })
-      )
-
       while true do
         if result == init then
           result = _G.result
         elseif result ~= init then
           result = result:gsub('[*"]', ""):gsub("\\\\", "\\")
-          return sn(nil, { t(result) })
+          result = result:gsub("\n", " ") -- 去除换行符
+          return sn(nil, { t(input .. " = " .. result) })
         end
         if os.time() - start_time > timeout then
           return sn(nil, { t("Error: Operation timed out") })
