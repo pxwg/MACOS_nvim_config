@@ -16,9 +16,6 @@
 
 ### 本配置关键： $\LaTeX$ 与中文输入法全终端集成
 
-* $\LaTeX$ 公式与 (一直在更新的) snippet 补全，python 与 Mathematica 计算快捷键集成，包含符号计算、数值计算、符号展开等功能，部分功能集成到性能更好且兼容性更强的[sniprun](https://github.com/michaelb/sniprun) 插件中 (这个插件允许划词运行代码段，我不喜欢它 default 的配置，因此在本配置中修改了其 TUI);
-
->基本逻辑：使用's' 触发所有的补全功能，使用; 'p' 或'm' 触发指定的快捷键功能，利用'cal' 或'ex' 触发符号计算与符号展开功能，使用切换节点功能`<C-h>` 可以跳转不同的脚本！
 
 * 基于 LSP [rime-ls](https://github.com/wlh320/rime-ls) 的中文输入法，自动匹配数学公式 (基于 [treesitter](https://github.com/nvim-treesitter/nvim-treesitter)) 转换为英文输入法，在英文输入环境中匹配数学公式并不切换输入法，实现中 - 英 - $\LaTeX$ 的完全集成，并通过合理的配置优化文件编辑速度 (具体而言，只在 insert 模式进行 lsp 触发)，最大限度保持了浏览文件过程中的跳转速度;利用相同原理配置了 markdown 的中文输入与 $\LaTeX$ 环境识别;
 
@@ -31,6 +28,14 @@
 ![tdf 下的 pdf 预览](./readme_fig/tdf_latex.png)
 
 * OS X 环境下的 [inkscape](https://inkscape.org/) 集成，实现 latex 文档编辑时的图片绘制快捷键调用，利用 AppleScript 实现。在存在 ipad 分屏的时候优先跳转到 ipad 分屏的 inkscape 窗口进行手绘，在不存在 ipad 分屏的时候跳转到 macos 的 inkscape 窗口进行绘图，利用 [SizeUp](https://www.irradiatedsoftware.com/sizeup/) 的 AppleScript 接口实现窗口管理;
+
+### 智能计算器集成
+
+* $\LaTeX$ 公式与 (一直在更新的) snippet 补全，python 与 Mathematica 计算快捷键集成，在 LaTeX  源码中直接加载脚本，包含符号计算、数值计算、符号展开等功能，部分功能集成到性能更好且兼容性更强的[sniprun](https://github.com/michaelb/sniprun) 插件中 (这个插件允许划词运行代码段，我不喜欢它 default 的配置，因此在本配置中修改了其 TUI);
+
+>基本逻辑：使用's' 触发所有的补全功能，使用; 'p' 或'm' 触发指定的快捷键功能，利用'cal' 或'ex' 触发符号计算与符号展开功能，使用切换节点功能`<C-h>` 可以跳转不同的脚本！
+
+* 构建在 Mathematica notebook 文件`.nb` 中运行的 LSP，结合 sniprun 抛却颜值与操作性奇低的 Mathematica notebook，实现科学计算一把梭。
 
 ### ai 辅助编辑
 
