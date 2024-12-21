@@ -7,7 +7,7 @@ M.create_floating_window = function()
 
   -- 初始窗口大小
   local width = 15
-  local height = 2
+  local height = 1
 
   local win
 
@@ -18,7 +18,7 @@ M.create_floating_window = function()
 
   local function size_check(input_width, input_height)
     local out_width = input_width < 15 and 15 or input_width
-    local out_height = input_height < 2 and 2 or input_height
+    local out_height = input_height < 1 and 1 or input_height
     return { out_width, out_height }
   end
 

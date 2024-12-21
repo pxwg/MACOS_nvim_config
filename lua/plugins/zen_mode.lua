@@ -1,6 +1,12 @@
 return {
   "folke/zen-mode.nvim",
   opts = {
+    on_open = function()
+      vim.o.cmdheight = 1
+    end,
+    on_close = function()
+      vim.o.cmdheight = 0
+    end,
     window = {
       width = 0.75,
       options = {
@@ -14,7 +20,7 @@ return {
       },
     },
     gitsin = { enabled = true },
-    plugins = { wezterm = { enabled = true, font = "+1" } },
+    -- plugins = { wezterm = { enabled = true, font = "+1" } },
 
     vim.api.nvim_set_keymap(
       "n",

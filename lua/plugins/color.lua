@@ -1,6 +1,7 @@
 return {
   {
     "catppuccin",
+    priority = 1000,
     name = "catppuccin",
     opts = {
       transparent_background = true,
@@ -14,6 +15,7 @@ return {
   {
     "ellisonleao/gruvbox.nvim",
     name = "gruvbox",
+    priority = 1000,
     config = function()
       require("gruvbox").setup({
         transparent_mode = true,
@@ -30,6 +32,8 @@ return {
     lazy = false,
     name = "cyberdream",
     -- enabled = false,
+    priority = 1000,
+
     opts = {
       transparent = true,
       borderless_telescope = false,
@@ -68,6 +72,7 @@ return {
     "EdenEast/nightfox.nvim",
     lazy = false,
     name = "nightfox",
+    priority = 1000,
     opts = {
       terminal_colors = false,
       modules = {
@@ -77,12 +82,13 @@ return {
         noice = true,
         vimtex = false,
         mini = true,
+        neotree = false,
       },
       groups = {
         all = {
           Normal = { bg = "NONE" },
           NormalNC = { bg = "NONE" },
-          Conceal = { fg = "#d3869b" },
+          Conceal = { fg = "#b4befe" },
           BufferLineFill = { bg = "NONE" },
           WinSeparator = { fg = "#bac2de" },
           BorderBG = { fg = "#b4befe" },
