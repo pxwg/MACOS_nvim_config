@@ -92,12 +92,12 @@ keymap.set("i", "jn", function()
   _G.rime_ls_active = not _G.rime_ls_active
 end, { noremap = true, silent = true, desc = "toggle rime-ls" })
 
-vim.api.nvim_create_autocmd({ "BufEnter" }, {
-  pattern = { "*.tex", "*.md", "*.copilot-chat" },
-  callback = function()
-    require("lsp.rime_2").setup_rime()
-  end,
-})
+-- vim.api.nvim_create_autocmd({ "BufEnter" }, {
+--   pattern = { "*.tex", "*.md", "*.copilot-chat" },
+--   callback = function()
+--     require("lsp.rime_2").setup_rime()
+--   end,
+-- })
 
 -- 基本逻辑: 在text 区域，rime_toggle = true 始终成立, rime_ls_active = true 在中文输入法下成立。如果在数学区域，则rime_toggle = false, rime_ls_active = true 应当始终成立, 如果
 

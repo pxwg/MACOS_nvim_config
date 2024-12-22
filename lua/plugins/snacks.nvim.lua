@@ -40,7 +40,8 @@ return {
             key = "f",
           },
           {
-            action = ":Telescope oldfiles",
+
+            action = ":lua require('telescope.builtin').oldfiles()",
             desc = "Recent files",
             icon = " ",
             key = "r",

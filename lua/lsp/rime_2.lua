@@ -1,5 +1,6 @@
 local M = {}
-local rime_ls_filetypes = { "markdown", "vimwiki", "copilot-chat", "tex" }
+-- local rime_ls_filetypes = { "markdown", "vimwiki", "tex" }
+local rime_ls_filetypes = { "vimwiki" }
 local cmp = require("cmp")
 
 function M.setup_rime()
@@ -17,7 +18,7 @@ function M.setup_rime()
         cmd = { vim.fn.expand("~/Desktop/rime-ls-0.4.0/target/release/rime_ls") }, -- your path to rime-ls
         filetypes = rime_ls_filetypes,
         single_file_support = true,
-        -- autostart = false, -- Add this line to prevent automatic start, in order to boost
+        autostart = true, -- Add this line to prevent automatic start, in order to boost
       },
       settings = {},
       docs = {
