@@ -104,34 +104,20 @@ end, { noremap = true, silent = true, desc = "toggle rime-ls" })
 vim.api.nvim_create_autocmd({ "BufEnter" }, {
   pattern = { "*" },
   callback = function()
+    local old_pattern = _G.rime_toggled
+    local old_active = _G.rime_ls_active
     -- TODO: deactivate rime from user update
     -- if not _G.rime_ls_active and not _G.rime_ls_active then
     -- return nil
     -- else
-    _G.rime_toggled = true
-    _G.rime_ls_active = true
-    -- end
+    if old_pattern == false then
+      vim.cmd("LspStart rime_ls")
+      require("lsp.rime_2").toggle_rime()
+    else
+      vim.cmd("LspStart rime_ls")
+    end
   end,
 })
-
--- vim.api.nvim_create_autocmd("CursorMovedI", {
---   pattern = "*",
---   callback = function()
---     if vim.bo.filetype == "tex" then
---       if tex.in_mathzone() == true or tex.in_table() == true or tex.in_tikz() == true then
---         if rime_toggled == true then
---           require("lsp.rime_2").toggle_rime()
---           rime_toggled = false
---         end
---       else
---         if rime_toggled == false then
---           require("lsp.rime_2").toggle_rime()
---           rime_toggled = true
---         end
---       end
---     end
---   end,
--- })
 
 local function switch_rime_math()
   if vim.bo.filetype == "tex" then
