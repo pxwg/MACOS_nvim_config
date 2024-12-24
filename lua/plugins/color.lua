@@ -27,17 +27,19 @@ return {
   {
     "folke/tokyonight.nvim",
     lazy = false,
-    priority = 1000,
+    priority = 10000,
     name = "tokyonight",
     opts = {
       transparent = true,
       styles = { sidbars = "transparent", floats = "transparent" },
-      on_highlights = function(hl, c)
+      on_highlights = function(hl)
         hl.PmenuSel = { italic = true }
         hl.Conceal = { fg = "#5ef1ff" }
         hl.Normal = { bg = "NONE" }
         hl.NormalNC = { bg = "NONE" }
         hl.BufferLineFill = { bg = "NONE" }
+        hl.NeoTreeNormal = { bg = "NONE" }
+        hl.WhichKeyNormal = { bg = "NONE" }
       end,
     },
   },
@@ -77,7 +79,7 @@ return {
         variant = "default", -- use "light" for the light variant. Also accepts "auto" to set dark or light colors based on the current value of `vim.o.background`
         saturation = 1,
         highlights = {
-          PmenuSel = { italic = true },
+          PmenuSel = { bg = "#3c4048", italic = true },
           texFileArg = { fg = "#ff5ea0" },
           Special = { fg = "#5ef1ff" },
           operator = { fg = "#ff5ea0" },

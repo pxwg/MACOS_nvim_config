@@ -70,9 +70,9 @@ vim.g.python3_host_prog = "/opt/homebrew/Caskroom/miniconda/base/bin/python3"
 
 vim.cmd([[
         highlight! BorderBG guibg=NONE guifg=#b4befe
-        highlight normalfloat guibg=none guifg=none
-        highlight BufferLineFill guibg=none
-        highlight WinSeparator guibg=None guifg=#bac2de]])
+        highlight! normalfloat guibg=none guifg=none
+        highlight! BufferLineFill guibg=none
+        highlight! WinSeparator guibg=None guifg=#bac2de]])
 
 vim.o.pumblend = 0
 
