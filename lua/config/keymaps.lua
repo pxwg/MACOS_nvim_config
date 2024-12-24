@@ -295,6 +295,6 @@ keymap.set(
 vim.keymap.set({ "n", "v" }, "<leader>ct", require("stay-centered").toggle, { desc = "Toggle stay-centered.nvim" })
 
 -- mathematica calculation with float window, trigger when ft = md of tex
-keymap.set("n", "<C-m>", function()
+keymap.set("n", "<f6>", function()
   require("util.windows").create_floating_window()
 end, { noremap = true, silent = true, desc = "Mathematica Calculation" })

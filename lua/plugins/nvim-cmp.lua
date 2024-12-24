@@ -58,6 +58,10 @@ return {
       },
       preselect = auto_select and cmp.PreselectMode.Item or cmp.PreselectMode.None,
       mapping = cmp.mapping.preset.insert({
+        ["<C-a>"] = cmp.mapping({
+          i = cmp.mapping.abort(),
+          c = cmp.mapping.close(),
+        }),
         ["<C-b>"] = cmp.mapping.scroll_docs(-4),
         ["<C-f>"] = cmp.mapping.scroll_docs(4),
         ["<C-n>"] = cmp.mapping.select_next_item({ behavior = cmp.SelectBehavior.Insert }),

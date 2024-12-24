@@ -24,6 +24,10 @@ M.create_floating_window = function()
 
   local function update_window_size()
     vim.schedule(function()
+      if not vim.api.nvim_win_is_valid(win) then
+        return
+      end
+
       local lines = vim.api.nvim_buf_get_lines(buf, 0, -1, false)
       local max_line_length = 0
       for _, line in ipairs(lines) do
@@ -40,7 +44,7 @@ M.create_floating_window = function()
       vim.api.nvim_win_set_config(win, {
         style = "minimal",
         relative = "editor",
-        width = width,
+        width = width + 1,
         height = height,
         row = initial_cursor_row,
         col = initial_cursor_col,
@@ -67,7 +71,26 @@ M.create_floating_window = function()
   win = vim.api.nvim_open_win(buf, true, opts)
 
   -- 设置按键映射来关闭窗口和 buffer
-  vim.api.nvim_buf_set_keymap(buf, "n", "q", "<Cmd>:q<CR>", { noremap = true, silent = true })
+  vim.api.nvim_buf_set_keymap(buf, "n", "q", "<Cmd>lua ConfirmSaveAndClose()<CR>", { noremap = true, silent = true })
+
+  -- 定义确认保存并关闭的函数
+  function ConfirmSaveAndClose()
+    local options = { "Yes", "No" }
+    vim.ui.select(options, { prompt = "Save?" }, function(choice)
+      if choice == "Yes" then
+        SaveAndClose()
+      else
+        vim.api.nvim_command("q")
+      end
+    end)
+  end
+
+  -- 定义保存并关闭的函数
+  function SaveAndClose()
+    local file_path = "~/Desktop/physics/mma_draft/mma_" .. os.date("%Y%m%d%H%M%S") .. ".nb"
+    vim.api.nvim_command("write " .. file_path)
+    vim.api.nvim_command("q")
+  end
 
   -- 监听缓冲区变化
   vim.api.nvim_buf_attach(buf, false, {

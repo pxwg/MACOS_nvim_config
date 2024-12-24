@@ -75,43 +75,44 @@ return {
             end,
           },
           { icon = " ", key = "s", desc = "Restore Session", section = "session" },
-          { icon = " ", key = "x", desc = "Lazy Extras", action = ":LazyExtras" },
+          -- { icon = " ", key = "x", desc = "Lazy Extras", action = ":LazyExtras" },
           { icon = "󰒲 ", key = "l", desc = "Lazy", action = ":Lazy" },
-          {
-            icon = "󰸌 ",
-            key = "d",
-            desc = "Colorscheme",
-            action = function()
-              require("telescope.builtin").colorscheme()
-            end,
-          },
-          {
-            icon = " ",
-            key = "h",
-            desc = "Help",
-            action = function()
-              require("telescope.builtin").help_tags()
-            end,
-          },
+          -- {
+          --   icon = "󰸌 ",
+          --   key = "d",
+          --   desc = "Colorscheme",
+          --   action = function()
+          --     require("telescope.builtin").colorscheme()
+          --   end,
+          -- },
+          -- {
+          --   icon = " ",
+          --   key = "h",
+          --   desc = "Help",
+          --   action = function()
+          --     require("telescope.builtin").help_tags()
+          --   end,
+          -- },
           { icon = " ", key = "q", desc = "Quit", action = ":qa" },
         },
       },
       sections = {
         { pane = 1, section = "header", padding = 1 },
-        {
-          pane = 2,
-          section = "terminal",
-          cmd = "macmon",
-          height = 15,
-          ttl = 15 * 100,
-          padding = 1,
-          enabled = function()
-            return vim.api.nvim_win_get_width(0) >= 120 and vim.api.nvim_win_get_height(0) >= 20
-          end,
-        },
+        -- fancu terminal but not useful
+        -- {
+        --   pane = 2,
+        --   section = "terminal",
+        --   cmd = "macmon",
+        --   height = 15,
+        --   ttl = 15 * 100,
+        --   padding = 1,
+        --   enabled = function()
+        --     return vim.api.nvim_win_get_width(0) >= 120 and vim.api.nvim_win_get_height(0) >= 20
+        --   end,
+        -- },
         { icon = " ", title = "Keymaps", section = "keys", indent = 4, padding = 1 },
-        { pane = 2, icon = " ", title = "Recent Files", section = "recent_files", indent = 3, padding = 1 },
-        { pane = 2, icon = " ", title = "Projects", section = "projects", indent = 3, padding = 1 },
+        { pane = 1, icon = " ", title = "Recent Files", section = "recent_files", indent = 3, padding = 1 },
+        { pane = 1, icon = " ", title = "Projects", section = "projects", indent = 3, padding = 1 },
         {
           pane = 1,
           icon = " ",
@@ -125,7 +126,7 @@ return {
           indent = 3,
         },
         {
-          pane = 2,
+          pane = 1,
           icon = " ",
           title = "Battery: " .. battery.get_battery_status() .. "%  Remain Time: " .. battery.get_battery_time(),
           height = 1,
