@@ -1,7 +1,7 @@
 local width = vim.api.nvim_win_get_width(0)
 
 local function view(w)
-  if w >= 120 then
+  if w >= 65 then
     return "cmdline_popup"
   else
     return "cmdline"
