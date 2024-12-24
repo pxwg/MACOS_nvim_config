@@ -1,5 +1,6 @@
 local M = {}
 
+-- TODO: 重构代码，使用更多的函数调用，KISS 原则，减少单个函数的不可复用性
 -- mathematica 计算器
 M.create_floating_window = function()
   local buf = vim.api.nvim_create_buf(false, true)
