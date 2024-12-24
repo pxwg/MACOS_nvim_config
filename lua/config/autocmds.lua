@@ -102,7 +102,7 @@ end, { noremap = true, silent = true, desc = "toggle rime-ls" })
 -- 基本逻辑: 在text 区域，rime_toggle = true 始终成立, rime_ls_active = true 在中文输入法下成立。如果在数学区域，则rime_toggle = false, rime_ls_active = true 应当始终成立, 如果
 
 vim.api.nvim_create_autocmd({ "BufEnter" }, {
-  pattern = { "*" },
+  pattern = { "*.md", "*.tex" },
   callback = function()
     local old_pattern = _G.rime_toggled
     local old_active = _G.rime_ls_active
@@ -113,6 +113,8 @@ vim.api.nvim_create_autocmd({ "BufEnter" }, {
     if old_pattern == false then
       vim.cmd("LspStart rime_ls")
       require("lsp.rime_2").toggle_rime()
+      _G.rime_toggled = true
+      _G.rime_ls_active = true
     else
       vim.cmd("LspStart rime_ls")
     end
@@ -276,6 +278,8 @@ vim.api.nvim_create_autocmd("FileType", {
     end
   end,
 })
+
+-- 监听hammerspoon的文件变化，实现双向查找。
 
 local uv = vim.loop
 local handle

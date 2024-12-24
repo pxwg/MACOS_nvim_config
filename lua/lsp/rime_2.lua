@@ -54,6 +54,11 @@ A language server for librime
 
   -- Function to attach LSP only in insert mode, which could boost the performance
   local function attach_in_insert_mode(client, bufnr)
+    -- 只对特定的 LSP 客户端执行自动命令，例如名称为 "specific_lsp_client"
+    if client.name ~= "rime_ls" then
+      return
+    end
+
     vim.api.nvim_create_autocmd("InsertEnter", {
       buffer = bufnr,
       callback = function()
@@ -81,9 +86,10 @@ A language server for librime
     on_attach = attach_in_insert_mode,
   })
 
-  lspconfig.texlab.setup({
-    on_attach = attach_in_insert_mode,
-  })
+  -- 我们只能对特定的lsp  客户端执行attach_in_insert_mode 函数，像texlab  这样的lsp 需要在普通模式下也能工作, 否则会出现问题
+  -- lspconfig.texlab.setup({
+  --   on_attach = attach_in_insert_mode,
+  -- })
 
   -- nvim-cmp supports additional completion capabilities, so broadcast that to servers
   local capabilities = vim.lsp.protocol.make_client_capabilities()

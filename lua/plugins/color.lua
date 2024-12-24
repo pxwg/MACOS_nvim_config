@@ -6,10 +6,52 @@ return {
     opts = {
       transparent_background = true,
       integrations = {
+        -- cmp = true,
         snacks = true,
         vimtex = false,
       },
-      highlight_overrides = { all = { Conceal = { fg = "#f5c2e7" } } },
+      highlight_overrides = {
+        all = {
+          Conceal = { fg = "#f5c2e7" },
+          -- Normal = { bg = "NONE" },
+          -- NormalNC = { bg = "NONE" },
+          -- BufferLineFill = { bg = "NONE" },
+          CmpItemAbbrDeprecated = { fg = "#b4befe", strikethrough = true },
+          FloatBorder = { fg = "#b4befe" },
+          PmenuSel = { italic = true },
+          -- table.insert(PmenuSel, { italic = true }),
+          CmpItemAbbrMatch = { fg = "#b4befe" },
+          CmpItemAbbrMatchFuzzy = { fg = "#b4befe" },
+          -- CmpItemKindVariable = { fg = "#b4befe" },
+          -- CmpItemKindInterface = { fg = "#b4befe" },
+          -- CmpItemKindText = { fg = "#b4befe" },
+          -- CmpItemKindFunction = { fg = "#b4befe" },
+          -- CmpItemKindMethod = { fg = "#b4befe" },
+          -- CmpItemKindKeyword = { fg = "#b4befe" },
+          -- CmpItemKindProperty = { fg = "#b4befe" },
+          -- CmpItemKindUnit = { fg = "#b4befe" },
+          CmpItemAbbrDefault = { fg = "#b4befe" },
+          -- CmpItemMenuDefault = { fg = "#b4befe" },
+          CmpItemAbbr = { fg = "#bac2de" },
+        },
+      },
+    },
+  },
+  {
+    "folke/tokyonight.nvim",
+    lazy = false,
+    priority = 1000,
+    name = "tokyonight",
+    opts = {
+      transparent = true,
+      styles = { sidbars = "transparent", floats = "transparent" },
+      on_highlights = function(hl, c)
+        hl.PmenuSel = { italic = true }
+        hl.Conceal = { fg = "#5ef1ff" }
+        hl.Normal = { bg = "NONE" }
+        hl.NormalNC = { bg = "NONE" }
+        hl.BufferLineFill = { bg = "NONE" }
+      end,
     },
   },
   {
@@ -48,6 +90,7 @@ return {
         variant = "default", -- use "light" for the light variant. Also accepts "auto" to set dark or light colors based on the current value of `vim.o.background`
         saturation = 1,
         highlights = {
+          PmenuSel = { italic = true },
           texFileArg = { fg = "#ff5ea0" },
           Special = { fg = "#5ef1ff" },
           operator = { fg = "#ff5ea0" },
@@ -91,7 +134,7 @@ return {
           Conceal = { fg = "#b4befe" },
           BufferLineFill = { bg = "NONE" },
           WinSeparator = { fg = "#bac2de" },
-          BorderBG = { fg = "#b4befe" },
+          -- BorderBG = { fg = "#b4befe" },
         },
       },
     },

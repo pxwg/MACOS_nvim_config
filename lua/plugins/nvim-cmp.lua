@@ -104,11 +104,11 @@ return {
       window = {
         completion = {
           border = "rounded",
-          winhighlight = "Normal:BorderBG,FloatBorder:BorderBG,CursorLine:PmenuSel,Search:None",
+          winhighlight = "Normal:BorderBG,FloatBorder:FloatBorder,CursorLine:PmenuSel,Search:None",
         },
         documentation = {
           border = "single",
-          winhighlight = "Normal:Normal,FloatBorder:BorderBG,CursorLine:PmenuSel,Search:None",
+          winhighlight = "Normal:Normal,FloatBorder:FloatBorder,CursorLine:PmenuSel,Search:None",
         },
       },
       sources = cmp.config.sources({
