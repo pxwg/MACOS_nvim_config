@@ -72,6 +72,8 @@ vim.cmd([[
         highlight! BorderBG guibg=NONE guifg=#b4befe
         highlight! normalfloat guibg=none guifg=none
         highlight! BufferLineFill guibg=none
+        highlight! Normal guibg=NONE
+        highlight! NormalNC guibg=NONE
         highlight! WinSeparator guibg=None guifg=#bac2de]])
 
 vim.o.pumblend = 0
