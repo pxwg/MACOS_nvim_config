@@ -12,6 +12,25 @@ end
 local cmp = require("cmp")
 local tdf = require("util.tdf")
 
+local diff_format = function()
+  local data = MiniDiff.get_buf_data()
+  if not data or not data.hunks or not vim.g.conform_autoformat then
+    vim.notify("No hunks in this buffer or auto format is currently disabled")
+    return
+  end
+  local ranges = {}
+  for _, hunk in pairs(data.hunks) do
+    if hunk.type ~= "delete" then
+      table.insert(ranges, 1, {
+        start = { hunk.buf_start, 0 },
+        ["end"] = { hunk.buf_start + hunk.buf_count, 0 },
+      })
+    end
+  end
+  for _, range in pairs(ranges) do
+    require("conform").format({ lsp_fallback = true, timeout_ms = 500, range = range })
+  end
+end
 -- 定义一个命令来同步所有窗口的滚动和光标移动
 vim.api.nvim_create_user_command("SyncWindows", function()
   vim.cmd("windo set scrollbind cursorbind")
@@ -381,4 +400,11 @@ vim.api.nvim_create_autocmd("FileType", {
 
     vim.lsp.buf_attach_client(0, client)
   end,
+})
+
+vim.api.nvim_create_user_command("DiffFormat", diff_format, { desc = "Format changed lines" })
+vim.api.nvim_create_autocmd("BufWritePre", {
+  pattern = "*",
+  callback = diff_format,
+  desc = "Auto format changed lines",
 })

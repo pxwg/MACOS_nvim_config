@@ -1,3 +1,4 @@
+vim.g.conform_autoformat = true
 return {
   "stevearc/conform.nvim",
   dependencies = { "mason.nvim" },

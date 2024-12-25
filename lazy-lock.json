@@ -171,6 +171,10 @@
     "branch": "main",
     "commit": "d33ddf0eefee6338bbd95805c4595c1b34e6bfe2"
   },
+  "mini.diff": {
+    "branch": "main",
+    "commit": "5947342c95a9c2e24c659b54bb8ef083da4495ad"
+  },
   "mini.hipatterns": {
     "branch": "main",
     "commit": "f34975103a38b3f608219a1324cdfc58ea660b8b"
