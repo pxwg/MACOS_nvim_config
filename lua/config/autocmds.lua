@@ -367,8 +367,6 @@ vim.api.nvim_create_autocmd("FileType", {
       },
     })
 
-    -- vim.b.autoformat = false
-
     vim.keymap.set("n", "[d", vim.diagnostic.goto_prev)
     vim.keymap.set("n", "]d", vim.diagnostic.goto_next)
     vim.keymap.set("n", "<leader>kd", vim.diagnostic.open_float)
