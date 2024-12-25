@@ -6,3 +6,4 @@ local opt = vim.opt
 opt.relativenumber = true
 opt.conceallevel = 0
 opt.wrap = true
+vim.g.autoformat = false
