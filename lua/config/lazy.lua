@@ -12,15 +12,6 @@ vim.o.ttimeoutlen = 10
 -- vim.o.scrolloff = 10
 vim.g.autoformat = false
 
-
-
-
-
-
-
-
-
-
 local file_path = "/tmp/nvim_hammerspoon_latex.txt"
 local file = io.open(file_path, "r")
 if not file then

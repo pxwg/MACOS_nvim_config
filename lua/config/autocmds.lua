@@ -12,6 +12,20 @@ end
 local cmp = require("cmp")
 local tdf = require("util.tdf")
 
+local function print_hunks()
+  local data = MiniDiff.get_buf_data()
+  if not data or not data.hunks then
+    print("No hunks available")
+    return
+  end
+
+  for _, hunk in ipairs(data.hunks) do
+    print(vim.inspect(hunk))
+  end
+end
+
+_G.print_hunks = print_hunks
+
 local diff_format = function()
   local data = MiniDiff.get_buf_data()
   if not data or not data.hunks or not vim.g.conform_autoformat then
