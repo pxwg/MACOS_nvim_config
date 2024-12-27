@@ -106,7 +106,7 @@ A language server for librime
       user_data_dir = "~/Library/Rime_2/",
       log_dir = vim.fn.expand("~/.local/share/rime-ls"),
       -- paging_characters = { "-", "=", ",", ".", "?", "!" },
-      paging_characters = { ",", ".", "-", "=" },
+      paging_characters = { ",", "." },
       trigger_characters = {},
       schema_trigger_character = "&",
       show_filter_text_in_label = false,
