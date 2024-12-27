@@ -11,15 +11,15 @@ local toggle_rime_and_set_flag = function()
 end
 local cmp = require("cmp")
 local tdf = require("util.tdf")
+local signs = require("gitsigns")
 
 local function print_hunks()
-  local data = MiniDiff.get_buf_data()
-  if not data or not data.hunks then
+  local data = signs.get_hunks()
+  if not data then
     print("No hunks available")
     return
   end
-
-  for _, hunk in ipairs(data.hunks) do
+  for _, hunk in ipairs(data) do
     print(vim.inspect(hunk))
   end
 end
@@ -27,24 +27,37 @@ end
 _G.print_hunks = print_hunks
 
 local diff_format = function()
-  local data = MiniDiff.get_buf_data()
-  if not data or not data.hunks or not vim.g.conform_autoformat then
-    vim.notify("No hunks in this buffer or auto format is currently disabled")
+  local data = signs.get_hunks()
+  if not data or not vim.g.conform_autoformat then
+    vim.notify("no hunks in this buffer, formatting all")
+    require("conform").format({ lsp_fallback = true, timeout_ms = 500 })
     return
   end
   local ranges = {}
-  for _, hunk in pairs(data.hunks) do
+  for _, hunk in ipairs(data) do
     if hunk.type ~= "delete" then
+      local total_lines = vim.api.nvim_buf_line_count(0)
+      local end_line = hunk.added.start + hunk.added.count + 3
+      if end_line > total_lines then
+        end_line = total_lines
+      end
+
+      local start_line = hunk.added.start - 3
+      if start_line < 1 then
+        start_line = 1
+      end
       table.insert(ranges, 1, {
-        start = { hunk.buf_start, 0 },
-        ["end"] = { hunk.buf_start + hunk.buf_count, 0 },
+        start = { start_line, 0 },
+        ["end"] = { end_line, 0 },
       })
     end
   end
+
   for _, range in pairs(ranges) do
-    require("conform").format({ lsp_fallback = true, timeout_ms = 500, range = range })
+    require("conform").format({ range = range })
   end
 end
+
 -- 定义一个命令来同步所有窗口的滚动和光标移动
 vim.api.nvim_create_user_command("SyncWindows", function()
   vim.cmd("windo set scrollbind cursorbind")
