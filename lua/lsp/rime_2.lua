@@ -7,8 +7,6 @@ function M.setup_rime()
   -- global status
   vim.g.rime_enabled = true
 
-
-
   -- add rime-ls to lspconfig as a custom server
   -- see `:h lspconfig-new`
   local lspconfig = require("lspconfig")
@@ -88,11 +86,7 @@ A language server for librime
     on_attach = attach_in_insert_mode,
   })
 
-
   -- 我们只能对特定的lsp  客户端执行attach_in_insert_mode 函数，像texlab  这样的lsp 需要在普通模式下也能工作, 否则会出现问题
-  -- lspconfig.texlab.setup({
-  --   on_attach = attach_in_insert_mode,
-  -- })
 
   -- nvim-cmp supports additional completion capabilities, so broadcast that to servers
   local capabilities = vim.lsp.protocol.make_client_capabilities()
@@ -115,11 +109,10 @@ A language server for librime
     on_attach = rime_on_attach,
     capabilities = capabilities,
   })
+
   lspconfig.texlab.setup({
     capabilities = capabilities,
   })
-
-
 end
 
 function M.toggle_rime()
