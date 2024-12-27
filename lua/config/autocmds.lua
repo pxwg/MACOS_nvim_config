@@ -431,8 +431,8 @@ vim.api.nvim_create_autocmd("FileType", {
 
 vim.api.nvim_create_user_command("DiffFormat", diff_format, { desc = "Format changed lines" })
 
-vim.api.nvim_create_autocmd("BufWritePre", {
-  pattern = "*",
-  callback = diff_format,
-  desc = "Auto format changed lines",
-})
+-- vim.api.nvim_create_autocmd("BufWritePre", {
+--   pattern = "*",
+--   callback = diff_format,
+--   desc = "Auto format changed lines",
+-- })
