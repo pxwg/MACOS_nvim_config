@@ -29,20 +29,20 @@ _G.print_hunks = print_hunks
 local diff_format = function()
   local data = signs.get_hunks()
   if not data or not vim.g.conform_autoformat then
-    vim.notify("no hunks in this buffer, formatting all")
-    -- require("conform").format({ lsp_fallback = true, timeout_ms = 500 })
+    -- vim.notify("no hunks in this buffer, formatting all")
+    require("conform").format({ lsp_fallback = true, timeout_ms = 500 })
     return
   end
   local ranges = {}
   for _, hunk in ipairs(data) do
     if hunk.type ~= "delete" then
       local total_lines = vim.api.nvim_buf_line_count(0)
-      local end_line = hunk.added.start + hunk.added.count + 3
+      local end_line = hunk.added.start + hunk.added.count
       if end_line > total_lines then
         end_line = total_lines
       end
 
-      local start_line = hunk.added.start - 3
+      local start_line = hunk.added.start
       if start_line < 1 then
         start_line = 1
       end
