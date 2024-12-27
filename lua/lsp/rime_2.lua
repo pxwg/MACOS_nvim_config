@@ -112,6 +112,9 @@ A language server for librime
     on_attach = rime_on_attach,
     capabilities = capabilities,
   })
+  lspconfig.texlab.setup({
+    capabilities = capabilities,
+  })
 end
 
 function M.toggle_rime()
