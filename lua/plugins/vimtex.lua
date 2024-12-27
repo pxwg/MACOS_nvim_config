@@ -5,7 +5,8 @@ return {
   config = function()
     vim.cmd([[
 let g:tex_flavor='latex'
-let g:vimtex_view_method=''
+" let g:vimtex_view_method = 'none'
+let g:vimtex_view_enabled = 0
 let g:vimtex_quickfix_mode=0
 let g:vimtex_fold_enabled=0
 let g:tex_conceal='abdmg'

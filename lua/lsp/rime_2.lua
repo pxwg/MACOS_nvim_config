@@ -110,9 +110,6 @@ A language server for librime
     capabilities = capabilities,
   })
 
-  lspconfig.texlab.setup({
-    capabilities = capabilities,
-  })
 end
 
 function M.toggle_rime()
