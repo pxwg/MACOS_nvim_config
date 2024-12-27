@@ -383,4 +383,4 @@ vim.api.nvim_create_autocmd("FileType", {
   end,
 })
 
--- require("util.formatter")
+require("util.formatter")
