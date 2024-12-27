@@ -65,6 +65,7 @@ return {
       -- at the beginning and at the end
       local to_eval = string.gsub(parent.trigger, "^mcal(.*)mcals", "%1")
       to_eval = string.gsub(to_eval, "^%s+(.*)%s+$", "%1")
+      local scan_input = to_eval
 
       -- replace single backslashes with double backslashes
       to_eval = string.gsub(to_eval, "\\mathrm{d}", "d")
@@ -73,11 +74,8 @@ return {
 
       local job = require("plenary.job")
 
-      local sympy_script = string.format(
-        'a = FullSimplify[ToExpression["%s", TeXForm]]; b = TeXForm[a]; Return["%s = " .. ToString[b]]',
-        to_eval,
-        to_eval
-      )
+      local sympy_script =
+        string.format('a = FullSimplify[ToExpression["%s", TeXForm]]; b = TeXForm[a]; Return["%s = " b]', to_eval, to_eval, scan_input)
 
       sympy_script = string.gsub(sympy_script, "^[\t%s]+", "")
       local result = {}
@@ -96,10 +94,10 @@ return {
         })
         :sync()
 
-      return sn(nil, t(result))
+      return sn(nil, t(  result))
     end)
   ),
-  s( -- this one evaluates anything inside the simpy block
+  s(
     {
       trig = "mcalt.*mcalts",
       regTrig = true,
@@ -123,16 +121,8 @@ return {
       -- local job = require("plenary.job")
 
       local sympy_script =
-        string.format('a = FullSimplify[ToExpression["%s", TeXForm]]; b = TeXForm[a]; Print[ b]', to_eval)
-      -- string.format(
-      --   'a = FullSimplify[ToExpression["%s", TeXForm]]; b = TeXForm[a]; Print[" %s =" b]',
-      --   to_eval,
-      --   to_eval
-      -- )
+        string.format('a = FullSimplify[ToExpression["%s", TeXForm]]; b = TeXForm[a]; Print[b]', to_eval)
 
-      -- local result = execute_and_listen(sympy_script)
-      local timeout = 5 -- 设置超时时间为5秒
-      local start_time = os.time()
       local init = _G.result
       local result = init
 
@@ -143,20 +133,7 @@ return {
           display = { "Api" },
         })
       )
-
-      while true do
-        if result == init then
-          result = _G.result
-        elseif result ~= init then
-          result = result:gsub('[*"]', ""):gsub("\\\\", "\\")
-          result = result:gsub("\n", " ") -- 去除换行符
-          return sn(nil, { t(input .. " = " .. result) })
-        end
-        if os.time() - start_time > timeout then
-          return sn(nil, { t("Error: Operation timed out") })
-        end
-        vim.wait(100) -- 添加适当的延迟，避免高 CPU 占用
-      end
+      return sn(nil, t(input .. " = "))
     end)
   ),
 }
