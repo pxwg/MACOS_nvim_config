@@ -67,9 +67,15 @@ print("hello world")
 <img src="./readme_fig/lualine.png" alt="lualine" width="300"/>
 </div>
 
+### 杂项
+
+* 利用[gitsinge](https://github.com/lewis6991/gitsigns.nvim) 的功能，只对 commit 之后的文件进行格式化，防止错误地对之前已经稳定的代码进行格式化导致可能的崩溃;
+
 ## 🤔 TODO
 
 * fork 并为本配置改写 [tdf](https://github.com/itsjunetime/tdf) , 实现鼠标点击的 pdf 位置读取，并使用 synctex 实现精确到*段落*的反向搜索 (本任务为长线作战，并不期待短期内实现，因为学习 rust 本身足够困难，作为物理系学生并没有多少时间)。因此一个替代方案是提交 issue，但我并不确定是否会因此在主分支上得到解决方案 (目前通过 Hammerspoon 利用模拟鼠标交互的 Hack 方式暂时解决，满足基本需求✅);
+
+* 撤回 nvim-cmp 的补全选项;
 
 * 优化 snack 中 dashboard 的 logo 变成自己画的图;
 
