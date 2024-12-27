@@ -37,7 +37,7 @@ function M.autocorrect()
   vim.api.nvim_buf_set_lines(0, 0, -1, false, lines)
 
   -- 通知用户操作完成
-  print("Autocorrect applied to " .. path)
+  -- print("Autocorrect applied to " .. path)
 end
 
 return M

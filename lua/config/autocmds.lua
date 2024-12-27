@@ -30,7 +30,7 @@ local diff_format = function()
   local data = signs.get_hunks()
   if not data or not vim.g.conform_autoformat then
     vim.notify("no hunks in this buffer, formatting all")
-    require("conform").format({ lsp_fallback = true, timeout_ms = 500 })
+    -- require("conform").format({ lsp_fallback = true, timeout_ms = 500 })
     return
   end
   local ranges = {}
