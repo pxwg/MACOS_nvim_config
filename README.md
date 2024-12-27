@@ -109,7 +109,7 @@ git clone https://github.com/pxwg/MACOS_nvim_config.git ~/.config/nvim
 
 * MacOS & kitty (你当然也可以用 iTerm，但是请自行修改双向查找对应的代码)，除了依赖 Hammerspoon 的终端 PDF 阅读器双向查找与部分性能检测 UI 外，其余功能均可在其他平台使用;
 
-* neovim v0.9.5+，LazyVim v13.0- (目前没有改变所有 api 以适应 Breaking Update 的癖好，虽然期中考试考完了但也没有这么多时间，因此 LazyVim 被锁定在 v12.44.1, LazyVim 不需要下载，因为本配置文件会自行 boostrap 它);
+* neovim v0.9.5+ 或 v0.11.0 (nightly)，请**不要**使用稳定发行版 v0.10.x，因为会出现 LSP 通信的问题; LazyVim v13.0- (目前没有改变所有 api 以适应 Breaking Update 的癖好，虽然期中考试考完了但也没有这么多时间，因此 LazyVim 被锁定在 v12.44.1, LazyVim 不需要下载，因为本配置文件会自行 boostrap 它);
 
 * 可以使用 brew 安装的 hub, *tdf*, *inkscape*, skim, SizeUp, rimels, autocorrect。其余 neovim 插件可以在配置中自行安装;
 
