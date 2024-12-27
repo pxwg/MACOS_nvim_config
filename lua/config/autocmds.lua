@@ -54,7 +54,7 @@ local diff_format = function()
   end
 
   for _, range in pairs(ranges) do
-    require("conform").format({ range = range })
+    require("conform").format({ lsp_fallback = true, timeout_ms = 500, range = range })
   end
 end
 
