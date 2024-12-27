@@ -20,6 +20,7 @@ return {
           CmpItemAbbrMatchFuzzy = { fg = "#b4befe" },
           CmpItemAbbrDefault = { fg = "#b4befe" },
           CmpItemAbbr = { fg = "#bac2de" },
+          -- Add the following lines
         },
       },
     },
@@ -40,12 +41,14 @@ return {
         hl.BufferLineFill = { bg = "NONE" }
         hl.NeoTreeNormal = { bg = "NONE" }
         hl.WhichKeyNormal = { bg = "NONE" }
+  hl.lualine_c_normal = { fg = "#828bb8", bg = "NONE" }
+  hl.lualine_c_inactive = { fg = "#828bb8", bg = "NONE" }
       end,
     },
   },
   {
     "ellisonleao/gruvbox.nvim",
-    name = "gruvbox",
+    -- name = "gruvbox",
     priority = 1000,
     config = function()
       require("gruvbox").setup({
@@ -123,6 +126,13 @@ return {
           Conceal = { fg = "#b4befe" },
           BufferLineFill = { bg = "NONE" },
           WinSeparator = { fg = "#bac2de" },
+          StatusLine = { bg = "NONE" },
+          StatusLineNC = { bg = "NONE" },
+          TabLine = { bg = "NONE" }, -- 添加这一行
+          TabLineFill = { bg = "NONE" }, -- 添加这一行
+          TabLineSel = { bg = "NONE" }, -- 添加这一行
+          NeoTreeNormal = { bg = "NONE" }, -- 添加这一行
+          NeoTreeNormalNC = { bg = "NONE" }, -- 添加这一行
           -- BorderBG = { fg = "#b4befe" },
         },
       },
@@ -134,6 +144,27 @@ return {
       optional = true,
       opts = {
         theme = "auto",
+      },
+    },
+    {
+      "nvim-lualine/lualine.nvim",
+      optional = true,
+      opts = {
+        options = {
+          theme = "auto",
+          section_separators = "",
+          component_separators = "",
+        },
+        sections = {
+          lualine_c = {
+            { "filename", color = { bg = "NONE" } },
+          },
+        },
+        inactive_sections = {
+          lualine_c = {
+            { "filename", color = { bg = "NONE" } },
+          },
+        },
       },
     },
   },

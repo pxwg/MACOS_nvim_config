@@ -29,12 +29,11 @@ end
 
 return {
   "nvim-lualine/lualine.nvim",
-  event = "VeryLazy",
   opts = function(_, opts)
     local options = {
       theme = "auto",
-      globalstatus = vim.o.laststatus == 3,
-      disabled_filetypes = { statusline = dashboard },
+      -- globalstatus = vim.o.laststatus == 3,
+      disabled_filetypes = { statusline = dashboard, winbar = dashboard },
       section_separators = { right = " ", left = " " },
       component_separators = { left = "󰩃 ", right = "󰄛 " },
     }

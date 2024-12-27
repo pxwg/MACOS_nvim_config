@@ -74,9 +74,17 @@ vim.cmd([[
         highlight! BufferLineFill guibg=none
         highlight! Normal guibg=NONE
         highlight! NormalNC guibg=NONE
-        highlight! WinSeparator guibg=None guifg=#bac2de]])
-
+        highlight! WinSeparator guibg=None guifg=#bac2de
+     highlight! StatusLine guibg=NONE guifg=#c0caf5
+     highlight! StatusLineNC guibg=NONE guifg=#c0caf5
+     highlight! TabLine guibg=NONE guifg=#c0caf5
+     highlight! TabLineFill guibg=NONE guifg=#c0caf5
+     highlight! TabLineSel guibg=NONE guifg=#c0caf5
+     highlight! NeoTreeNormal guibg=NONE guifg=#c0caf5
+     highlight! NeoTreeNormalNC guibg=NONE guifg=#c0caf5
+]])
 vim.o.pumblend = 0
+
 
 -- if vim.g.colors_name == "nightfox" then
 -- vim.cmd([[
