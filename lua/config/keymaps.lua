@@ -37,35 +37,6 @@ vim.api.nvim_create_autocmd("CursorMovedI", {
 -- end, { noremap = true, silent = true, desc = "Initialize Neovim State" })
 -- keymap.set("n", "<localleader>e", " ", { call = rime.setup_rime() })
 
--- keymapping for forward search
--- keymap.set(
---   "n",
---   "<localleader>lf",
---   " ",
---   { noremap = true, silent = true, desc = "Forward Searching", callback = synctex.synctex_view }
--- )
-keymap.set(
-  "n",
-  "<localleader>lf",
-  " ",
-  { noremap = true, silent = true, desc = "Forward Searching", callback = synctex.synctex_forward }
-) -- modified for kitty with HammerSpoon
-
--- kemap for inverse search
-keymap.set(
-  "n",
-  "<localleader>li",
-  " ",
-  { noremap = true, silent = true, desc = "Inverse Searching", callback = synctex.synctex_edit }
-)
--- keymapping for show pdf
--- keymap.set("n", "<localleader>lp", function()
---   synctex.convert_tex_to_pdf()
---   vim.defer_fn(function()
---     synctex.synctex_view()
---   end, 1500)
--- end, { noremap = true, silent = true, desc = "View PDF in Terminal" })
-
 -- Key mappings
 keymap.set({ "i", "s" }, "jj", "<Esc>")
 -- keymap.set({ "i", "s" }, "jk", "<Esc>")
@@ -237,27 +208,6 @@ keymap.set("n", "<C-l>", function()
     vim.cmd("wincmd l")
   end
 end, { noremap = true, silent = true, desc = "Move to right window" })
-
--- 类似cursor 的功能，将ai 的代码段直接应用于所选文本,这个命令是原本命令'<C=y>' 的替代，更为灵活
-keymap.set({ "n", "v" }, "<leader>aI", function()
-  choose.select_markdown_code_block()
-  replace.replace_content_and_back()
-end, { noremap = true, silent = true, desc = "Replace selected text with AI code and back" })
-
-keymap.set({ "n", "v" }, "<leader>ai", function()
-  choose.select_markdown_code_block()
-  replace.replace_content()
-end, { noremap = true, silent = true, desc = "Replace selected text with AI code" })
-
-keymap.set("n", "<leader>an", function()
-  choose.select_markdown_code_block()
-  replace.insert_content()
-end, { noremap = true, silent = true, desc = "Insert AI code to the new line" })
-
--- 直接跳转到copilot 的代码段并选择
-keymap.set("n", "<leader>ag", function()
-  choose.select_markdown_code_block()
-end, { noremap = true, silent = true, desc = "Jump and select AI code" })
 
 -- sniprun  直接触发
 keymap.set({ "n" }, "<leader>cr", function()

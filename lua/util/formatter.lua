@@ -45,15 +45,15 @@ local diff_format = function()
   end
 end
 
-vim.api.nvim_create_autocmd("BufWritePre", {
-  pattern = "*",
-  callback = function()
-    local ft = vim.bo.filetype
-    if ft ~= "tex" and ft ~= "markdown" then
-      diff_format()
-    end
-  end,
-  desc = "Auto format changed lines",
-})
+-- vim.api.nvim_create_autocmd("BufWritePre", {
+--   pattern = "*",
+--   callback = function()
+--     local ft = vim.bo.filetype
+--     if ft ~= "tex" and ft ~= "markdown" then
+--       diff_format()
+--     end
+--   end,
+--   desc = "Auto format changed lines",
+-- })
 
 vim.api.nvim_create_user_command("DiffFormat", diff_format, { desc = "Format changed lines" })

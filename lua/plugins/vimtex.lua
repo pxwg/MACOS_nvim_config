@@ -10,6 +10,18 @@ let g:vimtex_view_enabled = 0
 let g:vimtex_quickfix_mode=0
 let g:vimtex_fold_enabled=0
 let g:tex_conceal='abdmg'
+let g:vimtex_syntax_custom_cmds_with_concealed_delims = [
+          \ {'name': 'ket',
+          \  'mathmode': 1,
+          \  'cchar_open': '|',
+          \  'cchar_close': '>'},
+          \ {'name': 'binom',
+          \  'nargs': 2,
+          \  'mathmode': 1,
+          \  'cchar_open': '(',
+          \  'cchar_mid': '|',
+          \  'cchar_close': ')'},
+          \]
 let g:vimtex_syntax_conceal = {
           \ 'accents': 1,
           \ 'ligatures': 1,
@@ -26,7 +38,6 @@ let g:vimtex_syntax_conceal = {
           \ 'styles': 1,
           \}
 ]])
-
     vim.cmd([[
 let g:vimtex_compiler_latexmk = {
         \ 'aux_dir' : '',
@@ -43,24 +54,34 @@ let g:vimtex_compiler_latexmk = {
         \ ],
         \}
 ]])
-
-    -- keymapping for forward search
-    vim.keymap.set(
-      "n",
-      "<localleader>lf",
-      " ",
-      { noremap = true, silent = true, desc = "Forward Searching", callback = synctex.synctex_forward() }
-    )
-    -- keymapping for inverse search
-    -- vim.keymap.set(
-    --   "n",
-    --   "<localleader>li",
-    --   " ",
-    --   { noremap = true, silent = true, desc = "Inverse Searching", callback = synctex.synctex_edit }
-    -- )
-    -- keymapping for show pdf
-    vim.keymap.set("n", "<localleader>lp", function()
-      synctex.convert_tex_to_pdf()
-    end, { noremap = true, silent = true, desc = "View PDF in Terminal" })
   end,
+  keys = {
+    -- keymapping for forward search
+    {
+      "<localleader>lf",
+      function()
+        synctex.synctex_forward()
+      end,
+      mode = "n",
+      desc = "vimtex-forward",
+    },
+    -- keymapping for inverse search
+    {
+      "<localleader>li",
+      function()
+        synctex.synctex_edit()
+      end,
+      mode = "n",
+      desc = "vimtex-inverse",
+    },
+    -- keymapping for show pdf
+    {
+      "<localleader>lp",
+      function()
+        synctex.convert_tex_to_pdf()
+      end,
+      mode = "n",
+      desc = "vimtex-view-in-Terminal",
+    },
+  },
 }
