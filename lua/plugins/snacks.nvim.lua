@@ -1,4 +1,5 @@
 local battery = require("util.battery")
+local disable = false
 
 return {
   "folke/snacks.nvim",
@@ -9,6 +10,8 @@ return {
       "<leader>z",
       function()
         Snacks.zen()
+        disable = not disable
+        require("util.opacity").set_opacity(disable)
       end,
       desc = "Toggle Zen Mode",
     },
