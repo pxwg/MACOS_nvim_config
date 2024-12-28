@@ -1,5 +1,6 @@
 return {
   "folke/zen-mode.nvim",
+  enabled = false,
   opts = {
     on_open = function()
       vim.o.cmdheight = 1

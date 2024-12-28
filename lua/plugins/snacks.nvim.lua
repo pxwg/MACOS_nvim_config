@@ -4,10 +4,28 @@ return {
   "folke/snacks.nvim",
   priority = 1000,
   lazy = false,
+  keys = {
+    {
+      "<leader>z",
+      function()
+        Snacks.zen()
+      end,
+      desc = "Toggle Zen Mode",
+    },
+    {
+      "<leader>Z",
+      function()
+        Snacks.zen.zoom()
+      end,
+      desc = "Toggle Zoom",
+    },
+  },
   opts = {
     bigfile = { enabled = true },
+    zen = { enabled = true },
     notifier = { enabled = true },
     git = { enabled = true },
+    input = { enabled = true },
     lazygit = { enabled = true },
     debug = { enabled = true },
     notify = { enabled = true },
