@@ -69,15 +69,20 @@ print("hello world")
 
 ### 杂项
 
-* 利用[gitsinge](https://github.com/lewis6991/gitsigns.nvim) 的功能，只对 commit 之后的文件进行格式化，防止错误地对之前已经稳定的代码进行格式化导致可能的崩溃;
+* 利用[gitsinge](https://github.com/lewis6991/gitsigns.nvim) 的功能，只对 commit 之后的文件进行格式化，防止错误地对之前已经稳定的代码进行格式化导致可能的崩溃 (目前这个功能还在 debug 之中，原本的逻辑非常令人不满意);
 
-* Snacks 自带的 zen-mode 与 WezTerm 的透明度设定继承，当启动 zen-mode 时，WezTerm 会自动关闭透明度，使代码更加清晰聚焦。
+* Snacks 自带的 zen-mode 与 WezTerm 的透明度设定继承，当启动 zen-mode 时，WezTerm 会自动关闭透明度并增加字数，提升代码阅读速度 (不过如果遇到中文可能会慢一点，大概需要多那么两三秒才能完整渲染中文字符，这应该是 WezTerm 的问题)。
+
+![正常状态](./readme_fig/normal-writing.png)
+![专注写作](./readme_fig/zen.png)
 
 ## 🤔 TODO
 
 * fork 并为本配置改写 [tdf](https://github.com/itsjunetime/tdf) , 实现鼠标点击的 pdf 位置读取，并使用 synctex 实现精确到*段落*的反向搜索 (本任务为长线作战，并不期待短期内实现，因为学习 rust 本身足够困难，作为物理系学生并没有多少时间)。因此一个替代方案是提交 issue，但我并不确定是否会因此在主分支上得到解决方案 (目前通过 Hammerspoon 利用模拟鼠标交互的 Hack 方式暂时解决，满足基本需求✅);
 
 * 撤回 nvim-cmp 的补全选项;
+
+* 格式化 git-hunk，但逻辑不是简单地 conform git hunk 对应行的代码 (这会造成一些错误的格式化），而是先全部格式化，再将对应的格式化内容应用到 hunk 上，这样可以避免一些错误的格式化并且保护之前的 commit;
 
 * 优化 snack 中 dashboard 的 logo 变成自己画的图;
 
