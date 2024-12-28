@@ -10,8 +10,6 @@ return {
       "<leader>z",
       function()
         Snacks.zen()
-        disable = not disable
-        require("util.opacity").set_opacity(disable)
       end,
       desc = "Toggle Zen Mode",
     },
@@ -25,7 +23,52 @@ return {
   },
   opts = {
     bigfile = { enabled = true },
-    zen = { enabled = true },
+    dim = {
+      enabled = true,
+      animate = {
+        enabled = vim.fn.has("nvim-0.10") == 1,
+        easing = "outQuad",
+        duration = {
+          step = 10, -- ms per step
+          total = 300, -- maximum duration
+        },
+      },
+    },
+    zen = {
+      enabled = true,
+      toggles = {
+        dim = true,
+        git_signs = false,
+        mini_diff_signs = false,
+        diagnostics = false,
+      },
+      on_open = function()
+        vim.wo.number = false
+        vim.wo.relativenumber = false
+        require("util.opacity_and_font").set_opacity()
+        require("util.opacity_and_font").set_fontsize()
+      end,
+      on_close = function()
+        vim.wo.number = true
+        vim.wo.relativenumber = true
+        require("util.opacity_and_font").back_opacity()
+        require("util.opacity_and_font").back_fontsize()
+      end,
+      win = {
+        style = {
+          enter = true,
+          fixbuf = false,
+          minimal = false,
+          width = 0.75,
+          height = 0,
+          backdrop = { transparent = true, blend = 40 },
+          keys = { q = false },
+          wo = {
+            winhighlight = "NormalFloat:Normal",
+          },
+        },
+      },
+    },
     notifier = { enabled = true },
     git = { enabled = true },
     input = { enabled = true },
