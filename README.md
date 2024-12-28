@@ -71,6 +71,8 @@ print("hello world")
 
 * 利用[gitsinge](https://github.com/lewis6991/gitsigns.nvim) 的功能，只对 commit 之后的文件进行格式化，防止错误地对之前已经稳定的代码进行格式化导致可能的崩溃;
 
+* Snacks 自带的 zen-mode 与 WezTerm 的透明度设定继承，当启动 zen-mode 时，WezTerm 会自动关闭透明度，使代码更加清晰聚焦。
+
 ## 🤔 TODO
 
 * fork 并为本配置改写 [tdf](https://github.com/itsjunetime/tdf) , 实现鼠标点击的 pdf 位置读取，并使用 synctex 实现精确到*段落*的反向搜索 (本任务为长线作战，并不期待短期内实现，因为学习 rust 本身足够困难，作为物理系学生并没有多少时间)。因此一个替代方案是提交 issue，但我并不确定是否会因此在主分支上得到解决方案 (目前通过 Hammerspoon 利用模拟鼠标交互的 Hack 方式暂时解决，满足基本需求✅);
@@ -107,7 +109,7 @@ git clone https://github.com/pxwg/MACOS_nvim_config.git ~/.config/nvim
 ```
 打开 neovim 即可自动安装插件，需要进行版本管理的插件已经在 lazylock 中锁定，避免冲突;
 
-* MacOS & kitty (你当然也可以用 iTerm，但是请自行修改双向查找对应的代码)，除了依赖 Hammerspoon 的终端 PDF 阅读器双向查找与部分性能检测 UI 外，其余功能均可在其他平台使用;
+* MacOS & WezTerm (你当然也可以用 iTerm，但是请自行修改双向查找对应的代码，zen-mode 的透明度集成也不能使用)，除了依赖 Hammerspoon 的终端 PDF 阅读器双向查找与部分性能检测 UI 外，其余功能均可在其他平台使用;
 
 * neovim v0.9.5+ 或 v0.11.0 (nightly)，请**不要**使用稳定发行版 v0.10.x，因为会出现 LSP 通信的问题; LazyVim v13.0- (目前没有改变所有 api 以适应 Breaking Update 的癖好，虽然期中考试考完了但也没有这么多时间，因此 LazyVim 被锁定在 v12.44.1, LazyVim 不需要下载，因为本配置文件会自行 boostrap 它);
 
