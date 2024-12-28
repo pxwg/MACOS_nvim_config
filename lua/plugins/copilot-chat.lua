@@ -15,6 +15,7 @@ return {
         choose.select_markdown_code_block()
         replace.replace_content_and_back()
       end,
+      desc = "Replace with AI and go back",
       mode = { "n", "v" }, -- Normal and Visual mode
     },
     {
@@ -23,6 +24,7 @@ return {
         choose.select_markdown_code_block()
         replace.replace_content()
       end,
+      desc = "Replace with AI",
       mode = { "n", "v" }, -- Normal and Visual mode
     },
     {
@@ -31,6 +33,7 @@ return {
         choose.select_markdown_code_block()
         replace.insert_content()
       end,
+      desc = "Insert with AI",
       mode = { "n", "v" }, -- Normal and Visual mode
     },
     {
@@ -38,6 +41,7 @@ return {
       function()
         choose.select_markdown_code_block()
       end,
+      desc = "Select AI code",
       mode = { "n", "v" }, -- Normal and Visual mode
     },
   },
