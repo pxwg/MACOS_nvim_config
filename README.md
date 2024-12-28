@@ -38,6 +38,8 @@
 
 * 利用快捷键`<C-m>` 唤出浮动窗口写入 Mathematica 代码，利用 sniprun `<leader>cr`运行，实现利用 Mathematica 作为科学计算器辅助论文写作。
 
+* 彩蛋用法：通过`setfiletype xxx` 的 vim 命令，这个浮动窗口事实上可以运行任意的代码，包括一些快速的代码实验！
+
 ### ai 辅助编辑
 
 * 将 rime_ls 与 [copilotchat.nvim](https://github.com/CopilotC-Nvim/CopilotChat.nvim) 插件集成实现中文输入 (维护了一个 fork 以实现对其的兼容，在主分支中这个集成已经被弃用);
@@ -85,8 +87,6 @@ print("hello world")
 * 格式化 git-hunk，但逻辑不是简单地 conform git hunk 对应行的代码 (这会造成一些错误的格式化），而是先全部格式化，再将对应的格式化内容应用到 hunk 上，这样可以避免一些错误的格式化并且保护之前的 commit;
 
 * 优化 snack 中 dashboard 的 logo 变成自己画的图;
-
-* 充分利用浮动窗口特性，实现“草稿本”等功能;
 
 * 加入浮动终端，实现 CopilotChat.nvim 的浮动窗口功能 (没错，类似 cursor)，目标是在浮动窗口输入指令，直接在 cursor 下方补全结果 (怎么看都像是大号版的 nvim-cmp, 区别在于它的阅读范围可以达到整个 buffer，而不是只有当前行);
 

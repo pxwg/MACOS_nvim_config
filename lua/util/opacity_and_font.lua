@@ -6,7 +6,10 @@ function M.set_opacity()
   local stdout = vim.loop.new_tty(1, false)
 
   stdout:write(
-    ("\x1bPtmux;\x1b\x1b]1337;SetUserVar=%s=%s\b\x1b\\"):format("WINDOW_OPACITY", vim.fn.system({ "base64" }, "1"))
+    ("\x1bPtmux;\x1b\x1b]1337;SetUserVar=%s=%s\b\x1b\\"):format(
+      "WINDOW_OPACITY",
+      vim.fn.system({ "base64" }, "1")
+    )
   )
 
   vim.cmd([[redraw]])

@@ -64,7 +64,7 @@ M.create_floating_window = function()
     row = initial_cursor_row,
     col = initial_cursor_col,
     border = "rounded",
-    title = "󰪚 Mathematica",
+    title = "󰪚 Calculater",
     -- title_pos = "center",
   }
 
