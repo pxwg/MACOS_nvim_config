@@ -20,6 +20,20 @@ return {
 
   s({ trig = "infig", snippetType = "autosnippet" }, {
     c(1, {
+            sn(
+        nil,
+        fmta(
+          [[
+            \begin{figure}[H]
+              \centering
+              \includegraphics[width = 0.8\textwidth]{./<>}
+              \caption{<>}
+              \label{<>}
+            \end{figure}<>
+            ]],
+          { i(1), i(2), i(3), i(0) }
+        )
+      ),
       sn(
         nil,
         fmta(
