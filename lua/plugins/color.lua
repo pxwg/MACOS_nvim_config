@@ -34,15 +34,15 @@ return {
       transparent = true,
       styles = { sidbars = "transparent", floats = "transparent" },
       on_highlights = function(hl)
-        hl.PmenuSel = { italic = true }
+        hl.PmenuSel = { italic = true , bg = "#3c4048"}
         hl.Conceal = { fg = "#5ef1ff" }
         hl.Normal = { bg = "NONE" }
         hl.NormalNC = { bg = "NONE" }
         hl.BufferLineFill = { bg = "NONE" }
         hl.NeoTreeNormal = { bg = "NONE" }
         hl.WhichKeyNormal = { bg = "NONE" }
-  hl.lualine_c_normal = { fg = "#828bb8", bg = "NONE" }
-  hl.lualine_c_inactive = { fg = "#828bb8", bg = "NONE" }
+        hl.lualine_c_normal = { fg = "#828bb8", bg = "NONE" }
+        hl.lualine_c_inactive = { fg = "#828bb8", bg = "NONE" }
       end,
     },
   },
