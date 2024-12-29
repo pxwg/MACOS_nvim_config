@@ -1,7 +1,7 @@
 return {
   {
     "catppuccin",
-    priority = 1000,
+    priority = 1000000,
     name = "catppuccin",
     opts = {
       transparent_background = true,
@@ -28,7 +28,7 @@ return {
   {
     "folke/tokyonight.nvim",
     lazy = false,
-    priority = 10000,
+    priority = 10000000,
     name = "tokyonight",
     opts = {
       transparent = true,
@@ -48,7 +48,7 @@ return {
   },
   {
     "ellisonleao/gruvbox.nvim",
-    priority = 1000,
+    priority = 10000000,
     config = function()
       require("gruvbox").setup({
         transparent_mode = true,
@@ -65,7 +65,7 @@ return {
     lazy = false,
     name = "cyberdream",
     -- enabled = false,
-    priority = 1000,
+    priority = 10000000,
 
     opts = {
       transparent = true,
@@ -106,7 +106,7 @@ return {
     "EdenEast/nightfox.nvim",
     lazy = false,
     name = "nightfox",
-    priority = 1000,
+    priority = 10000000,
     opts = {
       terminal_colors = false,
       modules = {
