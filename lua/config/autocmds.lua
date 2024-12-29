@@ -384,3 +384,27 @@ vim.api.nvim_create_autocmd("FileType", {
 })
 
 require("util.formatter")
+
+-- This is for firenvim
+
+vim.api.nvim_create_autocmd({ "BufEnter" }, {
+  pattern = "github.com_*.txt",
+  command = "set filetype=markdown",
+})
+
+vim.api.nvim_create_autocmd({ "BufEnter" }, {
+  pattern = "zhuanlan.zhihu.com_*.txt",
+  command = "set filetype=markdown",
+})
+
+local function adjust_minimum_lines()
+  if vim.g.started_by_firenvim then
+    if vim.o.lines < 25 then
+      vim.o.lines = 25
+    end
+  end
+end
+
+vim.api.nvim_create_autocmd("BufEnter", {
+  callback = adjust_minimum_lines,
+})
