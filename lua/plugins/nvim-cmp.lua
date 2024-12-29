@@ -1,3 +1,4 @@
+local colorscheme = vim.g.colors_name
 return {
   "hrsh7th/nvim-cmp",
   version = false, -- last release is way too old
@@ -105,7 +106,7 @@ return {
           end
         end, { "i" }),
       }),
-      window = {
+      window = (colorscheme ~= "minicyan") and {
         completion = {
           border = "rounded",
           winhighlight = "Normal:BorderBG,FloatBorder:FloatBorder,CursorLine:PmenuSel,Search:None",
@@ -114,7 +115,7 @@ return {
           border = "single",
           winhighlight = "Normal:Normal,FloatBorder:FloatBorder,CursorLine:PmenuSel,Search:None",
         },
-      },
+      } or nil,
       sources = cmp.config.sources({
         { name = "rime_ls_2", priority = 100 },
         { name = "copilot" },

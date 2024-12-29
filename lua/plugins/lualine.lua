@@ -27,8 +27,17 @@ local function rime_toggle_word()
   end
 end
 
+local function enabled()
+  if vim.g.started_by_firenvim then
+    return false
+  else
+    return true
+  end
+end
+
 return {
   "nvim-lualine/lualine.nvim",
+  enabled = enabled,
   opts = function(_, opts)
     local options = {
       theme = "auto",

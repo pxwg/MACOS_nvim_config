@@ -68,12 +68,12 @@ require("lazy").setup({
 
 vim.g.python3_host_prog = "/opt/homebrew/Caskroom/miniconda/base/bin/python3"
 
-vim.cmd([[
+  vim.cmd([[
         highlight! BorderBG guibg=NONE guifg=#b4befe
         highlight! normalfloat guibg=none guifg=none
         highlight! BufferLineFill guibg=none
-        highlight! Normal guibg=NONE
-        highlight! NormalNC guibg=NONE
+        " highlight! Normal guibg=NONE
+        " highlight! NormalNC guibg=NONE
         highlight! WinSeparator guibg=None guifg=#bac2de
         highlight! StatusLine guibg=NONE guifg=#c0caf5
         highlight! StatusLineNC guibg=NONE guifg=#c0caf5
@@ -84,7 +84,6 @@ vim.cmd([[
         highlight! NeoTreeNormalNC guibg=NONE guifg=#c0caf5
 ]])
 vim.o.pumblend = 0
-
 
 -- if vim.g.colors_name == "nightfox" then
 -- vim.cmd([[

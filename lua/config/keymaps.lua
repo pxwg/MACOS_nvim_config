@@ -111,6 +111,7 @@ end, { noremap = true, silent = true, desc = "AutoCorrect For Chinese File" })
 -- Map <C-s> to the function
 keymap.set({ "n", "v", "i" }, "<C-s>", function()
   save_and_delete_last_line()
+  vim.cmd('stopinsert')
 end, { noremap = true, silent = true })
 
 keymap.set("n", "<leader>uc", function()

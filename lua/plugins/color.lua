@@ -1,3 +1,11 @@
+local function enabled()
+  if vim.g.started_by_firenvim then
+    return false
+  else
+    return true
+  end
+end
+
 return {
   {
     "catppuccin",
@@ -28,13 +36,18 @@ return {
   {
     "folke/tokyonight.nvim",
     lazy = false,
-    priority = 10000000,
+    priority = 1000000,
     name = "tokyonight",
     opts = {
-      transparent = true,
+      transparent = enabled(),
       styles = { sidbars = "transparent", floats = "transparent" },
       on_highlights = function(hl)
-        hl.PmenuSel = { italic = true , bg = "#3c4048"}
+        hl.Normal = { bg = "NONE" }
+        hl.NormalNC = { bg = "NONE" }
+        hl.Conceal = { fg = "#f5c2e7" }
+        hl.PmenuSel = { italic = true }
+        hl.FloatBorder = { fg = "#b4befe" }
+        hl.PmenuSel = { italic = true, bg = "#3c4048" }
         hl.Conceal = { fg = "#5ef1ff" }
         hl.Normal = { bg = "NONE" }
         hl.NormalNC = { bg = "NONE" }
