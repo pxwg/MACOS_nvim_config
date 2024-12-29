@@ -5,6 +5,18 @@ return {
     if vim.g.started_by_firenvim then
       vim.o.laststatus = 0
       vim.opt.guifont = "JetBrainsMono Nerd Font:h28"
+      vim.g.firenvim_config = {
+        globalSettings = { alt = "all" },
+        localSettings = {
+          [".*"] = {
+            cmdline = "neovim",
+            content = "text",
+            priority = 0,
+            selector = "textarea",
+            takeover = "once",
+          },
+        },
+      }
     end
-  end
+  end,
 }

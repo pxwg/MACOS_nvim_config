@@ -100,7 +100,6 @@ end, { noremap = true, silent = true, desc = "AutoCorrect For Chinese File" })
 --   false
 -- )
 
-_G.save_and_delete_last_line = save_and_delete_last_line
 -- keymap.set("i", "<C-l>", "<NOP>", { noremap = true, silent = true })
 --
 -- --Map <C-l> to right arrow in insert mode
@@ -110,8 +109,9 @@ _G.save_and_delete_last_line = save_and_delete_last_line
 -- keymap.set({ "i", "s" }, "<C-j>", "<Down>", { noremap = true, silent = true })
 
 -- Map <C-s> to the function
-vim.api.nvim_set_keymap("n", "<C-s>", ":lua save_and_delete_last_line()<CR>", { noremap = true, silent = true })
-vim.api.nvim_set_keymap("i", "<C-s>", "<Esc>:lua save_and_delete_last_line()<CR>", { noremap = true, silent = true })
+keymap.set({ "n", "v", "i" }, "<C-s>", function()
+  save_and_delete_last_line()
+end, { noremap = true, silent = true })
 
 keymap.set("n", "<leader>uc", function()
   Util.toggle("conceallevel", false, { 0, 2 })

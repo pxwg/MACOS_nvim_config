@@ -397,14 +397,10 @@ vim.api.nvim_create_autocmd({ "BufEnter" }, {
   command = "set filetype=markdown",
 })
 
-local function adjust_minimum_lines()
-  if vim.g.started_by_firenvim then
-    if vim.o.lines < 25 then
-      vim.o.lines = 25
-    end
-  end
-end
+vim.api.nvim_create_autocmd("BufWritePost", {
+  callback = require("util.firenvim").adjust_minimum_lines,
+})
 
 vim.api.nvim_create_autocmd("BufEnter", {
-  callback = adjust_minimum_lines,
+  callback = require("util.firenvim").adjust_minimum_lines,
 })
