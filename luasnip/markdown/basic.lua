@@ -25,6 +25,36 @@ return {
     fmta([[$<>$ <>]], { i(1), i(0) })
   ),
   s(
+    { trig = "eqt", snippetType = "autosnippet" },
+    fmta(
+      [[
+        <>$$
+          <>
+        $$<>]],
+      {
+        i(0),
+        i(1),
+        i(2),
+      }
+    ),
+    { condition = line_begin }
+  ),
+  s(
+    { trig = "eqs", snippetType = "autosnippet" },
+    fmta(
+      [[
+        <>$$
+          <>
+        $$<>]],
+      {
+        i(0),
+        i(1),
+        i(2),
+      }
+    ),
+    { condition = line_begin }
+  ),
+  s(
     { trig = "km", wordTrig = true, snippetType = "autosnippet", trigEngine = "ecma" },
     fmta([[$<>$ <>]], { i(1), i(0) })
   ),
