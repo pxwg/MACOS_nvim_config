@@ -1,6 +1,34 @@
 local battery = require("util.battery")
 local disable = false
 
+-- Integration with JankyBorders
+
+local function on_open()
+  local Job = require("plenary.job")
+
+  vim.wo.number = false
+  vim.wo.relativenumber = false
+  require("util.opacity_and_font").set_opacity()
+  require("util.opacity_and_font").set_fontsize()
+  Job:new({
+    command = "brew",
+    args = { "services", "stop", "borders" },
+  }):start()
+end
+
+local function on_close()
+  local Job = require("plenary.job")
+
+  vim.wo.number = true
+  vim.wo.relativenumber = true
+  require("util.opacity_and_font").back_opacity()
+  require("util.opacity_and_font").back_fontsize()
+  Job:new({
+    command = "brew",
+    args = { "services", "start", "borders" },
+  }):start()
+end
+
 return {
   "folke/snacks.nvim",
   priority = 1000,
@@ -42,18 +70,19 @@ return {
         mini_diff_signs = false,
         diagnostics = false,
       },
-      on_open = function()
-        vim.wo.number = false
-        vim.wo.relativenumber = false
-        require("util.opacity_and_font").set_opacity()
-        require("util.opacity_and_font").set_fontsize()
-      end,
-      on_close = function()
-        vim.wo.number = true
-        vim.wo.relativenumber = true
-        require("util.opacity_and_font").back_opacity()
-        require("util.opacity_and_font").back_fontsize()
-      end,
+
+      on_open = on_open,
+      -- on_open = function()
+      --   vim.wo.number = false
+      --   vim.wo.relativenumber = false
+      --   require("util.opacity_and_font").set_opacity()
+      --   require("util.opacity_and_font").set_fontsize()
+      --   Job:new({
+      --     command = "brew",
+      --     args = { "services", "stop", "borders" },
+      --   }):start()
+      -- end,
+      on_close = on_close,
       win = {
         style = {
           enter = true,
