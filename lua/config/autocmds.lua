@@ -175,16 +175,16 @@ vim.api.nvim_create_autocmd("CursorMovedI", {
 -- TODO: 支持英文输入的状态栏检测(单buffer) 每次进入buffer  需要手动改变输入法✅
 
 if vim.g.neovide then
-  vim.g.neovide_scale_factor = 1
-  vim.o.guifont = "JetBrainsMono_Nerd_Font:h19:Light"
+  vim.g.neovide_scale_factor = 0.8
+  vim.o.guifont = "JetBrainsMono_Nerd_Font:h21"
   vim.g.neovide_fullscreen = true
   vim.g.neovide_refresh_rate = 144
-  vim.g.neovide_transparency = 0.8
-  vim.g.neovide_transparency = 0.85
+  vim.g.neovide_transparency = 1
   vim.g.neovide_transparency_point = 0.8
   vim.opt.linespace = -1
   vim.g.neovide_show_border = false
   vim.g.neovide_cursor_animation_length = 0.03
+  vim.g.neovide_show_border = false
 end
 
 if string.match(vim.env.PATH, "tex") then
