@@ -15,7 +15,7 @@ function M.setup_rime()
     configs.rime_ls = {
       default_config = {
         name = "rime_ls",
-        cmd = { vim.fn.expand("~/Desktop/rime-ls-0.4.0/target/release/rime_ls") }, -- your path to rime-ls
+        cmd = { vim.fn.expand("/usr/local/bin/rime_ls") }, -- your path to rime-ls
         filetypes = rime_ls_filetypes,
         single_file_support = true,
         autostart = true, -- Add this line to prevent automatic start, in order to boost
@@ -97,7 +97,7 @@ A language server for librime
   lspconfig.rime_ls.setup({
     init_options = {
       enabled = vim.g.rime_enabled,
-      shared_data_dir = "~/Library/Rime_2/",
+      shared_data_dir = "/Library/Input Methods/Squirrel.app/Contents/SharedSupport",
       user_data_dir = "~/Library/Rime_2/",
       log_dir = vim.fn.expand("~/.local/share/rime-ls"),
       -- paging_characters = { "-", "=", ",", ".", "?", "!" },
