@@ -91,8 +91,8 @@ A language server for librime
   -- nvim-cmp supports additional completion capabilities, so broadcast that to servers
   local capabilities = vim.lsp.protocol.make_client_capabilities()
   -- capabilities = require("cmp_nvim_lsp").default_capabilities(capabilities)
-  capabilities = require("blink.cmp").get_lsp_capabilities(capabilities)
-  capabilities.general.positionEncodings = { "utf-8", "utf-16" }
+  capabilities = require('blink.cmp').get_lsp_capabilities(capabilities)
+  capabilities.general.positionEncodings = { "utf-8" }
 
   lspconfig.rime_ls.setup({
     init_options = {
@@ -104,6 +104,7 @@ A language server for librime
       paging_characters = { ",", "." },
       trigger_characters = {},
       schema_trigger_character = "&",
+      show_filter_text_in_label = false,
       max_candidates = 9,
       long_filter_text = true,
     },
@@ -111,6 +112,7 @@ A language server for librime
     on_attach = rime_on_attach,
     capabilities = capabilities,
   })
+
 end
 
 function M.toggle_rime()

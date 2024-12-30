@@ -178,9 +178,7 @@ return {
                     item.score_offset = item.score_offset - 3
                   end
                 end
-                return vim.tbl_filter(function(item)
-                  return not is_rime_item(item) or rime_item_acceptable(item)
-                end, items)
+                return items
               end,
             },
           },
