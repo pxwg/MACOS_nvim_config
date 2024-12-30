@@ -1,7 +1,59 @@
+function contains_unacceptable_character(content)
+  if content == nil then
+    return true
+  end
+  local ignored_head_number = false
+  for i = 1, #content do
+    local b = string.byte(content, i)
+    if b >= 48 and b <= 57 or b == 32 or b == 46 then
+      -- number dot and space
+      if ignored_head_number then
+        return true
+      end
+    elseif b <= 127 then
+      return true
+    else
+      ignored_head_number = true
+    end
+  end
+  return false
+end
+function is_rime_item(item)
+  if item == nil or item.source_name ~= "LSP" then
+    return false
+  end
+  local client = vim.lsp.get_client_by_id(item.client_id)
+  return client ~= nil and client.name == "rime_ls"
+end
+--- @param item blink.cmp.CompletionItem
+function rime_item_acceptable(item)
+  -- return true
+  return not contains_unacceptable_character(item.label) or item.label:match("%d%d%d%d%-%d%d%-%d%d %d%d:%d%d:%d%d%")
+end
+function get_n_rime_item_index(n, items)
+  if items == nil then
+    items = require("blink.cmp.completion.list").items
+  end
+  local result = {}
+  if items == nil or #items == 0 then
+    return result
+  end
+  for i, item in ipairs(items) do
+    if is_rime_item(item) and rime_item_acceptable(item) then
+      result[#result + 1] = i
+      if #result == n then
+        break
+      end
+    end
+  end
+  return result
+end
+
 return {
   {
     "saghen/blink.compat",
     -- use the latest release, via version = '*', if you also use the latest release for blink.cmp
+    event = "InsertEnter",
     version = "*",
     -- lazy.nvim will automatically load the plugin when it's required by blink.cmp
     lazy = true,
@@ -10,9 +62,10 @@ return {
   },
   {
     "saghen/blink.cmp",
-    lazy = false, -- lazy loading handled internally
+    event = "InsertEnter",
     -- use a release tag to download pre-built binaries
-    version = "v0.*",
+    version = "*",
+    build = "cargo build --release",
     dependencies = {
       -- add source
       { "dmitmel/cmp-digraphs" },
@@ -46,10 +99,58 @@ return {
 
       require("blink.cmp").setup({
         keymap = {
-          preset = "enter", -- 'default', 'super-tab', 'enter'
-          ["<Tab>"] = { "snippet_forward", "select_next", "fallback" },
-          ["<S-Tab>"] = { "snippet_backward", "select_prev", "fallback" },
-          ["<C-y>"] = { "show", "select_and_accept" },
+          preset = "none",
+          ["<cr>"] = { "accept", "fallback" },
+          ["<tab>"] = { "snippet_forward", "fallback" },
+          ["<s-tab>"] = { "snippet_backward", "fallback" },
+          ["<c-j>"] = { "scroll_documentation_up", "fallback" },
+          ["<c-k>"] = { "scroll_documentation_down", "fallback" },
+          ["<c-n>"] = { "select_next", "fallback" },
+          ["<down>"] = { "select_next", "fallback" },
+          ["<up>"] = { "select_next", "fallback" },
+          ["<c-p>"] = { "select_prev", "fallback" },
+          ["<c-x>"] = { "show", "fallback" },
+          ["<c-c>"] = { "cancel", "fallback" },
+          ["<space>"] = {
+            function(cmp)
+              if not vim.g.rime_enabled then
+                return false
+              end
+              local rime_item_index = get_n_rime_item_index(1)
+              if #rime_item_index ~= 1 then
+                return false
+              end
+              return cmp.accept({ index = rime_item_index[1] })
+            end,
+            "fallback",
+          },
+          [";"] = {
+            -- FIX: can not work when binding ;<space> to other key
+            function(cmp)
+              if not vim.g.rime_enabled then
+                return false
+              end
+              local rime_item_index = get_n_rime_item_index(2)
+              if #rime_item_index ~= 2 then
+                return false
+              end
+              return cmp.accept({ index = rime_item_index[2] })
+            end,
+            "fallback",
+          },
+          ["'"] = {
+            function(cmp)
+              if not vim.g.rime_enabled then
+                return false
+              end
+              local rime_item_index = get_n_rime_item_index(3)
+              if #rime_item_index ~= 3 then
+                return false
+              end
+              return cmp.accept({ index = rime_item_index[3] })
+            end,
+            "fallback",
+          },
         },
         completion = {
           documentation = {
@@ -62,29 +163,14 @@ return {
             draw = {
               columns = { { "kind_icon", "label", "label_description", gap = 1 }, { "kind" } },
             },
-            border = "single",
-            winhighlight = "Normal:CmpPmenu,CursorLine:CmpSel,Search:None,FloatBorder:CmpBorder",
+            border = "rounded",
+            winhighlight = "FloatBorder:CmpBorder",
+            -- winhighlight = "Normal:CmpPmenu,CursorLine:CmpSel,Search:PmenuSel,FloatBorder:CmpBorder",
           },
         },
         sources = {
-          default = { "lsp", "path", "snippets", "buffer", "digraphs" },
+          default = { "lsp", "path", "snippets", "buffer" },
           providers = {
-            digraphs = {
-              name = "digraphs", -- IMPORTANT: use the same name as you would for nvim-cmp
-              module = "blink.compat.source",
-
-              -- all blink.cmp source config options work as normal:
-              score_offset = -3,
-
-              -- this table is passed directly to the proxied completion source
-              -- as the `option` field in nvim-cmp's source config
-              --
-              -- this is NOT the same as the opts in a plugin's lazy.nvim spec
-              opts = {
-                -- this is an option from cmp-digraphs
-                cache_digraphs_on_start = true,
-              },
-            },
             lsp = {
               transform_items = function(_, items)
                 for _, item in ipairs(items) do
