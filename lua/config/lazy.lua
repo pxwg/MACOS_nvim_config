@@ -8,6 +8,7 @@ vim.env.LANG = "zh_CN.UTF-8"
 vim.opt.rtp:prepend(vim.env.LAZY or lazypath)
 vim.o.timeoutlen = 50
 vim.o.ttimeout = true
+vim.opt.list = false
 vim.o.ttimeoutlen = 10
 -- vim.o.scrolloff = 10
 

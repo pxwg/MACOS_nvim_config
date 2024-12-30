@@ -15,7 +15,7 @@ function M.setup_rime()
     configs.rime_ls = {
       default_config = {
         name = "rime_ls",
-        cmd = { vim.fn.expand("/usr/local/bin/rime_ls") }, -- your path to rime-ls
+        cmd = { vim.fn.expand("~/Downloads/rime_ls") }, -- your path to rime-ls
         filetypes = rime_ls_filetypes,
         single_file_support = true,
         autostart = true, -- Add this line to prevent automatic start, in order to boost
@@ -82,17 +82,17 @@ A language server for librime
     })
   end
 
-  lspconfig.rime_ls.setup({
-    on_attach = attach_in_insert_mode,
-  })
+  -- lspconfig.rime_ls.setup({
+  --   on_attach = attach_in_insert_mode,
+  -- })
 
   -- 我们只能对特定的lsp  客户端执行attach_in_insert_mode 函数，像texlab  这样的lsp 需要在普通模式下也能工作, 否则会出现问题
 
   -- nvim-cmp supports additional completion capabilities, so broadcast that to servers
   local capabilities = vim.lsp.protocol.make_client_capabilities()
   -- capabilities = require("cmp_nvim_lsp").default_capabilities(capabilities)
-  -- capabilities.offsetEncoding = { "utf-16" } -- 设置统一的 offsetEncoding
-  -- capabilities.general.positionEncodings = { "utf-8" }
+  capabilities = require('blink.cmp').get_lsp_capabilities(capabilities)
+  capabilities.general.positionEncodings = { "utf-8" }
 
   lspconfig.rime_ls.setup({
     init_options = {
@@ -106,8 +106,9 @@ A language server for librime
       schema_trigger_character = "&",
       show_filter_text_in_label = false,
       max_candidates = 9,
+      long_filter_text = true,
     },
-    on_attach = rime_on_attach,
+    on_attach = attach_in_insert_mode,
     capabilities = capabilities,
   })
 

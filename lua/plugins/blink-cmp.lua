@@ -1,133 +1,103 @@
 return {
-  "saghen/blink.cmp",
-  enabled = false,
-  dependencies = {
-    "rafamadriz/friendly-snippets",
-    "onsails/lspkind.nvim",
+  {
+    "saghen/blink.compat",
+    -- use the latest release, via version = '*', if you also use the latest release for blink.cmp
+    version = "*",
+    -- lazy.nvim will automatically load the plugin when it's required by blink.cmp
+    lazy = true,
+    -- make sure to set opts so that lazy.nvim calls blink.compat's setup
+    opts = {},
   },
-  version = "*",
-
-  ---@module 'blink.cmp'
-  ---@type blink.cmp.Config
-  opts = {
-
-    appearance = {
-      use_nvim_cmp_as_default = true,
-      nerd_font_variant = "mono",
+  {
+    "saghen/blink.cmp",
+    lazy = false, -- lazy loading handled internally
+    -- use a release tag to download pre-built binaries
+    version = "v0.*",
+    dependencies = {
+      -- add source
+      { "dmitmel/cmp-digraphs" },
     },
+    -- build = 'cargo build --release',
+    config = function()
+      -- if last char is number, and the only completion item is provided by rime-ls, accept it
+      require("blink.cmp.completion.list").show_emitter:on(function(event)
+        if #event.items ~= 1 then
+          return
+        end
+        local col = vim.fn.col(".") - 1
+        if event.context.line:sub(1, col):match("^.*%a+%d+$") == nil then
+          return
+        end
+        local client = vim.lsp.get_client_by_id(event.items[1].client_id)
+        if (not client) or client.name ~= "rime_ls" then
+          return
+        end
+        require("blink.cmp").accept({ index = 1 })
+      end)
 
-    completion = {
-      accept = { auto_brackets = { enabled = true } },
+      -- link BlinkCmpKind to CmpItemKind since nvchad/base46 does not support it
+      local set_hl = function(hl_group, opts)
+        opts.default = true -- Prevents overriding existing definitions
+        vim.api.nvim_set_hl(0, hl_group, opts)
+      end
+      for _, kind in ipairs(require("blink.cmp.types").CompletionItemKind) do
+        set_hl("BlinkCmpKind" .. kind, { link = "CmpItemKind" .. kind or "BlinkCmpKind" })
+      end
 
-      documentation = {
-        auto_show = true,
-        auto_show_delay_ms = 250,
-        treesitter_highlighting = true,
-        window = { border = "rounded" },
-      },
-
-      list = {
-        selection = function(ctx)
-          return ctx.mode == "cmdline" and "auto_insert" or "preselect"
-        end,
-      },
-
-      menu = {
-        border = "rounded",
-
-        cmdline_position = function()
-          if vim.g.ui_cmdline_pos ~= nil then
-            local pos = vim.g.ui_cmdline_pos -- (1, 0)-indexed
-            return { pos[1] - 1, pos[2] }
-          end
-          local height = (vim.o.cmdheight == 0) and 1 or vim.o.cmdheight
-          return { vim.o.lines - height, 0 }
-        end,
-
-        draw = {
-          columns = {
-            { "kind_icon", "label", gap = 1 },
-            { "kind" },
+      require("blink.cmp").setup({
+        keymap = {
+          preset = "enter", -- 'default', 'super-tab', 'enter'
+          ["<Tab>"] = { "snippet_forward", "select_next", "fallback" },
+          ["<S-Tab>"] = { "snippet_backward", "select_prev", "fallback" },
+          ["<C-y>"] = { "show", "select_and_accept" },
+        },
+        completion = {
+          documentation = {
+            auto_show = true,
           },
-          components = {
-            kind_icon = {
-              text = function(item)
-                local kind = require("lspkind").symbol_map[item.kind] or ""
-                return kind .. " "
-              end,
-              highlight = "CmpItemKind",
+          menu = {
+            auto_show = function(ctx)
+              return ctx.mode ~= "cmdline"
+            end,
+            draw = {
+              columns = { { "kind_icon", "label", "label_description", gap = 1 }, { "kind" } },
             },
-            label = {
-              text = function(item)
-                return item.label
-              end,
-              highlight = "CmpItemAbbr",
-            },
-            kind = {
-              text = function(item)
-                return item.kind
-              end,
-              highlight = "CmpItemKind",
-            },
+            border = "single",
+            winhighlight = "Normal:CmpPmenu,CursorLine:CmpSel,Search:None,FloatBorder:CmpBorder",
           },
         },
-      },
-    },
+        sources = {
+          default = { "lsp", "path", "snippets", "buffer", "digraphs" },
+          providers = {
+            digraphs = {
+              name = "digraphs", -- IMPORTANT: use the same name as you would for nvim-cmp
+              module = "blink.compat.source",
 
-    -- My super-TAB configuration
-    keymap = {
-      ["<C-space>"] = { "show", "show_documentation", "hide_documentation" },
-      ["<C-e>"] = { "hide", "fallback" },
-      ["<CR>"] = { "accept", "fallback" },
+              -- all blink.cmp source config options work as normal:
+              score_offset = -3,
 
-      ["<Tab>"] = {
-        function(cmp)
-          return cmp.select_next()
-        end,
-        "snippet_forward",
-        "fallback",
-      },
-      ["<S-Tab>"] = {
-        function(cmp)
-          return cmp.select_prev()
-        end,
-        "snippet_backward",
-        "fallback",
-      },
-
-      ["<Up>"] = { "select_prev", "fallback" },
-      ["<Down>"] = { "select_next", "fallback" },
-      ["<C-p>"] = { "select_prev", "fallback" },
-      ["<C-n>"] = { "select_next", "fallback" },
-      ["<C-up>"] = { "scroll_documentation_up", "fallback" },
-      ["<C-down>"] = { "scroll_documentation_down", "fallback" },
-    },
-
-    -- Experimental signature help support
-    signature = {
-      enabled = true,
-      window = { border = "rounded" },
-    },
-
-    sources = {
-      default = { "lsp", "path", "snippets", "buffer" },
-      cmdline = {}, -- Disable sources for command-line mode
-      providers = {
-        lsp = {
-          min_keyword_length = 2, -- Number of characters to trigger porvider
-          score_offset = 0, -- Boost/penalize the score of the items
+              -- this table is passed directly to the proxied completion source
+              -- as the `option` field in nvim-cmp's source config
+              --
+              -- this is NOT the same as the opts in a plugin's lazy.nvim spec
+              opts = {
+                -- this is an option from cmp-digraphs
+                cache_digraphs_on_start = true,
+              },
+            },
+            lsp = {
+              transform_items = function(_, items)
+                for _, item in ipairs(items) do
+                  if item.kind == require("blink.cmp.types").CompletionItemKind.Snippet then
+                    item.score_offset = item.score_offset - 3
+                  end
+                end
+                return items
+              end,
+            },
+          },
         },
-        path = {
-          min_keyword_length = 0,
-        },
-        snippets = {
-          min_keyword_length = 2,
-        },
-        buffer = {
-          min_keyword_length = 5,
-          max_items = 5,
-        },
-      },
-    },
+      })
+    end,
   },
 }
