@@ -254,7 +254,7 @@ end, { noremap = true, silent = true, desc = "Mathematica Calculation" })
 vim.api.nvim_create_autocmd("FileType", {
   pattern = "tex",
   callback = function()
-    keymap.set({ "n", "i" }, "<leader>k", function()
+    keymap.set({ "n", "i" }, "<localleader>k", function()
       if vim.b.texlab_active then
         vim.cmd("LspStop texlab")
         vim.b.texlab_active = false
@@ -269,7 +269,7 @@ vim.api.nvim_create_autocmd("FileType", {
 vim.api.nvim_create_autocmd("FileType", {
   pattern = "markdown",
   callback = function()
-    keymap.set({ "n", "i" }, "<leader>k", function()
+    keymap.set({ "n", "i" }, "<localleader>k", function()
       if vim.b.marksman_active then
         vim.cmd("LspStop marksman")
         vim.b.marksman_active = false

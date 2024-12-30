@@ -405,3 +405,10 @@ vim.api.nvim_create_autocmd("BufReadPost", {
     vim.cmd([[LspStop texlab]])
   end,
 })
+
+vim.api.nvim_create_autocmd("BufReadPost", {
+  pattern = "*.md",
+  callback = function()
+    vim.cmd([[LspStop marksman]])
+  end,
+})
