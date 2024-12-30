@@ -15,7 +15,7 @@ function M.setup_rime()
     configs.rime_ls = {
       default_config = {
         name = "rime_ls",
-        cmd = { vim.fn.expand("~/Downloads/rime_ls") }, -- your path to rime-ls
+        cmd = { vim.fn.expand("/usr/local/bin/rime_ls") }, -- your path to rime-ls
         filetypes = rime_ls_filetypes,
         single_file_support = true,
         autostart = true, -- Add this line to prevent automatic start, in order to boost
@@ -53,34 +53,34 @@ A language server for librime
   end
 
   -- Function to attach LSP only in insert mode, which could boost the performance
-  local function attach_in_insert_mode(client, bufnr)
-    -- 只对特定的 LSP 客户端执行自动命令，例如名称为 "specific_lsp_client"
-    if client.name ~= "rime_ls" then
-      return
-    end
-
-    vim.api.nvim_create_autocmd("InsertEnter", {
-      buffer = bufnr,
-      callback = function()
-        if not client.attached_buffers[bufnr] then
-          client.attached_buffers[bufnr] = true
-          client.config.on_attach(client, bufnr)
-        end
-      end,
-    })
-
-    vim.api.nvim_create_autocmd("InsertLeave", {
-      buffer = bufnr,
-      callback = function()
-        if client.attached_buffers[bufnr] then
-          client.attached_buffers[bufnr] = false
-          if client.config.on_detach then
-            client.config.on_detach(client, bufnr)
-          end
-        end
-      end,
-    })
-  end
+  -- local function attach_in_insert_mode(client, bufnr)
+  --   -- 只对特定的 LSP 客户端执行自动命令，例如名称为 "specific_lsp_client"
+  --   if client.name ~= "rime_ls" then
+  --     return
+  --   end
+  --
+  --   vim.api.nvim_create_autocmd("InsertEnter", {
+  --     buffer = bufnr,
+  --     callback = function()
+  --       if not client.attached_buffers[bufnr] then
+  --         client.attached_buffers[bufnr] = true
+  --         client.config.on_attach(client, bufnr)
+  --       end
+  --     end,
+  --   })
+  --
+  --   vim.api.nvim_create_autocmd("InsertLeave", {
+  --     buffer = bufnr,
+  --     callback = function()
+  --       if client.attached_buffers[bufnr] then
+  --         client.attached_buffers[bufnr] = false
+  --         if client.config.on_detach then
+  --           client.config.on_detach(client, bufnr)
+  --         end
+  --       end
+  --     end,
+  --   })
+  -- end
 
   -- lspconfig.rime_ls.setup({
   --   on_attach = attach_in_insert_mode,
@@ -107,7 +107,8 @@ A language server for librime
       max_candidates = 9,
       long_filter_text = true,
     },
-    on_attach = attach_in_insert_mode,
+    -- on_attach = attach_in_insert_mode,
+    on_attach = rime_on_attach,
     capabilities = capabilities,
   })
 end
