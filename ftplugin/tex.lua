@@ -12,4 +12,4 @@ vim.opt_local.shiftwidth = 1 -- 每次缩进使用 1 个空格
 --     vim.opt_local.shiftwidth = 8 -- 重置为默认值或其他值
 --   end,
 -- })
-vim.cmd([[LspStart rime_ls]])
+-- vim.cmd([[LspStart rime_ls]])
