@@ -68,7 +68,8 @@ return {
     build = "cargo build --release",
     dependencies = {
       -- add source
-      { "dmitmel/cmp-digraphs" },
+      { "dmitmel/cmp-digraphs", 
+"L3MON4D3/LuaSnip", "mikavilpas/blink-ripgrep.nvim" },
     },
     -- build = 'cargo build --release',
     config = function()
@@ -169,17 +170,59 @@ return {
           },
         },
         sources = {
-          default = { "lsp", "path", "snippets", "buffer" },
+          default = { "lsp", "path", "luasnip", "buffer", "ripgrep", "lazydev" },
           providers = {
             lsp = {
+              fallbacks = { "ripgrep", "buffer" },
+              --- @param items blink.cmp.CompletionItem[]
               transform_items = function(_, items)
+                -- demote snippets
                 for _, item in ipairs(items) do
                   if item.kind == require("blink.cmp.types").CompletionItemKind.Snippet then
                     item.score_offset = item.score_offset - 3
                   end
                 end
-                return items
+                -- filter non-acceptable rime items
+                return vim.tbl_filter(function(item)
+                  if not is_rime_item(item) then
+                    return true
+                  end
+                  item.detail = nil
+                  return rime_item_acceptable(item)
+                end, items)
               end,
+            },
+            buffer = { max_items = 5 },
+            luasnip = { name = "Snip" },
+            lazydev = {
+              name = "LazyDev",
+              module = "lazydev.integrations.blink",
+              score_offset = 100,
+            },
+            ripgrep = {
+              module = "blink-ripgrep",
+              name = "RG",
+              max_items = 5,
+              ---@module 'blink-ripgrep'
+              ---@type blink-ripgrep.Options
+              opts = {
+                prefix_min_len = 4,
+                context_size = 5,
+                max_filesize = "1M",
+                project_root_marker = vim.g.root_markers,
+                search_casing = "--smart-case",
+                -- (advanced) Any additional options you want to give to ripgrep.
+                -- See `rg -h` for a list of all available options. Might be
+                -- helpful in adjusting performance in specific situations.
+                -- If you have an idea for a default, please open an issue!
+                --
+                -- Not everything will work (obviously).
+                additional_rg_options = {},
+                -- When a result is found for a file whose filetype does not have a
+                -- treesitter parser installed, fall back to regex based highlighting
+                -- that is bundled in Neovim.
+                fallback_to_regex_highlighting = true,
+              },
             },
           },
         },

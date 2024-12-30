@@ -79,11 +79,6 @@ vim.cmd([[set conceallevel=2]])
 
 keymap.set("n", "<localleader>e", " ", { call = require("lsp.rime_2").setup_rime() })
 
-local rime_ls_active = true
-local rime_toggled = true --默认打开require("lsp.rime_2")_ls
-
-_G.rime_toggled = rime_toggled
-_G.rime_ls_active = rime_ls_active
 
 keymap.set("i", "jn", function()
   vim.cmd("LspStart rime_ls")

@@ -11,6 +11,11 @@ vim.o.ttimeout = true
 vim.opt.list = false
 vim.o.ttimeoutlen = 10
 -- vim.o.scrolloff = 10
+local rime_ls_active = true
+local rime_toggled = true --默认打开require("lsp.rime_2")_ls
+
+_G.rime_toggled = rime_toggled
+_G.rime_ls_active = rime_ls_active
 
 local file_path = "/tmp/nvim_hammerspoon_latex.txt"
 local file = io.open(file_path, "r")
@@ -57,11 +62,6 @@ require("lazy").setup({
     optional = true,
     opts = {
       servers = {
-        texlab = {
-          keys = {
-            { "<Leader>K", "<plug>(vimtex-doc-package)", desc = "Vimtex Docs", silent = true },
-          },
-        },
       },
     },
   },

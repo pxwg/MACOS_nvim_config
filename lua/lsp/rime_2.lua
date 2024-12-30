@@ -53,45 +53,62 @@ A language server for librime
   end
 
   -- Function to attach LSP only in insert mode, which could boost the performance
-  -- local function attach_in_insert_mode(client, bufnr)
-  --   -- 只对特定的 LSP 客户端执行自动命令，例如名称为 "specific_lsp_client"
-  --   if client.name ~= "rime_ls" then
-  --     return
+  local function attach_in_normal_mode(client, bufnr)
+    if not client.attached_buffers[bufnr] then
+      print("Attaching buffer:", bufnr)
+      client.attached_buffers[bufnr] = true
+      client.config.on_attach(client, bufnr)
+    end
+  end
+
+  local function deattach(client, bufnr)
+    if client.attached_buffers[bufnr] then
+      print("Detaching buffer:", bufnr)
+      client.attached_buffers[bufnr] = false
+      if client.config.on_detach then
+        client.config.on_detach(client, bufnr)
+      end
+    end
+  end
+  --
+  -- local function tex_in_math(client, bufnr)
+  --   print("tex_in_math called with rime_toggled:", rime_toggled, "rime_ls_active:", rime_ls_active)
+  --   if rime_toggled == false and rime_ls_active == false then
+  --     attach_in_normal_mode(client, bufnr)
+  --   else
+  --     deattach(client, bufnr)
   --   end
-  --
-  --   vim.api.nvim_create_autocmd("InsertEnter", {
-  --     buffer = bufnr,
-  --     callback = function()
-  --       if not client.attached_buffers[bufnr] then
-  --         client.attached_buffers[bufnr] = true
-  --         client.config.on_attach(client, bufnr)
-  --       end
-  --     end,
-  --   })
-  --
-  --   vim.api.nvim_create_autocmd("InsertLeave", {
-  --     buffer = bufnr,
-  --     callback = function()
-  --       if client.attached_buffers[bufnr] then
-  --         client.attached_buffers[bufnr] = false
-  --         if client.config.on_detach then
-  --           client.config.on_detach(client, bufnr)
-  --         end
-  --       end
-  --     end,
-  --   })
   -- end
 
-  -- lspconfig.rime_ls.setup({
-  --   on_attach = attach_in_insert_mode,
+  -- nvim-cmp supports additional completion capabilities, so broadcast that to servers
+  -- local function is_cursor_in_braces()
+  --   local cursor_pos = vim.api.nvim_win_get_cursor(0)
+  --   local line = vim.api.nvim_get_current_line()
+  --   local before_cursor = line:sub(1, cursor_pos[2])
+  --   local after_cursor = line:sub(cursor_pos[2] + 1)
+  --
+  --   local open_braces = before_cursor:match("{")
+  --   local close_braces = after_cursor:match("}")
+  --
+  --   return open_braces and close_braces
+  -- end
+  --
+  -- local function tex_in_math(client, bufnr)
+  --   print("tex_in_math called with rime_toggled:", rime_toggled, "rime_ls_active:", rime_ls_active)
+  --   if is_cursor_in_braces() then
+  --     attach_in_normal_mode(client, bufnr)
+  --   else
+  --     deattach(client, bufnr)
+  --   end
+  -- end
+  --
+  -- lspconfig.texlab.setup({
+  --   on_attach = tex_in_math,
   -- })
 
-  -- 我们只能对特定的lsp  客户端执行attach_in_insert_mode 函数，像texlab  这样的lsp 需要在普通模式下也能工作, 否则会出现问题
-
-  -- nvim-cmp supports additional completion capabilities, so broadcast that to servers
   local capabilities = vim.lsp.protocol.make_client_capabilities()
   -- capabilities = require("cmp_nvim_lsp").default_capabilities(capabilities)
-  capabilities = require('blink.cmp').get_lsp_capabilities(capabilities)
+  capabilities = require("blink.cmp").get_lsp_capabilities(capabilities)
   capabilities.general.positionEncodings = { "utf-8" }
 
   lspconfig.rime_ls.setup({
@@ -104,7 +121,7 @@ A language server for librime
       paging_characters = { ",", "." },
       trigger_characters = {},
       schema_trigger_character = "&",
-      show_filter_text_in_label = false,
+      -- show_filter_text_in_label = false,
       max_candidates = 9,
       long_filter_text = true,
     },
@@ -112,7 +129,6 @@ A language server for librime
     on_attach = rime_on_attach,
     capabilities = capabilities,
   })
-
 end
 
 function M.toggle_rime()
