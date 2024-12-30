@@ -94,4 +94,4 @@ vim.o.pumblend = 0
 
 require("util.listen_code_change")
 
-require('lsp.rime_2').setup_rime()
+-- require('lsp.rime_2').setup_rime()

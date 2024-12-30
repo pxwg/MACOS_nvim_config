@@ -77,7 +77,7 @@ local random_quote = quotes[math.random(#quotes)]
 
 vim.cmd([[set conceallevel=2]])
 
-keymap.set("n", "<localleader>e", " ", { call = require("lsp.rime_2").setup_rime() })
+-- keymap.set("n", "<localleader>e", " ", { call = require("lsp.rime_2").setup_rime() })
 
 local rime_ls_active = true
 local rime_toggled = true --默认打开require("lsp.rime_2")_ls
@@ -85,12 +85,12 @@ local rime_toggled = true --默认打开require("lsp.rime_2")_ls
 _G.rime_toggled = rime_toggled
 _G.rime_ls_active = rime_ls_active
 
-keymap.set("i", "jn", function()
-  vim.cmd("LspStart rime_ls")
-  require("lsp.rime_2").toggle_rime()
-  _G.rime_toggled = not _G.rime_toggled
-  _G.rime_ls_active = not _G.rime_ls_active
-end, { noremap = true, silent = true, desc = "toggle rime-ls" })
+-- keymap.set("i", "jn", function()
+--   vim.cmd("LspStart rime_ls")
+--   require("lsp.rime_2").toggle_rime()
+--   _G.rime_toggled = not _G.rime_toggled
+--   _G.rime_ls_active = not _G.rime_ls_active
+-- end, { noremap = true, silent = true, desc = "toggle rime-ls" })
 
 -- vim.api.nvim_create_autocmd({ "BufEnter" }, {
 --   pattern = { "*.tex", "*.md", "*.copilot-chat" },
@@ -101,25 +101,25 @@ end, { noremap = true, silent = true, desc = "toggle rime-ls" })
 
 -- 基本逻辑: 在text 区域，rime_toggle = true 始终成立, rime_ls_active = true 在中文输入法下成立。如果在数学区域，则rime_toggle = false, rime_ls_active = true 应当始终成立, 如果
 
-vim.api.nvim_create_autocmd({ "BufEnter" }, {
-  pattern = { "*.md", "*.tex" },
-  callback = function()
-    local old_pattern = _G.rime_toggled
-    local old_active = _G.rime_ls_active
-    -- TODO: deactivate rime from user update
-    -- if not _G.rime_ls_active and not _G.rime_ls_active then
-    -- return nil
-    -- else
-    if old_pattern == false then
-      vim.cmd("LspStart rime_ls")
-      require("lsp.rime_2").toggle_rime()
-      _G.rime_toggled = true
-      _G.rime_ls_active = true
-    else
-      vim.cmd("LspStart rime_ls")
-    end
-  end,
-})
+-- vim.api.nvim_create_autocmd({ "BufEnter" }, {
+--   pattern = { "*.md", "*.tex" },
+--   callback = function()
+--     local old_pattern = _G.rime_toggled
+--     local old_active = _G.rime_ls_active
+--     -- TODO: deactivate rime from user update
+--     -- if not _G.rime_ls_active and not _G.rime_ls_active then
+--     -- return nil
+--     -- else
+--     if old_pattern == false then
+--       vim.cmd("LspStart rime_ls")
+--       require("lsp.rime_2").toggle_rime()
+--       _G.rime_toggled = true
+--       _G.rime_ls_active = true
+--     else
+--       vim.cmd("LspStart rime_ls")
+--     end
+--   end,
+-- })
 
 -- local function switch_rime_math()
 --   if vim.bo.filetype == "tex" then
