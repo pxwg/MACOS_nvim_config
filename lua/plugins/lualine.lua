@@ -35,6 +35,22 @@ local function enabled()
   end
 end
 
+local function is_texlab_open()
+  if vim.b.texlab_active then
+    return "󰿉"
+  else
+    return ""
+  end
+end
+
+local function is_marksman_open()
+  if vim.b.marksman_active then
+    return " "
+  else
+    return ""
+  end
+end
+
 return {
   "nvim-lualine/lualine.nvim",
   enabled = enabled,
@@ -49,11 +65,20 @@ return {
     opts.options = options
     table.insert(opts.sections.lualine_x, {
       function()
-        -- return rime.check_rime_status()
         return rime_toggle_word()
       end,
       color = rime_toggle_color,
       separator = { left = "", right = " " },
+    })
+    table.insert(opts.sections.lualine_x, 2, {
+      function()
+        return is_texlab_open()
+      end,
+    })
+    table.insert(opts.sections.lualine_x, 2, {
+      function()
+        return is_marksman_open()
+      end,
     })
     opts.sections.lualine_y = {
       function()

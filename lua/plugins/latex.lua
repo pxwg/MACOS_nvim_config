@@ -49,7 +49,7 @@ return {
       },
       surrounds = { enabled = false },
     },
-    -- ft = { "markdown" },
+    ft = { "markdown" },
   },
   {
     "MeanderingProgrammer/render-markdown.nvim",

@@ -79,7 +79,6 @@ vim.cmd([[set conceallevel=2]])
 
 keymap.set("n", "<localleader>e", " ", { call = require("lsp.rime_2").setup_rime() })
 
-
 keymap.set("i", "jn", function()
   vim.cmd("LspStart rime_ls")
   require("lsp.rime_2").toggle_rime()
@@ -398,4 +397,11 @@ vim.api.nvim_create_autocmd("BufWritePost", {
 
 vim.api.nvim_create_autocmd("BufEnter", {
   callback = require("util.firenvim").adjust_minimum_lines,
+})
+
+vim.api.nvim_create_autocmd("BufReadPost", {
+  pattern = "*.tex",
+  callback = function()
+    vim.cmd([[LspStop texlab]])
+  end,
 })

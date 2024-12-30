@@ -111,7 +111,7 @@ end, { noremap = true, silent = true, desc = "AutoCorrect For Chinese File" })
 -- Map <C-s> to the function
 keymap.set({ "n", "v", "i" }, "<C-s>", function()
   save_and_delete_last_line()
-  vim.cmd('stopinsert')
+  vim.cmd("stopinsert")
 end, { noremap = true, silent = true })
 
 keymap.set("n", "<leader>uc", function()
@@ -249,3 +249,34 @@ vim.keymap.set({ "n", "v" }, "<leader>ct", require("stay-centered").toggle, { de
 keymap.set("n", "<f6>", function()
   require("util.windows").create_floating_window()
 end, { noremap = true, silent = true, desc = "Mathematica Calculation" })
+
+-- 一个现在暂时可以使用的配置, 以后变成自动
+vim.api.nvim_create_autocmd("FileType", {
+  pattern = "tex",
+  callback = function()
+    keymap.set({ "n", "i" }, "<leader>k", function()
+      if vim.b.texlab_active then
+        vim.cmd("LspStop texlab")
+        vim.b.texlab_active = false
+      else
+        vim.cmd("LspStart texlab")
+        vim.b.texlab_active = true
+      end
+    end, { noremap = true, silent = true, desc = "Toggle Texlab LSP" })
+  end,
+})
+
+vim.api.nvim_create_autocmd("FileType", {
+  pattern = "markdown",
+  callback = function()
+    keymap.set({ "n", "i" }, "<leader>k", function()
+      if vim.b.marksman_active then
+        vim.cmd("LspStop marksman")
+        vim.b.marksman_active = false
+      else
+        vim.cmd("LspStart texlab")
+        vim.b.marksman_active = true
+      end
+    end, { noremap = true, silent = true, desc = "Toggle Texlab LSP" })
+  end,
+})

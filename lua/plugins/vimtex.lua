@@ -2,7 +2,8 @@ local synctex = require("util.tdf")
 return {
   "lervag/vimtex",
   -- lazy = true,
-  event = "VimEnter",
+  -- priority = 100,
+  -- event = "VimEnter",
   config = function()
     vim.cmd([[
 let g:tex_flavor='latex'
