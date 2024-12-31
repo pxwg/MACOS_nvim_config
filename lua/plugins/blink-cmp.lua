@@ -112,7 +112,7 @@ return {
           ["<c-k>"] = { "scroll_documentation_down", "fallback" },
           ["<c-n>"] = { "select_next", "fallback" },
           ["<down>"] = { "select_next", "fallback" },
-          ["<up>"] = { "select_next", "fallback" },
+          ["<up>"] = { "select_prev", "fallback" },
           ["<c-p>"] = { "select_prev", "fallback" },
           ["<c-x>"] = { "show", "fallback" },
           ["<c-c>"] = { "cancel", "fallback" },
@@ -165,6 +165,7 @@ return {
             auto_show = function(ctx)
               return ctx.mode ~= "cmdline"
             end,
+            -- auto_show = true,
             draw = {
               columns = { { "kind_icon", "label", "label_description", gap = 1 }, { "kind" } },
             },
@@ -209,6 +210,15 @@ return {
               module = "blink-cmp-copilot",
               score_offset = 100,
               async = true,
+              -- transform_items = function(_, items)
+              --   local CompletionItemKind = require("blink.cmp.types").CompletionItemKind
+              --   local kind_idx = #CompletionItemKind + 1
+              --   CompletionItemKind[kind_idx] = "Copilot"
+              --   for _, item in ipairs(items) do
+              --     item.kind = kind_idx
+              --   end
+              --   return items
+              -- end,
             },
             ripgrep = {
               module = "blink-ripgrep",

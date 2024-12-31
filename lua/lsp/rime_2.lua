@@ -6,6 +6,7 @@ local cmp = require("cmp")
 function M.setup_rime()
   -- global status
   vim.g.rime_enabled = true
+  M.start_rime_ls()
 
   -- add rime-ls to lspconfig as a custom server
   -- see `:h lspconfig-new`
@@ -15,7 +16,8 @@ function M.setup_rime()
     configs.rime_ls = {
       default_config = {
         name = "rime_ls",
-        cmd = { vim.fn.expand("/usr/local/bin/rime_ls") }, -- your path to rime-ls
+        -- cmd = { vim.fn.expand("/usr/local/bin/rime_ls") }, -- your path to rime-ls
+        cmd = vim.lsp.rpc.connect("127.0.0.1", 9257),
         filetypes = rime_ls_filetypes,
         single_file_support = true,
         autostart = true, -- Add this line to prevent automatic start, in order to boost
@@ -109,7 +111,7 @@ A language server for librime
   local capabilities = vim.lsp.protocol.make_client_capabilities()
   -- capabilities = require("cmp_nvim_lsp").default_capabilities(capabilities)
   capabilities = require("blink.cmp").get_lsp_capabilities(capabilities)
-  capabilities.general.positionEncodings = { "utf-8" }
+  capabilities.general.positionEncodings = { "utf-8", "utf-16" }
 
   lspconfig.rime_ls.setup({
     init_options = {
@@ -148,4 +150,15 @@ function M.toggle_rime()
   end
 end
 
+function M.start_rime_ls()
+  vim.fn.jobstart("rime_ls --listen", {
+    on_stdout = function() end,
+    on_stderr = function() end,
+    on_exit = function(_, code)
+      if code ~= 0 then
+        vim.api.nvim_err_writeln("rime_ls exited with code " .. code)
+      end
+    end,
+  })
+end
 return M

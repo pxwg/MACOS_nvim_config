@@ -11,6 +11,7 @@ local toggle_rime_and_set_flag = function()
 end
 local cmp = require("cmp")
 local tdf = require("util.tdf")
+local rime = require("util.rime_ls")
 
 -- 定义一个命令来同步所有窗口的滚动和光标移动
 vim.api.nvim_create_user_command("SyncWindows", function()
@@ -121,15 +122,21 @@ local function switch_rime_math()
     if (tex.in_mathzone() == true or tex.in_tikz() == true) and rime_ls_active == true then
       if _G.rime_toggled == true then
         require("lsp.rime_2").toggle_rime()
+        rime.enable_lsps()
         _G.rime_toggled = false
       end
       -- in the text but rime is not active(by hand), do nothing
     elseif _G.rime_ls_active == false then
+      rime.enable_lsps()
       -- in the text but rime is active(by hand ), thus the configuration is for mathzone or table or tikz
     else
       if _G.rime_toggled == false then
         require("lsp.rime_2").toggle_rime()
+        rime.disable_lsps()
         _G.rime_toggled = true
+      end
+      if _G.rime_ls_active and _G.rime_toggled then
+        rime.toggle_lsps_check()
       end
     end
   end
@@ -141,15 +148,21 @@ local function switch_rime_math_md()
     if tex.in_latex() and rime_ls_active == true then
       if _G.rime_toggled == true then
         require("lsp.rime_2").toggle_rime()
+        rime.enable_lsps()
         _G.rime_toggled = false
       end
       -- in the text but rime is not active(by hand), do nothing
     elseif _G.rime_ls_active == false then
+      rime.enable_lsps()
       -- in the text but rime is active(by hand ), thus the configuration is for mathzone or table or tikz
     else
       if _G.rime_toggled == false then
         require("lsp.rime_2").toggle_rime()
+        rime.disable_lsps()
         _G.rime_toggled = true
+      end
+      if _G.rime_ls_active and _G.rime_toggled then
+        rime.toggle_lsps_check()
       end
     end
   end
@@ -313,6 +326,7 @@ vim.api.nvim_create_autocmd({ "FileType" }, {
     watch_file_changes()
     vim.b.autoformat = false
     vim.diagnostic.enable(false)
+    rime.toggle_lsps_check()
   end,
 })
 
@@ -399,16 +413,16 @@ vim.api.nvim_create_autocmd("BufEnter", {
   callback = require("util.firenvim").adjust_minimum_lines,
 })
 
-vim.api.nvim_create_autocmd("BufReadPost", {
-  pattern = "*.tex",
-  callback = function()
-    vim.cmd([[LspStop texlab]])
-  end,
-})
-
-vim.api.nvim_create_autocmd("BufReadPost", {
-  pattern = "*.md",
-  callback = function()
-    vim.cmd([[LspStop marksman]])
-  end,
-})
+-- vim.api.nvim_create_autocmd("BufReadPost", {
+--   pattern = "*.tex",
+--   callback = function()
+--     rime.disable_lsps()
+--   end,
+-- })
+--
+-- vim.api.nvim_create_autocmd("BufReadPost", {
+--   pattern = "*.md",
+--   callback = function()
+--     vim.cmd([[LspStop marksman]])
+--   end,
+-- })

@@ -10,6 +10,69 @@ function M.check_rime_status()
   return false
 end
 
+function M.enable_lsps()
+  -- 恢复所有 LSP
+  vim.cmd("LspStart")
+  vim.b.lsp_disabled = false
+end
+
+function M.disable_lsps()
+  -- 禁止所有 LSP 除了 rime_ls
+  local active_clients = vim.lsp.get_clients()
+  for _, client in ipairs(active_clients) do
+    if client.name ~= "rime_ls" and client.name ~= "copilot" then
+      vim.lsp.stop_client(client.id)
+    end
+  end
+  vim.b.lsp_disabled = true
+end
+
+function M.toggle_lsps()
+  if vim.b.lsp_disabled then
+    M.enable_lsps()
+    vim.b.lsp_disabled = not vim.b.lsp_disabled
+  else
+    M.disable_lsps()
+    vim.b.lsp_disabled = true
+  end
+end
+
+function M.check_lsps()
+  local clients = vim.lsp.get_active_clients()
+  for _, client in ipairs(clients) do
+    if client.name ~= "rime_ls" and client.name ~= "copilot" then
+      return true
+    end
+  end
+  return false
+end
+
+function M.toggle_lsps_check()
+  if vim.b.lsp_disabled then
+    return
+  end
+
+  local start_time = vim.loop.now()
+  local timer = vim.loop.new_timer()
+
+  -- HACK: 为了避免在启动时触发lsp, 这很可能导致一些未知的问题，比如说因为编码冲突导致的智障
+  timer:start(0, 100, vim.schedule_wrap(function()
+    if vim.loop.now() - start_time >= 3000 then
+      timer:stop()
+      timer:close()
+      if not M.check_lsps() then
+        M.enable_lsps()
+        vim.b.lsp_disabled = false
+      end
+    elseif M.check_lsps() then
+      timer:stop()
+      timer:close()
+      M.disable_lsps()
+      vim.b.lsp_disabled = true
+    end
+  end))
+end
+
 -- cannot be used in this way
 -- function M.setup_autocmd()
 --   vim.api.nvim_create_augroup("RimeStatusGroup", { clear = true })

@@ -280,3 +280,26 @@ vim.api.nvim_create_autocmd("FileType", {
     end, { noremap = true, silent = true, desc = "Toggle Texlab LSP" })
   end,
 })
+
+local function toggle_lsps()
+  if vim.b.lsp_disabled then
+    -- 恢复所有 LSP
+    vim.cmd("LspStart")
+    vim.b.lsp_disabled = false
+  else
+    -- 禁止所有 LSP 除了 rime_ls
+    local active_clients = vim.lsp.get_clients()
+    for _, client in ipairs(active_clients) do
+      if client.name ~= "rime_ls" then
+        vim.lsp.stop_client(client.id)
+      end
+    end
+    vim.b.lsp_disabled = true
+  end
+end
+
+-- 你可以将这个函数绑定到一个键
+keymap.set("n", "<localleader>d", function()
+  toggle_lsps()
+  vim.b.rime_active = not vim.b.rime_active
+end, { noremap = true, silent = true, desc = "Toggle LSPs except rime-ls" })

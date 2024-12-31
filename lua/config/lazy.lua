@@ -69,7 +69,7 @@ require("lazy").setup({
 
 vim.g.python3_host_prog = "/opt/homebrew/Caskroom/miniconda/base/bin/python3"
 
-  vim.cmd([[
+vim.cmd([[
         highlight! BorderBG guibg=NONE guifg=#b4befe
         highlight! normalfloat guibg=none guifg=none
         highlight! BufferLineFill guibg=none
