@@ -68,8 +68,12 @@ return {
     build = "cargo build --release",
     dependencies = {
       -- add source
-      { "dmitmel/cmp-digraphs", 
-"L3MON4D3/LuaSnip", "mikavilpas/blink-ripgrep.nvim" },
+      {
+        "dmitmel/cmp-digraphs",
+        "L3MON4D3/LuaSnip",
+        "mikavilpas/blink-ripgrep.nvim",
+        "giuxtaposition/blink-cmp-copilot",
+      },
     },
     -- build = 'cargo build --release',
     config = function()
@@ -170,7 +174,8 @@ return {
           },
         },
         sources = {
-          default = { "lsp", "path", "luasnip", "buffer", "ripgrep", "lazydev" },
+          -- default = { "lsp", "path", "luasnip", "buffer", "ripgrep", "lazydev" },
+          default = { "lsp", "path", "luasnip", "buffer", "copilot" },
           providers = {
             lsp = {
               fallbacks = { "ripgrep", "buffer" },
@@ -198,6 +203,12 @@ return {
               name = "LazyDev",
               module = "lazydev.integrations.blink",
               score_offset = 100,
+            },
+            copilot = {
+              name = "copilot",
+              module = "blink-cmp-copilot",
+              score_offset = 100,
+              async = true,
             },
             ripgrep = {
               module = "blink-ripgrep",

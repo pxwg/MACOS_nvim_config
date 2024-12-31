@@ -1,6 +1,7 @@
 return {
   "zbirenbaum/copilot-cmp",
   dependencies = "copilot.lua",
+  enabled = false,
   opts = {},
   event = "InsertEnter", -- 在插入模式下加载插件
   config = function(_, opts)
