@@ -20,6 +20,12 @@ local get_visual = function(args, parent)
 end
 
 return {
+  -- 马原论文引用快捷键
+  s(
+    { trig = "inp", wordTrig = true, snippetType = "autosnippet", trigEngine = "ecma" },
+    fmta([[*“<>”* <>]], { i(1), i(0) })
+  ),
+
   s(
     { trig = "mk", wordTrig = true, snippetType = "autosnippet", trigEngine = "ecma" },
     fmta([[$<>$ <>]], { i(1), i(0) })
