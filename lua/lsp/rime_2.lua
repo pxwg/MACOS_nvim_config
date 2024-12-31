@@ -121,7 +121,7 @@ A language server for librime
       paging_characters = { ",", "." },
       trigger_characters = {},
       schema_trigger_character = "&",
-      -- show_filter_text_in_label = false,
+      show_filter_text_in_label = false,
       max_candidates = 9,
       long_filter_text = true,
     },
