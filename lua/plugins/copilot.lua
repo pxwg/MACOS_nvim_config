@@ -4,7 +4,9 @@ return {
   build = ":Copilot auth",
   event = "InsertEnter",
   opts = {
-    suggestion = {
+    suggestion = { enabled = false },
+    panel = { enabled = false },
+    uggestion = {
       enabled = not vim.g.ai_cmp,
       auto_trigger = true,
       keymap = {

@@ -73,6 +73,7 @@ return {
         "L3MON4D3/LuaSnip",
         "mikavilpas/blink-ripgrep.nvim",
         "giuxtaposition/blink-cmp-copilot",
+        "zbirenbaum/copilot-cmp",
       },
     },
     -- build = 'cargo build --release',
@@ -107,6 +108,7 @@ return {
           preset = "none",
           ["<cr>"] = { "accept", "fallback" },
           ["<tab>"] = { "snippet_forward", "fallback" },
+          ["<C-y>"] = { "select_and_accept" },
           ["<s-tab>"] = { "snippet_backward", "fallback" },
           ["<c-j>"] = { "scroll_documentation_up", "fallback" },
           ["<c-k>"] = { "scroll_documentation_down", "fallback" },
@@ -176,7 +178,7 @@ return {
         },
         sources = {
           -- default = { "lsp", "path", "luasnip", "buffer", "ripgrep", "lazydev" },
-          default = { "lsp", "path", "luasnip", "buffer", "copilot" },
+          default = { "lsp", "path", "luasnip", "buffer", "copilot", "ripgrep" },
           providers = {
             lsp = {
               fallbacks = { "ripgrep", "buffer" },
@@ -210,15 +212,15 @@ return {
               module = "blink-cmp-copilot",
               score_offset = 100,
               async = true,
-              -- transform_items = function(_, items)
-              --   local CompletionItemKind = require("blink.cmp.types").CompletionItemKind
-              --   local kind_idx = #CompletionItemKind + 1
-              --   CompletionItemKind[kind_idx] = "Copilot"
-              --   for _, item in ipairs(items) do
-              --     item.kind = kind_idx
-              --   end
-              --   return items
-              -- end,
+              transform_items = function(_, items)
+                local CompletionItemKind = require("blink.cmp.types").CompletionItemKind
+                local kind_idx = #CompletionItemKind + 1
+                CompletionItemKind[kind_idx] = "Copilot"
+                for _, item in ipairs(items) do
+                  item.kind = kind_idx
+                end
+                return items
+              end,
             },
             ripgrep = {
               module = "blink-ripgrep",
@@ -245,6 +247,27 @@ return {
                 fallback_to_regex_highlighting = true,
               },
             },
+            -- copilot = {
+            --   name = "copilot", -- IMPORTANT: use the same name as you would for nvim-cmp
+            --   module = "blink.compat.source",
+            --   async = true,
+            --   -- all blink.cmp source config options work as normal:
+            --   score_offset = 100,
+            --
+            --   transform_items = function(_, items)
+            --     local CompletionItemKind = require("blink.cmp.types").CompletionItemKind
+            --     local kind_idx = #CompletionItemKind + 1
+            --     CompletionItemKind[kind_idx] = "Copilot"
+            --     for _, item in ipairs(items) do
+            --       item.kind = kind_idx
+            --     end
+            --     return items
+            --   end,
+            --   -- this table is passed directly to the proxied completion source
+            --   -- as the `option` field in nvim-cmp's source config
+            --   --
+            --   -- this is NOT the same as the opts in a plugin's lazy.nvim spec
+            -- },
           },
         },
       })
