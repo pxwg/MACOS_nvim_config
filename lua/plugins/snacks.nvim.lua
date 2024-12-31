@@ -98,7 +98,9 @@ return {
         },
       },
     },
-    notifier = { enabled = true },
+    notifier = {
+      enabled = true,
+    },
     git = { enabled = true },
     input = { enabled = true },
     lazygit = { enabled = true },

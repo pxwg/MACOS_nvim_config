@@ -10,6 +10,7 @@ end
 
 return {
   "folke/noice.nvim",
+  -- enabled = false,
   -- event = "BufEnter",
   opts = {
     cmdline = {
