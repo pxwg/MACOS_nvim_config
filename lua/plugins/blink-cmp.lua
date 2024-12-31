@@ -181,6 +181,7 @@ return {
           default = { "lsp", "path", "luasnip", "buffer", "copilot", "ripgrep" },
           providers = {
             lsp = {
+              min_keyword_length = 0,
               fallbacks = { "ripgrep", "buffer" },
               --- @param items blink.cmp.CompletionItem[]
               transform_items = function(_, items)
