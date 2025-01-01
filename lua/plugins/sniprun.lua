@@ -16,6 +16,8 @@ return {
       interpreter_options = {
         Mathematica_original = {
           use_javagraphics_if_contains = { "Plot" }, -- a pattern that need <<JavaGraphics
+          wrap_all_lines_with_print = false, -- wrap all lines making sense to print with Print[.];
+          wrap_last_line_with_print = false, -- wrap last line with Print[.]        },
         },
       },
     })
