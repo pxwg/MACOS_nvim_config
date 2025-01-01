@@ -20,6 +20,10 @@
 
 * 利用 [autoformat](https://github.com/huacnlee/autocorrect) 实现中文标点自动格式化 (对 latex 与 markdown 开启，在应用端修正了上游 formatter 的添加空行问题)，利用 [jieba](https://github.com/fxsjy/jieba) 实现中文分词，部分使用 hack 的方式解决了上游以及自动格式化的一些问题;
 
+* 迁移到不会卡顿的[blink-cmp](https://github.com/Saghen/blink.cmp) 中进行编辑，仍然有很多问题 (比如 LSP 的共用问题，在打开其他 lsp 之后会出现冲突），但因为性能实在过于好，`features` 分支将会始终维护 blink-cmp 相关的版本，而 `mai` 分支则将专注与原来[nvim-cmp](https://github.com/hrsh7th/nvim-cmp)的集成;
+
+> blink 相对于 nvim-cmp 有很多独特的好处，首先是运行速度确实很快，高速输入 (尤其是高速输入 rime_ls) 的时候不会出现卡顿和画屏现象，这是我选择它的主要原因。但是很明显，这个还是一个全新的方案，存在诸多问题。一个比较严重的问题是 copilot 会爆炸，而且和 texlab 等 lsp 在中文输入时常常冲突。不过问题也不是特别大，已经满足日常使用，最重要的是快呀，生活质量大大改善。
+
 ![中文输入法](./readme_fig/cn_input.png)
 
 * iTerm2 / kitty 终端下的 pdf 终端预览，基于 [tdf](https://github.com/itsjunetime/tdf) 阅读器与 GPU 加速，允许利用快捷键 `<localleader>lf` 实现精确到*字符*的正向查找，触发 Hammerspoon 模式并直接点击 pdf 的特定位置可以实现精确到*段落*的反向查找，利用 [Hammerspoon](https://www.hammerspoon.org/) 与 synctex 实现。纯终端配置的优点在于不需要打开 GUI，可以在终端下进行快速预览并且省电，在本配置下可以实现几乎与 GUI 一样的预览效果。反向查找可以精确到 input 的源文件，例如，我在文件中 `input{}` 了一个文件，可以直接跳转到该文件的对应位置，这个功能在实验报告中意义重大，因为常常会在 `main.tex` 之中 `input` 很多表格类文件;
@@ -81,8 +85,6 @@ print("hello world")
 ## 🤔 TODO
 
 * fork 并为本配置改写 [tdf](https://github.com/itsjunetime/tdf) , 实现鼠标点击的 pdf 位置读取，并使用 synctex 实现精确到*段落*的反向搜索 (本任务为长线作战，并不期待短期内实现，因为学习 rust 本身足够困难，作为物理系学生并没有多少时间)。因此一个替代方案是提交 issue，但我并不确定是否会因此在主分支上得到解决方案 (目前通过 Hammerspoon 利用模拟鼠标交互的 Hack 方式暂时解决，满足基本需求✅);
-
-* 撤回 nvim-cmp 的补全选项;
 
 * 格式化 git-hunk，但逻辑不是简单地 conform git hunk 对应行的代码 (这会造成一些错误的格式化），而是先全部格式化，再将对应的格式化内容应用到 hunk 上，这样可以避免一些错误的格式化并且保护之前的 commit;
 
