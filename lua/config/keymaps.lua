@@ -178,13 +178,15 @@ local function toggle_rime()
   rime_active = not rime_active
 end
 
--- 设置快捷键
+-- 设置快捷键激活 Rime 输入法
 keymap.set(
   { "n", "i" },
   "<localleader>f",
   toggle_rime,
   { noremap = true, silent = true, desc = "Toggle Rime input method" }
 )
+
+-- windows manager with hammerspoon
 
 local function is_rightmost_window()
   local current_win = vim.api.nvim_get_current_win()
@@ -201,7 +203,32 @@ local function is_rightmost_window()
   return current_pos == max_col
 end
 
--- 切换到右侧窗口，并检查是否已经是最右侧窗口
+local function is_leftmost_window()
+  local current_win = vim.api.nvim_get_current_win()
+  local current_pos = vim.api.nvim_win_get_position(current_win)[2]
+  local min_col = current_pos
+
+  for _, win in ipairs(vim.api.nvim_list_wins()) do
+    local pos = vim.api.nvim_win_get_position(win)[2]
+    if pos < min_col then
+      min_col = pos
+    end
+  end
+
+  return current_pos == min_col
+end
+
+local function to_right_window()
+  if is_rightmost_window() then
+    vim.fn.system("hs -c 'focusNextWindow()'")
+  else
+    vim.cmd("wincmd l")
+  end
+end
+
+_G.to_right_window = to_right_window
+
+-- switch to right window
 keymap.set("n", "<C-l>", function()
   if is_rightmost_window() then
     vim.fn.system("hs -c 'focusNextWindow()'")
@@ -209,6 +236,15 @@ keymap.set("n", "<C-l>", function()
     vim.cmd("wincmd l")
   end
 end, { noremap = true, silent = true, desc = "Move to right window" })
+
+-- same for left
+keymap.set("n", "<C-h>", function()
+  if is_leftmost_window() then
+    vim.fn.system("hs -c 'focusPreviousWindow()'")
+  else
+    vim.cmd("wincmd h")
+  end
+end, { noremap = true, silent = true, desc = "Move to left window" })
 
 -- sniprun  直接触发
 keymap.set({ "n" }, "<leader>cr", function()
@@ -300,6 +336,7 @@ end
 
 -- 你可以将这个函数绑定到一个键
 keymap.set("n", "<localleader>d", function()
-  toggle_lsps()
-  vim.b.rime_active = not vim.b.rime_active
+  -- toggle_lsps()
+  -- vim.b.rime_active = not vim.b.rime_active
+  require("util.rime_ls").check_lsps_check()
 end, { noremap = true, silent = true, desc = "Toggle LSPs except rime-ls" })
