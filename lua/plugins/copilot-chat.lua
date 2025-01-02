@@ -44,12 +44,20 @@ return {
       desc = "Select AI code",
       mode = { "n", "v" }, -- Normal and Visual mode
     },
+    {
+      "<C-l>",
+      false,
+    },
   },
   opts = {
     auto_insert_mode = false, -- Automatically enter insert mode when opening window and on new prompt
     debug = false, -- Enable debugging
 
     mappings = {
+      reset = {
+        normal = "<C-b>",
+        insert = "<C-b>",
+      },
       complete = {
         detail = "Use @<localleader>s or /<localleader>s for options.",
         insert = "<localleader>s",
