@@ -23,7 +23,7 @@ function M.disable_lsps()
   for _, client in ipairs(active_clients) do
     -- if client.name ~= "rime_ls" and client.name ~= "copilot" then
     -- 短暂禁用copilot 在中文输入，因为短时间内还不支持，但预计之后可以支持
-    if client.name ~= "rime_ls" and client.name ~= "texlab" then
+    if client.name ~= "rime_ls" then
       vim.lsp.stop_client(client.id)
     end
     vim.cmd([[Copilot disable]])

@@ -1,6 +1,6 @@
 local M = {}
--- local rime_ls_filetypes = { "markdown", "vimwiki", "tex" }
-local rime_ls_filetypes = { "vimwiki" }
+local rime_ls_filetypes = { "markdown", "vimwiki", "tex" }
+-- local rime_ls_filetypes = { "vimwiki" }
 local cmp = require("cmp")
 
 function M.setup_rime()
@@ -54,17 +54,22 @@ A language server for librime
     end)
   end
 
-  -- Function to attach LSP only in insert mode, which could boost the performance
-  local function attach_in_normal_mode(client, bufnr)
+  function attach(client, bufnr)
+    if not client.attached_buffers then
+      client.attached_buffers = {}
+    end
     if not client.attached_buffers[bufnr] then
       print("Attaching buffer:", bufnr)
       client.attached_buffers[bufnr] = true
-      client.config.on_attach(client, bufnr)
+      -- Call your original on_attach function if needed
+      if client.config._on_attach then
+        client.config._on_attach(client, bufnr)
+      end
     end
   end
 
-  local function deattach(client, bufnr)
-    if client.attached_buffers[bufnr] then
+  function deattach(client, bufnr)
+    if client.attached_buffers and client.attached_buffers[bufnr] then
       print("Detaching buffer:", bufnr)
       client.attached_buffers[bufnr] = false
       if client.config.on_detach then
@@ -72,6 +77,28 @@ A language server for librime
       end
     end
   end
+
+  local function setup_autocmds(client, bufnr)
+    vim.api.nvim_exec([[
+    augroup LspAttachDetach
+      autocmd!
+      autocmd InsertEnter <buffer> lua deattach(vim.lsp.get_client_by_id(]] .. client.id .. [[), ]] .. bufnr .. [[)
+      autocmd InsertLeave <buffer> lua attach(vim.lsp.get_client_by_id(]] .. client.id .. [[), ]] .. bufnr .. [[)
+    augroup END
+  ]], false)
+  end
+
+  local function on_attach(client, bufnr)
+    setup_autocmds(client, bufnr)
+    -- Save the original on_attach function
+    if not client.config._on_attach then
+      client.config._on_attach = client.config.on_attach
+    end
+  end
+
+  -- lspconfig.texlab.setup({
+  --   on_attach = on_attach,
+  -- })
   --
   -- local function tex_in_math(client, bufnr)
   --   print("tex_in_math called with rime_toggled:", rime_toggled, "rime_ls_active:", rime_ls_active)
@@ -131,7 +158,6 @@ A language server for librime
     on_attach = rime_on_attach,
     capabilities = capabilities,
   })
-
 end
 
 function M.toggle_rime()

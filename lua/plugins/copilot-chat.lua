@@ -50,7 +50,7 @@ return {
     },
   },
   opts = {
-    auto_insert_mode = false, -- Automatically enter insert mode when opening window and on new prompt
+    auto_insert_mode = true, -- Automatically enter insert mode when opening window and on new prompt
     debug = false, -- Enable debugging
 
     mappings = {
