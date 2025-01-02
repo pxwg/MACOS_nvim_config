@@ -116,32 +116,6 @@ vim.api.nvim_create_autocmd({ "BufEnter" }, {
   end,
 })
 
-local function switch_rime_math()
-  if vim.bo.filetype == "tex" then
-    -- in the mathzone or table or tikz and rime is active, disable rime
-    if (tex.in_mathzone() == true or tex.in_tikz() == true) and rime_ls_active == true then
-      if _G.rime_toggled == true then
-        require("lsp.rime_2").toggle_rime()
-        rime.enable_lsps()
-        _G.rime_toggled = false
-      end
-      -- in the text but rime is not active(by hand), do nothing
-    elseif _G.rime_ls_active == false then
-      rime.enable_lsps()
-      -- in the text but rime is active(by hand ), thus the configuration is for mathzone or table or tikz
-    else
-      if _G.rime_toggled == false then
-        require("lsp.rime_2").toggle_rime()
-        rime.disable_lsps()
-        _G.rime_toggled = true
-      end
-      if _G.rime_ls_active and _G.rime_toggled then
-        rime.toggle_lsps_check()
-      end
-    end
-  end
-end
-
 local function switch_rime_math_md()
   if vim.bo.filetype == "markdown" then
     -- in the mathzone or table or tikz and rime is active, disable rime
@@ -167,11 +141,6 @@ local function switch_rime_math_md()
     end
   end
 end
-
-vim.api.nvim_create_autocmd("CursorMovedI", {
-  pattern = "*",
-  callback = switch_rime_math,
-})
 
 vim.api.nvim_create_autocmd("CursorMovedI", {
   pattern = "*",
@@ -426,3 +395,5 @@ vim.api.nvim_create_autocmd("BufEnter", {
 --     vim.cmd([[LspStop marksman]])
 --   end,
 -- })
+
+require("util.math_autochange")

@@ -131,6 +131,7 @@ A language server for librime
     on_attach = rime_on_attach,
     capabilities = capabilities,
   })
+
 end
 
 function M.toggle_rime()
@@ -151,7 +152,7 @@ function M.toggle_rime()
 end
 
 function M.start_rime_ls()
-  vim.fn.jobstart("rime_ls --listen", {
+  local job_id = vim.fn.jobstart("rime_ls --listen", {
     on_stdout = function() end,
     on_stderr = function() end,
     on_exit = function(_, code)
@@ -160,5 +161,13 @@ function M.start_rime_ls()
       end
     end,
   })
+
+  -- Create an autocommand to stop the job when Neovim exits
+  vim.api.nvim_create_autocmd("VimLeavePre", {
+    callback = function()
+      vim.fn.jobstop(job_id)
+    end,
+  })
 end
+
 return M
