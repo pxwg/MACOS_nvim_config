@@ -179,6 +179,7 @@ return {
         sources = {
           -- default = { "lsp", "path", "luasnip", "buffer", "ripgrep", "lazydev" },
           default = { "lsp", "path", "luasnip", "buffer", "copilot" },
+          cmdline = {},
           providers = {
             lsp = {
               min_keyword_length = 0,
